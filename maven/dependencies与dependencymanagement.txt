@@ -1,0 +1,4 @@
+http://blog.csdn.net/liutengteng130/article/details/46991829
+简述：
+dependencies:子项目会从父项目的该项中继承
+dependencyManagement:父项目只声明版本，子项目声明依赖后引入相应版本的jar包

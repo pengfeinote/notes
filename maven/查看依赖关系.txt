@@ -1,0 +1,3 @@
+mvn dependency:tree:打印出依赖树
+mvn dependency:resolve:打印出已解决依赖的列表
+mvn dependency:analyze:Analyzes the dependencies of this project and determines which are: used and declared; used and undeclared; unused and declared. This goal is intended to be used standalone

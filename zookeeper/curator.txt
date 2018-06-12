@@ -1,0 +1,7 @@
+开源的zookeeper客户端
+
+https://github.com/laopeng1990/curator
+
+通过LeaderLatch或者LeaderSelector在集群中选举leader/master
+
+分布式锁

@@ -1,0 +1,5 @@
+api-version 应该与platform和appVersion独立，易于控制
+
+api-version的几种方式：
+http://yihuawanglv.github.io/2016/05/03/springmvc-rest-api-versioning/
+https://www.3scale.net/2016/06/api-versioning-methods-a-brief-reference/

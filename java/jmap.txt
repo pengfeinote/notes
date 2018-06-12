@@ -1,0 +1,7 @@
+jmap:jmap用于生成java进程的heapdump或者堆内存的详细信息。可以用来分析java程序堆内存被各种实例占据的比例或者GC回收了哪些对象等信息。jmap的命令格式与jstack一致，不再赘述。
+
+查看JVM堆中对象详细占用情况
+jmap -histo [pid]
+
+jmap -dump:[live,]format=b,file=<filename>
+使用hprof二进制形式,输出jvm的heap内容到文件=. live子选项是可选的，假如指定live选项,那么只输出活的对象到文件. 使用jhat分析文件

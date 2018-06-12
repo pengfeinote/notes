@@ -1,0 +1,15 @@
+http://blog.csdn.net/neosmith/article/details/52449921
+
+feign是一个spring cloud netflix栈的http客户端，相当于rpc协议使用了http协议
+
+使用feign：
+
+pom dependency
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+
+@EnableFeignClients  
+
+@FeignClient

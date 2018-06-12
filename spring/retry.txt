@@ -1,0 +1,12 @@
+https://docs.spring.io/spring-batch/trunk/reference/html/retry.html
+
+RetryPolicy
+BackOffPolicy
+Listeners
+
+×¢½â£º
+@EnableRetry
+@Retryable
+
+Àà£º
+RetryTemplate

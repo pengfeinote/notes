@@ -1,0 +1,5 @@
+∆Ù”√task
+@EnableScheduling
+task£∫
+@Scheduled
+	cron

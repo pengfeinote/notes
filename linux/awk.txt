@@ -1,0 +1,112 @@
+如何将currentLiabilities;转化为objs['行号'] = item.currentLiabilities;
+计算第三列的和：awk '{a+=$3}END{print a}'
+
+使用awk
+
+awk '$0="objs["NR"] = item." $0' 文件名
+
+1，awk基本语法
+awk ‘script’  files
+script 由下面的结构组成 /pattern/{actions}
+
+2，比较操作符
+语法：expression {actions;}
+expression 可以使用以下操作符构成
+<                                 小于
+>                                 大于
+<=                               小于等于
+>=                               大于等于
+==                               等于
+!=                               不等于
+value ~ /pattern/          若value匹配pattern则为真
+value !~ /pattern/         若value不匹配pattern则为真
+说明：$2 ~ /^\$[1-9][0-9]*  将匹配第二列以$开头，然后大于1的二位数。（注意，这里是1而不是10）
+
+3，复合表达式
+语法：（compound expression）
+（expr1）&& (expr2)  ------- 与
+（expr1）|| (expr2)  ------- 或
+说明一下：符合表达式必须用括号括起来
+当使用&&时，expr1和expr2必须同时为零（零代表真！呵呵～），复合表达式才为真；
+当使用 || 时，expr1和expr2 只要有一个为真，复合表达式则为真！
+
+4，next命令：
+告诉awk跳过剩下的所有模式和表达式，并读取输入的下一行，同时从第一个模式或表达式开始处理该行！
+
+5，awk中的数字操作符：
++            加
+-             减
+*            乘
+/             除
+%           求余
+^            求幂
+
+6，awk中的赋值操作符
++=                 x+=1 就是x=x+1
+-=                  x-=1 就是x=x-1
+*=                 x*=1 就是x=x*1
+/=                  x/=1 就是x=x/1
+%=                x%=2 就是x=x%2
+^=                 x^=2 就是x=x^2
+
+7，BEGIN  和  END
+awk的语法：/pattern/ {action}    pattern：模式
+这里pattern有两个特殊模式BEGIN和END
+下面是BEGIN  END的语法：
+awk ‘
+BEGIN { actions }
+/ pattern / { actions }
+/ pattern / { actions }
+END { actions }
+‘  files
+
+BEGIN和END都是可选的
+·当指定BEGIN模式时，awk在读取任何输入前执行动作 actions
+·当指定END模式时，awk在其退出前执行动作actions
+这里要特别注意：比如awk读入aa.txt。那么BEGIN只在读入aa时执行一次，然后按行处理的时候不再执行BEGIN指定的action！（也可以这么理解：BEGIN只对文件生效，而不是按行生效！！）；理解了BEGIN，END还会糊涂吗？呵呵！
+
+8，内置变量
+gawk语言中有几个十分有用的内置变量，现在列于下面：
+NR 已经读取过的记录数。
+FNR 从当前文件中读出的记录数。
+FILENAME 输入文件的名字。
+FS 字段分隔符（缺省为空格）。
+RS 记录分隔符（缺省为换行）。
+OFMT 数字的输出格式（缺省为% g）。
+OFS 输出字段分隔符。
+ORS 输出记录分隔符。
+NF 当前记录中的字段数。
+如果你只处理一个文件，则NR 和FNR 的值是一样的。但如果是多个文件， NR是对所有的文件来说的，而FNR 则只是针对当前文件而言。
+
+9，awk使用shell变量
+经过前面的学习，我们知道shell变量的引用由$xxx 实现，而awk中的变量直接使用xxx来引用。所以我们就要思考如何让awk使用shell变量
+语法：
+awk  ‘script’  awkvar1=value  awkvar2=value ......  files
+说明： awk： 命令； ‘script’：awk将要执行的脚本； awkvarN：awk的变量；value：shell中的变量值； files：将要处理的文件名
+
+10.1 if语句
+if (expression1) {action1}
+else if (expression2) {action2}
+else { action3}
+
+10.2 while语句：
+while (expression) { actions }
+若expression为真，则执行actions
+
+10.3 for语句：
+循环迭代处理记录中的域并输出他们
+[root@master bkeep]# cat for2.sh
+#!/bin/bash
+awk '{
+    for (x=1;x<=NF;x+=1) {
+      printf "%s    ",$x "zbb";
+    }
+    printf "\n";
+}' fruit_prices.txt
+
+
+11. $0：
+awk使用变量0原原本本地存储它所读入的整个输入行。这样可以保持和原来文本格式相同的输出
+
+提取文件示例；
+awk -F ':' '$1 ~/zh_CN/ {split($2, a, "\"");printf a[2]"\n"} $2~/{/ {split($1,a,"\"");printf a[2]"="}'  balance.json 

@@ -1,0 +1,5 @@
+转到某个screen
+screen -r screen_name
+
+指定screen离线
+screen -d screen_name

@@ -1,0 +1,2 @@
+https://redis.io/topics/sentinel
+http://www.cnblogs.com/zhoujinyi/p/5569462.html

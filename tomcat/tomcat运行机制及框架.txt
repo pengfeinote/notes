@@ -1,0 +1,163 @@
+http://gearever.iteye.com/blog/1532822
+
+Tomcat和JVM：
+一个Tomcat只会启动一个JVM，所有webapps公用一个JVM进程，所以System.exit()会导致影响同个Tomcat中的其他应用。Tomcat通过调用配置的JDK或JRE来启动JVM。
+
+在一个servlet容器（比如说tomcat）里部署了3个.war，那么启动后会有几个JVM存在呢，是一个JVM，还是3个JVM？ 
+如果是1个jvm的话，那么这3个应用都是跑在一个jvm里，为什么又不能直接互相调用呢？ 
+
+一个tomcat只启动一个JVM，也就是说3个应用都是跑在一个JVM里，之所以它们不能互相调用是因为被类加载器隔离开的。 
+
+
+Server			
+	server代表整个容器，一个tomcat只能配置1个server，还可以包含一个GlobalNamingResources，shutdown属性表示关闭Server的指令；port属性表示Server接收shutdown指令的端口号，设为-1可以禁掉该端口。Server的主要任务，就是提供一个接口让客户端能够访问到这个Service集合，同时维护它所包含的所有的Service的声明周期，包括如何初始化、如何结束服务、如何找到客户端要访问的Service。
+Service
+	Service的作用，是在Connector和Engine外面包了一层，把它们组装在一起，对外提供服务。一个Service可以包含多个Connector，但是只能包含一个Engine；其中Connector的作用是从客户端接收请求，Engine的作用是处理接收进来的请求。
+	在第一部分的例子中，Server中包含一个名称为“Catalina”的Service。实际上，Tomcat可以提供多个Service，不同的Service监听不同的端口，后文会有介绍。
+Engine
+	Engine组件在Service组件中有且只有一个；Engine是Service组件中的请求处理组件。Engine组件从一个或多个Connector中接收请求并处理，并将完成的响应返回给Connector，最终传递给客户端。
+
+	前面已经提到过，Engine、Host和Context都是容器，但它们不是平行的关系，而是父子关系：Engine包含Host，Host包含Context。
+
+	在第一部分的例子中，Engine的配置语句如下：
+
+	1 <Engine name="Catalina" defaultHost="localhost">
+	其中，name属性用于日志和错误信息，在整个Server中应该唯一。defaultHost属性指定了默认的host名称，当发往本机的请求指定的host名称不存在时，一律使用defaultHost指定的host进行处理；因此，defaultHost的值，必须与Engine中的一个Host组件的name属性值匹配。
+
+Host
+		（1）Engine与Host
+	Host是Engine的子容器。Engine组件中可以内嵌1个或多个Host组件，每个Host组件代表Engine中的一个虚拟主机。Host组件至少有一个，且其中一个的name必须与Engine组件的defaultHost属性相匹配。
+
+	（2）Host的作用
+	Host虚拟主机的作用，是运行多个Web应用（一个Context代表一个Web应用），并负责安装、展开、启动和结束每个Web应用。
+
+	Host组件代表的虚拟主机，对应了服务器中一个网络名实体(如”www.test.com”，或IP地址”116.25.25.25”)；为了使用户可以通过网络名连接Tomcat服务器，这个名字应该在DNS服务器上注册。
+
+	客户端通常使用主机名来标识它们希望连接的服务器；该主机名也会包含在HTTP请求头中。Tomcat从HTTP头中提取出主机名，寻找名称匹配的主机。如果没有匹配，请求将发送至默认主机。因此默认主机不需要是在DNS服务器中注册的网络名，因为任何与所有Host名称不匹配的请求，都会路由至默认主机。
+
+	（3）Host的配置
+	在第一部分的例子中，Host的配置如下：
+
+	1 <Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true">
+	下面对其中配置的属性进行说明：
+
+	name属性指定虚拟主机的主机名，一个Engine中有且仅有一个Host组件的name属性与Engine组件的defaultHost属性相匹配；一般情况下，主机名需要是在DNS服务器中注册的网络名，但是Engine指定的defaultHost不需要，原因在前面已经说明。
+
+	unpackWARs指定了是否将代表Web应用的WAR文件解压；如果为true，通过解压后的文件结构运行该Web应用，如果为false，直接使用WAR文件运行Web应用。
+
+	Host的autoDeploy和appBase属性，与Host内Web应用的自动部署有关；此外，本例中没有出现的xmlBase和deployOnStartup属性，也与Web应用的自动部署有关；将在下一节(Context)中介绍。
+
+Connector
+	Connector的主要功能，是接收连接请求，创建Request和Response对象用于和请求端交换数据；然后分配线程让Engine来处理这个请求，并把产生的Request和Response对象传给Engine。
+
+	通过配置Connector，可以控制请求Service的协议及端口号。在第一部分的例子中，Service包含两个Connector：
+
+	1 <Connector port="8080" protocol="HTTP/1.1" connectionTimeout="20000" redirectPort="8443" />
+	2 <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+	（1）通过配置第1个Connector，客户端可以通过8080端口号使用http协议访问Tomcat。其中，protocol属性规定了请求的协议，port规定了请求的端口号，redirectPort表示当强制要求https而请求是http时，重定向至端口号为8443的Connector，connectionTimeout表示连接的超时时间。
+
+	在这个例子中，Tomcat监听HTTP请求，使用的是8080端口，而不是正式的80端口；实际上，在正式的生产环境中，Tomcat也常常监听8080端口，而不是80端口。这是因为在生产环境中，很少将Tomcat直接对外开放接收请求，而是在Tomcat和客户端之间加一层代理服务器(如nginx)，用于请求的转发、负载均衡、处理静态文件等；通过代理服务器访问Tomcat时，是在局域网中，因此一般仍使用8080端口。
+
+	（2）通过配置第2个Connector，客户端可以通过8009端口号使用AJP协议访问Tomcat。AJP协议负责和其他的HTTP服务器(如Apache)建立连接；在把Tomcat与其他HTTP服务器集成时，就需要用到这个连接器。之所以使用Tomcat和其他服务器集成，是因为Tomcat可以用作Servlet/JSP容器，但是对静态资源的处理速度较慢，不如Apache和IIS等HTTP服务器；因此常常将Tomcat与Apache等集成，前者作Servlet容器，后者处理静态资源，而AJP协议便负责Tomcat和Apache的连接。Tomcat与Apache等集成的原理如下图(图片来源)：
+
+Wrapper
+
+
+核心组件之间的整体关系，在上一部分有所介绍，这里总结一下：
+
+Server元素在最顶层，代表整个Tomcat容器；一个Server元素中可以有一个或多个Service元素。
+
+Service在Connector和Engine外面包了一层，把它们组装在一起，对外提供服务。一个Service可以包含多个Connector，但是只能包含一个Engine；Connector接收请求，Engine处理请求。
+
+Engine、Host和Context都是容器，且 Engine包含Host，Host包含Context。每个Host组件代表Engine中的一个虚拟主机；每个Context组件代表在特定Host上运行的一个Web应用。
+
+2、如何确定请求由谁处理？
+当请求被发送到Tomcat所在的主机时，如何确定最终哪个Web应用来处理该请求呢？
+
+（1）根据协议和端口号选定Service和Engine
+Service中的Connector组件可以接收特定端口的请求，因此，当Tomcat启动时，Service组件就会监听特定的端口。在第一部分的例子中，Catalina这个Service监听了8080端口（基于HTTP协议）和8009端口（基于AJP协议）。当请求进来时，Tomcat便可以根据协议和端口号选定处理请求的Service；Service一旦选定，Engine也就确定。
+
+通过在Server中配置多个Service，可以实现通过不同的端口号来访问同一台机器上部署的不同应用。
+
+（2）根据域名或IP地址选定Host
+Service确定后，Tomcat在Service中寻找名称与域名/IP地址匹配的Host处理该请求。如果没有找到，则使用Engine中指定的defaultHost来处理该请求。在第一部分的例子中，由于只有一个Host（name属性为localhost），因此该Service/Engine的所有请求都交给该Host处理。
+
+（3）根据URI选定Context/Web应用
+这一点在Context一节有详细的说明：Tomcat根据应用的 path属性与URI的匹配程度来选择Web应用处理相应请求，这里不再赘述。
+
+（4）举例
+以请求http://localhost:8080/app1/index.html为例，首先通过协议和端口号（http和8080）选定Service；然后通过主机名（localhost）选定Host；然后通过uri（/app1/index.html）选定Web应用。
+
+
+Listener:
+
+	可以在特定事件发生时执行特定的操作；被监听的事件通常是Tomcat的启动和停止。监听器可以在Server、Engine、Host或Context中
+	
+Valve:
+	 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" prefix="localhost_access_log." suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+单词Valve的意思是“阀门”，在Tomcat中代表了请求处理流水线上的一个组件；Valve可以与Tomcat的容器(Engine、Host或Context)关联。
+
+不同的Valve有不同的特性，下面介绍一下本例中出现的AccessLogValve。
+
+AccessLogValve的作用是通过日志记录其所在的容器中处理的所有请求，在本例中，Valve放在Host下，便可以记录该Host处理的所有请求。AccessLogValve记录的日志就是访问日志，每天的请求会写到一个日志文件里。AccessLogValve可以与Engine、Host或Context关联；在本例中，只有一个Engine，Engine下只有一个Host，Host下只有一个Context，因此AccessLogValve放在三个容器下的作用其实是类似的。
+
+本例的AccessLogValve属性的配置，使用的是默认的配置；下面介绍AccessLogValve中各个属性的作用：
+
+（1）className：规定了Valve的类型，是最重要的属性；本例中，通过该属性规定了这是一个AccessLogValve。
+
+（2）directory：指定日志存储的位置，本例中，日志存储在$TOMCAT_HOME/logs目录下。
+
+（3）prefix：指定了日志文件的前缀。
+
+（4）suffix：指定了日志文件的后缀。通过directory、prefix和suffix的配置，在$TOMCAT_HOME/logs目录下，可以看到如下所示的日志文件。
+
+
+A Server element represents the entire Catalina servlet container. (Singleton)
+
+Service：它由一个或者多个Connector组成，以及一个Engine，负责处理所有Connector所获得的客户请求。
+
+Connector：
+TOMCAT有两个典型的Connector，一个直接侦听来自browser的http请求，一个侦听来自其它WebServer的请求
+Coyote Http/1.1 Connector 在端口8080处侦听来自客户browser的http请求
+Coyote JK2 Connector 在端口8009处侦听来自其它WebServer(Apache)的servlet/jsp代理请求
+
+Engine：
+Engine下可以配置多个虚拟主机Virtual Host，每个虚拟主机都有一个域名 
+当Engine获得一个请求时，它把该请求匹配到某个Host上，然后把该请求交给该Host来处理 
+Engine有一个默认虚拟主机，当请求无法匹配到任何一个Host上的时候，将交给该默认Host来处理
+
+Host：
+代表一个Virtual Host，虚拟主机，每个虚拟主机和某个网络域名Domain Name相匹配
+每个虚拟主机下都可以部署(deploy)一个或者多个Web App，每个Web App对应于一个Context，有一个Context path
+当Host获得一个请求时，将把该请求匹配到某个Context上，然后把该请求交给该Context来处理
+匹配的方法是“最长匹配”，所以一个path==”"的Context将成为该Host的默认Context
+所有无法和其它Context的路径名匹配的请求都将最终和该默认Context匹配
+
+Context：
+一个Context对应于一个Web Application，一个Web Application由一个或者多个Servlet组成 
+Context在创建的时候将根据配置文件$CATALINA_HOME/conf/web.xml和$WEBAPP_HOME/WEB-INF/web.xml载入Servlet类 
+当Context获得请求时，将在自己的映射表(mapping table)中寻找相匹配的Servlet类 
+如果找到，则执行该类，获得请求的回应，并返回
+
+
+Tomcat Server处理一个http请求的过程
+假设来自客户的请求为：
+
+http://localhost:8080/wsota/wsota_index.jsp
+
+1) 请求被发送到本机端口8080，被在那里侦听的Coyote HTTP/1.1 Connector获得
+2) Connector把该请求交给它所在的Service的Engine来处理，并等待来自Engine的回应
+3) Engine获得请求localhost/wsota/wsota_index.jsp，匹配它所拥有的所有虚拟主机Host
+4) Engine匹配到名为localhost的Host（即使匹配不到也把请求交给该Host处理，因为该Host被定义为该Engine的默认主机）
+5) localhost Host获得请求/wsota/wsota_index.jsp，匹配它所拥有的所有Context
+6) Host匹配到路径为/wsota的Context（如果匹配不到就把该请求交给路径名为”"的Context去处理）
+7) path=”/wsota”的Context获得请求/wsota_index.jsp，在它的mapping table中寻找对应的servlet
+8) Context匹配到URL PATTERN为*.jsp的servlet，对应于JspServlet类
+9) 构造HttpServletRequest对象和HttpServletResponse对象，作为参数调用JspServlet的doGet或doPost方法
+10)Context把执行完了之后的HttpServletResponse对象返回给Host
+11)Host把HttpServletResponse对象返回给Engine
+12)Engine把HttpServletResponse对象返回给Connector
+13)Connector把HttpServletResponse对象返回给客户browser
+
+
+https://www.cnblogs.com/kismetv/p/7228274.html#title1

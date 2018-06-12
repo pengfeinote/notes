@@ -1,0 +1,6 @@
+multi/discard/exec/watch/unwatch
+
+
+spring-redis-data
+SessionCallback与RedisCallback:
+SessionCallback支持事务，命令底层在一个connection中执行

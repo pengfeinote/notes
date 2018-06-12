@@ -1,0 +1,7 @@
+git reset 回退到某个版本
+
+参数：
+	--soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+	--hard：彻底回退到某个版本，源码变为该版本代码
+	--mixed(默认):保留源码，回退commit和index信息
+	

@@ -1,0 +1,5 @@
+指定btree：
+alter table user_post add UNIQUE index uniq_test(id, post_id) using btree
+指定hash：
+alter table user_post add index uniq_test(id, post_id) using hash
+只有memory引擎显示支持hash索引

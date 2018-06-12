@@ -1,0 +1,11 @@
+nohup command &
+
+nohup: no hang up 退出帐户/关闭终端之后继续运行相应的进程
+
+nohup  command >/dev/null 2>&1  &
+
+>/dev/null 输出到/dev/null中 /dev/null无底洞 垃圾桶
+2>&1 错误输出重定向到标准输出
+&后台执行
+
+整个命令表示 不输出

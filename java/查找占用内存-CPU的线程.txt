@@ -1,0 +1,7 @@
+1:查找哪个进程占用资源最高
+	top
+2:导出java线程信息
+	jstack PID > stack.log
+3:查找哪个线程占用资源最高
+	top -p PID -H
+	找到占用资源最高的PID，转换成16进制，在stack.log中找出来

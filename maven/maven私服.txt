@@ -1,0 +1,20 @@
+打包上传：
+在.m2/settings.xml中配置，示例：
+<settings>
+	<servers>
+	    <server>
+		  <id>nexus-snapshot</id>
+		  <username>admin</username>
+		  <password>admin123</password>
+	    </server>
+	    <server>
+		  <id>nexus-release</id>
+		  <username>admin</username>
+		  <password>admin123</password>
+	    </server>
+    </servers>
+</settings>
+
+
+
+下载：

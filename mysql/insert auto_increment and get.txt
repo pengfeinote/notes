@@ -1,0 +1,16 @@
+MySQL获取Auto_increment字段刚插入的值
+不能使用select max(id) from testnotnull;
+这样来获取刚插入的那个递增字段的值，
+这样没有考虑多线程。
+ 
+一个比较好的方法是：
+使用java.sql.PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+在插入数据之后，即执行pstmt.executeUpdate()后，
+ResultSet rs = pstmt.getGeneratedKeys(); 获取刚插入的那个自动自增字段的值。
+
+mysql(mybatis):
+	after insert select last_insert_id();
+	因为LAST_INSERT_ID是基于Connection的，只要每个线程都使用独立的Connection对象，LAST_INSERT_ID函数将返回该Connection对AUTO_INCREMENT列最新的insert or update操作生成的第一个record的ID。这个值不能被其它客户端（Connection）影响，保证了你能够找回自己的 ID 而不用担心其它客户端的活动，而且不需要加锁。
+
+
+http://blog.csdn.net/smcwwh/article/details/6009629

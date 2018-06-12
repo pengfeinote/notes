@@ -1,0 +1,38 @@
+redis是c/s模式的tcp服务。
+正常情况下，client发出请求，等待响应结果，如下：
+incr a
+1
+incr a
+2
+incr a
+3
+incr a
+4
+如果网络有些延迟，比如redis处理1ms，网络延迟10ms，则这四步操作需要44ms时间
+
+使用pipleline模式：
+incr a
+incr a
+incr a
+incr a
+1
+2
+3
+4
+将4个命令批量发送给redis，redis批量返回结果，吞吐有所提升，只需14ms时间。
+
+注：
+使用pipeline，redis server需要存储操作结果，会使用一定的内存。
+	While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for this 10k commands.
+
+It's not just a matter of RTT:
+	https://redis.io/topics/pipelining#it39s-not-just-a-matter-of-rtt
+	read() write() system call 调用减少同样极大提高吞吐，大概10倍提速
+
+pipeline与transaction:
+	pipeline仅仅将命令打包，并不保证打包命令的事务特性
+
+pipeline 与mset mget:
+	mset mget更快，但对只能hash key使用
+	mset 内存使用比pipeline高？存疑
+	

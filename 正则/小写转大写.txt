@@ -1,0 +1,19 @@
+比如user_id转化为userId。
+使用命令如下：_[a-z]替换为\U\1\E
+
+\E
+ Terminate \L or \U conversion
+ 
+\l
+ Convert next character to lowercase
+ 
+\L
+ Convert all characters up to \E to lowercase
+ 
+\u
+ Convert next character to uppercase
+ 
+\U
+ Convert all characters up to \E to uppercase
+
+自测在notepad++中可用

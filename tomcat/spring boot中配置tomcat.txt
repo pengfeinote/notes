@@ -1,0 +1,86 @@
+https://blog.csdn.net/liaokailin/article/details/48948093
+
+
+自定义tomcat
+在实际的项目中简单的配置tomcat端口肯定无法满足大家的需求，因此需要自定义tomcat配置信息来灵活的控制tomcat。
+
+以定义默认编码为例
+package com.lkl.springboot.container.tomcat;
+
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * tomcat 配置
+ * @author liaokailin
+ * @version $Id: TomcatConfig.java, v 0.1 2015年10月4日 上午12:11:47 liaokailin Exp $
+ */
+@Configuration
+public class TomcatConfig {
+
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+        tomcat.setUriEncoding("UTF-8");
+        return tomcat;
+    }
+
+}
+
+
+多端口监听配置
+前面启动ssl后只能走https,不能通过http进行访问，如果要监听多端口，可采用编码形式实现。
+
+1.注销前面ssl配置，设置配置 server.port=9090
+
+2.修改TomcatConfig.java
+
+
+package com.lkl.springboot.container.tomcat;
+
+import java.io.File;
+
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.Http11NioProtocol;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * tomcat 配置
+ * @author liaokailin
+ * @version $Id: TomcatConfig.java, v 0.1 2015年10月4日 上午12:11:47 liaokailin Exp $
+ */
+@Configuration
+public class TomcatConfig {
+
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
+        tomcat.setUriEncoding("UTF-8");
+        tomcat.addAdditionalTomcatConnectors(createSslConnector());
+        return tomcat;
+    }
+
+    private Connector createSslConnector() {
+        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
+        try {
+            File truststore = new File("/Users/liaokailin/software/ca1/keystore");
+            connector.setScheme("https");
+            protocol.setSSLEnabled(true);
+            connector.setSecure(true);
+            connector.setPort(8443);
+            protocol.setKeystoreFile(truststore.getAbsolutePath());
+            protocol.setKeystorePass("123456");
+            protocol.setKeyAlias("springboot");
+            return connector;
+        } catch (Exception ex) {
+            throw new IllegalStateException("cant access keystore: [" + "keystore" + "]  ", ex);
+        }
+    }
+}
+通过addAdditionalTomcatConnectors方法添加多个监听连接;此时可以通过http 9090端口，https 8443端口。

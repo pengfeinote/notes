@@ -1,0 +1,23 @@
+
+# The following configurations control the disposal of log segments. The policy can
+# be set to delete segments after a period of time, or after a given size has accumulated.
+# A segment will be deleted whenever *either* of these criteria are met. Deletion always happens
+# from the end of the log.
+
+# The minimum age of a log file to be eligible for deletion
+//segment文件保存的最大时间
+log.retention.hours=168
+
+
+# A size-based retention policy for logs. Segments are pruned from the log as long as the remaining
+# segments don't drop below log.retention.bytes.
+//segment文件的总大小
+log.retention.bytes=1073741824
+
+ #The maximum size of a log segment file. When this size is reached a new log segment will be created.
+//segment文件的单个大小
+log.segment.bytes=1073741824
+
+# The interval at which log segments are checked to see if they can be deleted according
+# to the retention policies
+log.retention.check.interval.ms=300000

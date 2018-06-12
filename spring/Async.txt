@@ -1,0 +1,6 @@
+@EnableAsync
+启用异步任务
+@Async
+	异步调用，返回Future<>
+	可以指定taskExecutor，定义taskExecutor的bean
+	

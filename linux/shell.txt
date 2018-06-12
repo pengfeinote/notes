@@ -1,0 +1,7 @@
+单引号，双引号，反引号以及各种括号的区别：http://blog.csdn.net/miyatang/article/details/8077123
+
+set -e: 写在脚本启动处，如果出现错误，则立即退出
+
+如何不开启新的shell：
+
+将脚本写成函数，在bashrc中添加初始化shell的脚本，可以在本shell中执行函数

@@ -1,0 +1,47 @@
+BeanFactory是IOC最基本的容器，负责生产和管理bean，它为其他具体的IOC容器提供了最基本的规范，例如DefaultListableBeanFactory,BeanFactory是提供了OC容器最基本的形式，给具体的IOC容器的实现提供了规范
+
+XmlBeanFactory,ApplicationContext 等具体的容器都是实现了BeanFactory，再在其基础之上附加了其他的功能
+
+
+BeanFactory源码中Bean的生命周期：
+BeanNameAware's setBeanName
+BeanClassLoaderAware's setBeanClassLoader
+BeanFactoryAware's setBeanFactory
+EnvironmentAware's setEnvironment
+EmbeddedValueResolverAware's setEmbeddedValueResolver
+ResourceLoaderAware's setResourceLoader (only applicable when running in an application context)
+ApplicationEventPublisherAware's setApplicationEventPublisher (only applicable when running in an application context)
+MessageSourceAware's setMessageSource (only applicable when running in an application context)
+ApplicationContextAware's setApplicationContext (only applicable when running in an application context)
+ServletContextAware's setServletContext (only applicable when running in a web application context)
+postProcessBeforeInitialization methods of BeanPostProcessors
+InitializingBean's afterPropertiesSet
+a custom init-method definition
+postProcessAfterInitialization methods of BeanPostProcessors
+
+On shutdown of a bean factory, the following lifecycle methods apply:
+
+postProcessBeforeDestruction methods of DestructionAwareBeanPostProcessors
+DisposableBean's destroy
+a custom destroy-method definition
+
+
+FactoryBean:
+是一种Bean，beanFactory.getBean("beanId")获取到的是id为beanId的bean实例，beanFactory.getBean("&beanId")获取到的是id为beanId的FactoryBean实例
+过factoryBean接口创建bean
+
+    FactoryBean接口有这样几个方法：
+
+        a)  T getObject() throws Exception;
+
+        b)  Class<?> getObjectType();
+
+        c)   boolean isSingleton();
+
+   通过getObject产生最终要拿到的对象
+   
+   https://blog.csdn.net/mrwuyi/article/details/51578654
+   
+   利用工厂模式创建bean
+   
+   返回的bean是getObject返回的类型

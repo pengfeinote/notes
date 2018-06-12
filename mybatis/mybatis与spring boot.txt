@@ -1,0 +1,5 @@
+spring boot打包jar包，
+mybatis在jar包中扫描mapper，
+DefaultVFS
+
+新版的mybatis-spring-boot-autoconfiguration中，使用SpringBootVFS.class

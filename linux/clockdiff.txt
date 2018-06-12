@@ -1,0 +1,10 @@
+clockdiff: 检测两台服务器之间的时间差
+
+
+
+host=172.31.48.23 rtt=45(0)ms/45ms delta=610ms/610ms Tue Jan 23 11:13:46 2018
+
+rtt: 往返时延
+delta：时间差
+
+http://blog.csdn.net/fsdev/article/details/7867501

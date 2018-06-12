@@ -1,0 +1,14 @@
+1：导出整个库（包含数据）：
+	mysqldump -u username -p dbname > dbname.sql
+	
+2：导出整个库（不含数据）：
+	mysqldump -u username -p -d dbname > dbname.sql
+	
+3：导出数据库的某张表（包含数据）：
+	mysqldump -u username -p dbname tablename > tablename.sql
+	
+4：导出数据库中的某张表（不包含数据）：
+	mysqldump -u username -p -d dbname tablename > tablename.sql
+	
+	
+-h host -P port 可以加到上面的命令

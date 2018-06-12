@@ -1,0 +1,7 @@
+格式：jstack [options] pid
+
+-l长列表. 打印关于锁的附加信息,例如属于java.util.concurrent的ownable synchronizers列表.
+
+-m打印java和native c/c++框架的所有栈信息.
+
+-h | -help打印帮助信息

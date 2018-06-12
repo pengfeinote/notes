@@ -1,0 +1,9 @@
+http://nginx.org/en/docs/http/load_balancing.html
+
+round robin
+least_conn
+ip_hash
+(weight)
+
+
+health check:If the response from a particular server fails with an error, nginx will mark this server as failed, and will try to avoid selecting this server for subsequent inbound requests for a while.(max_fails, fail_timeout, )
