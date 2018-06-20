@@ -1,0 +1,19 @@
+variables:
+
+	max_connections:MySQL的最大连接数，增加该值增加mysqld 要求的文件描述符的数量。如果服务器的并发连接请求量比较大，建议调高此值，以增加并行连接数量，当然这建立在机器能支撑的情况下，因为如果连接数越多，介于MySQL会为每个连接提供连接缓冲区，就会开销越多的内存，所以要适当调整该值，不能盲目提高设值。show variables like ‘max_connections’
+	max_used_connections / max_connections * 100% （理想值≈ 85%） 
+	如果max_used_connections跟max_connections相同 那么就是max_connections设置过低或者超过服务器负载上限了，低于10%则设置过大。
+	max_user_connections:max_user_connections 是 MySQL 用户连接数的最大值设置,max_user_connections 针对用户设计的。每个用户的最大连接数,0表示不限制
+	max_connect_errors:当客户端连接服务端超时(超过connect_timeout), 服务端就会给这个客户端记录一次error，当出错的次数达到max_connect_errors的时候，这个客户端就会被锁定。
+	
+status:
+	Connections: Connections	Global	试图连接到(不管是否成功)MySQL服务器的连接数
+	Max_used_connections: Global show  status like ‘max_used_connections’响应的连接数
+	
+	Connection_errors_*:
+	Connection_errors_accept
+	Connection_errors_internal
+	Connection_errors_max_connections:当MySQL的最大并发连接数超过设置的max_connections变量的值，被拒绝的次数会记录到这个状态值里。 这个状态值过高，有可能是系统并发较高，可以考虑调大max_connections
+	Connection_errors_peer_address
+	Connection_errors_select
+	Connection_errors_tcpwrap
