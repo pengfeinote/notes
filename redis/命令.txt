@@ -1,0 +1,29 @@
+
+ZSET: containing a skip list and hash table
+
+	ZADD: O(lgN)
+		zadd key score element
+	ZRANGE(WITHSCORES)(ZREVRANGE):O(log(N)+M)， N 为有序集的基数，而 M 为结果集的基数
+		0 -1:返回全部元素
+		
+	ZRANGEBYSCORE: O(log(N) + M)  N 为有序集的基数， M 为被结果集的基数。
+		ZRANGEBYSCORE zset (1 5: 返回所有符合条件 1 < score <= 5 的成员
+		
+	
+	ZRANK(ZREVRANK): O(lgN)
+		返回有序集 key 中成员 member 的排名。其中有序集成员按 score 值递增(从小到大)顺序排列。
+		
+	
+	ZRANGEBYLEX
+		当有序集合的所有成员都具有相同的分值时， 有序集合的元素会根据成员的字典序（lexicographical ordering）来进行排序， 而这个命令则可以返回给定的有序集合键 key 中， 值介于 min 和 max 之间的成员。
+		合法的 min 和 max 参数必须包含 ( 或者 [ ， 其中 ( 表示开区间（指定的值不会被包含在范围之内）， 而 [ 则表示闭区间（指定的值会被包含在范围之内）。特殊值 + 和 - 在 min 参数以及 max 参数中具有特殊的意义， 其中 + 表示正无限， 而 - 表示负无限。 因此， 向一个所有成员的分值都相同的有序集合发送命令 ZRANGEBYLEX <zset> - + ， 命令将返回有序集合中的所有元素。
+	
+	ZCARD: O(1)
+		查询zset元素个数
+	ZCOUNT: O(lg(N))
+		Returns the number of elements in the sorted set at key with a score between min and max.
+	ZINCRBY
+	
+	ZPOPMAX(ZPOPMIN)
+	
+	

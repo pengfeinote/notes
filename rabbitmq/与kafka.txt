@@ -33,3 +33,19 @@ kafka的broker支持主备模式。
 kafka采用zookeeper对集群中的broker、consumer进行管理，可以注册topic到zookeeper上；通过zookeeper的协调机制，producer保存对应topic的broker信息，可以随机或者轮询发送到broker上；并且producer可以基于语义指定分片，消息发送到broker的某分片上。
 
 rabbitMQ的负载均衡需要单独的loadbalancer进行支持。
+
+
+
+RabbitMQ该怎么用
+RabbitMQ的消息应当尽可能的小，并且只用来处理实时且要高可靠性的消息。
+
+消费者和生产者的能力尽量对等，否则消息堆积会严重影响RabbitMQ的性能。
+
+集群部署，使用热备，保证消息的可靠性。
+
+Kafka该怎么用
+应当有一个非常好的运维监控系统，不单单要监控Kafka本身，还要监控Zookeeper。
+
+对消息顺序不依赖，且不是那么实时的系统。
+
+对消息丢失并不那么敏感的系统。
