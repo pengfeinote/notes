@@ -2,3 +2,5 @@ ctrip apollo: 分布式配置中心
 小米 open falcon: 指标监控
 
 pinpint:pinpoint是开源在github上的一款APM监控工具，它是用Java编写的，用于大规模分布式系统监控。它对性能的影响最小（只增加约3％资源利用率），安装agent是无侵入式的
+
+zeppelin:  Zeppelin is web-based notebook that enables interactive data analytics.  You can make beautiful data-driven, interactive, collaborative document with SQL, code and even more!
