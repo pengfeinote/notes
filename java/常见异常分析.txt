@@ -1,0 +1,18 @@
+ClassNotFoundException与NoClassDefFoundError：
+
+	ClassNotFoundException：应用程序显示的加载类，找不到时，会报此异常，例如，以下三种找不到类时会返回此异常：
+	1: Class.forName()
+	2: ClassLoader.load()
+	3: ClassLoader.findSystemCalss()
+	
+	NoClassDefFoundError：应用程序在编译时可以找到类定义，运行时在程序的classpath下找不到该类，解决方法：
+	1：程序的classpath是否与预期一致
+	2：缺少的类是否在classpath中或者在jar包的manifest中定义
+	3：类所在的jar包缺失或不在classpath中，或文件名改变，或者jar包的权限问题
+	4：类静态初始化失败，依赖该类的类会报该错误，此时会有ExceptionInInitializerError错误
+	5：依赖的原生类库或者dll不存在
+	6：多个类加载器的情况下
+		总结来说，类加载器基于三个机制：委托、可见性和单一性，委托机制是指将加载一个类的请求交给父类加载器，如果这个父类加载器不能够找到或者加载这个类，那么再加载它。可见性的原理是子类的加载器可以看见所有的父类加载器加载的类，而父类加载器看不到子类加载器加载的类。单一性原理是指仅加载一个类一次，这是由委托机制确保子类加载器不会再次加载父类加载器加载过的类。现在假设一个User类在WAR文件和EJB-JAR文件都存在，并且被WAR ClassLoader加载，而WAR ClassLoader是加载EJB-JAR ClassLoader的子ClassLoader。当EJB-JAR中代码引用这个User类时，加载EJB-JAR所有class的Classloader找不到这个类，因为这个类已经被EJB-JAR classloader的子加载器WAR classloader加载。
+		这会导致的结果就是对User类出现NoClassDefFoundError异常，而如果在两个JAR包中这个User类都存在，如果你使用equals方法比较两个类的对象时，会出现ClassCastException的异常，因为两个不同类加载器加载的类无法进行比较。
+	7：jdk安装错误
+	8：类文件编译后被删除
