@@ -1,0 +1,88 @@
+数据结构与算法：
+查找值范围在[x,y]的乱序的n个数字当中唯一“出现2次”的数字	空间换时间
+常见的排序算法，及其空间时间的复杂度	算法基础	
+二叉树的深度和广度遍历（最好是非递归）	队列和栈的使用	
+找出二叉树上两个距离最远的节点	
+数组的全排列	递归	
+计算一个数字的N次幂	
+海量数据的Top K	堆的使用	
+生产者消费者代码	
+完全二叉树的节点个数
+
+java及JVM：
+JVM结构，各个部分的作用	JVM内存结构	
+int和Integer有什么区别？分别存储在哪里	语言基础，JVM内存结构
+各种GC算法，及优劣GC的了解
+是否做过JVM调优，性能故障诊断，有哪些思路	JVM的了解和实践深度
+常用的启动参数以及其作用
+CAS，ABA问题，	并发
+AQS实现原理	java并发包的了解
+各种锁：自旋，阻塞，MCS锁队列，CLH锁队列，乐观锁，悲观锁
+Java线程池原理
+synchronize和ReentrantLock的比较
+HashMap，HashSet，LinkedHashMap，ConcurrentHashMap底层结构（注意不同的JDK版本）	java集合类型的了解
+Latch，Barrier，Semaphore使用场景，Future，FutureTask，CompletionService的使用	java并发包的了解
+Spring生态的了解程度，如bean如何解析并注入的，SpringMVC等
+ThreadLocal原理	
+HashMap的key可否为null，ConcurrentHashMap的key可否为null	java集合类型的了解	
+一个class文件都有哪些部分
+
+数据库：
+ACID原则是什么，隔离级别包含哪些	
+基础
+MyIsam和InnoDB的各种区别	
+数据库引擎相关
+索引的底层数据结构，联合索引的生效规则	
+索引相关
+sql查询优化实践经验，explain，profile的使用	
+sql调优经验
+分库分表相关的了解
+A、B两表，找出ID字段中，存在A表，但是不存在B表的数据
+1.select A.ID from A left join B on A.ID=B.ID where B.ID is null
+2.select * from B where (select count(1) as num from A where A.ID = B.ID) = 0
+
+Linux命令：
+用过哪些命令：
+基本命令：top grep ps netstat等等
+sed与awk：
+
+
+
+网络相关：
+TCP协议三次握手和四次挥手的过程以及其各个状态
+网络基础
+HTTP协议相关知识
+HTTPS原理
+TCP和UDP的区别
+
+操作系统：
+缓存淘汰算法：LRU，LFU，FIFO
+进程，线程概念	
+用户态，核心态	
+请分别描述信号量和互斥锁的异同，并对使用场景进行举例。	
+
+
+系统设计：
+做过的业务系统核心架构图	之前所做业务的熟练度，工作中的角色重要程度
+单线程情况下，如何保证DB和缓存的一致性
+多线程并发情况下，如何保证DB和缓存的一致
+缓存使用的关注点
+设计一个高吞吐量的系统，可以从任何方面考虑	系统整体设计能力
+微信发红包设计方案
+
+设计模式：
+常用的设计模式，应用的例子
+单例模式的几种写法，优缺点
+装饰器模式和代理模式的区别
+JDK或Spring中用的设计模式举例
+
+互联网解决方案：
+限流，降级，灰度，容量预估方案，高可用，容灾，水平扩容等
+用过哪些中间件并且对哪些有比较深入的了解（如redis，zookeeper，kafka等）
+一致性哈希的原理
+
+其他：
+进程间通讯的方式有哪些	
+分布式系统一致性理论：解释CAP，BASE，Paxos算法思想
+看过哪些书，学过哪些新技术，是否运用
+在之前的团队里是否推过一些新技术
