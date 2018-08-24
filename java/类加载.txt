@@ -1,0 +1,15 @@
+https://blog.csdn.net/xyang81/article/details/7292380
+
+类加载：
+	1：一个ClassLoader加载类时，会先尝试用父类加载该类，如果父类已经加载，则不再加载
+	2：jvm的根加载器：Bootstrap ClassLoader，Extension ClassLoader， App ClassLoader，
+		Bootstrap ClassLoader: 加载jre/lib/rt(root).jar或-Dbootclasspath选项指定的jar包
+		Extension ClassLoader：加载jre/lib/ext/*.jar或-Djava.ext.dirs选项指定的jar包
+		App ClassLoader：加载程序classpath下的类
+	3：对于一个类，一个ClassLoader只能加载一次；不同ClassLoader加载的同一个类，jvm认为是不同的类
+	4：自定义ClassLoader，重写findClass函数
+	5：ClassLoader类loadClass的逻辑：
+		先调用findLoadedClass查找已加载类，
+		调用父类的loadClass，
+		使用findClass查找类
+	
