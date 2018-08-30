@@ -13,4 +13,11 @@
 	Content-Disposition: form-data; name="fieldName"
 	Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
 
+3:Content-Type:
+	告诉客户端文件的类型 
+	有些(比如IE)浏览器忽略Content-Type，根据文件后缀名来自己判断文件类型
+	application/csv:客户端需要启动读取csv文件的应用打开文件
+	text/csv: the client can understand that can render that data internally,because it‘s text?
+	application/octet-stream:更通用，代表二进制流，不告诉客户端其他信息
+
 2:Keep-Alive:
