@@ -1,0 +1,16 @@
+1:Content-Disposition:消息头指示回复的内容该以何种形式展示，是以内联的形式（即网页或者页面的一部分），还是以附件的形式下载并保存到本地。
+	在multipart/form-data类型的应答消息体中， Content-Disposition 消息头可以被用在multipart消息体的子部分中，用来给出其对应字段的相关信息。各个子部分由在Content-Type 中定义的分隔符分隔。用在消息体自身则无实际意义。
+
+	作为消息主体的消息头：
+	在HTTP场景中，第一个参数或者是inline（默认值，表示回复中的消息体会以页面的一部分或者整个页面的形式展示），或者是attachment（意味着消息体应该被下载到本地；大多数浏览器会呈现一个“保存为”的对话框，将filename的值预填为下载后的文件名，假如它存在的话）。
+	Content-Disposition: inline
+	Content-Disposition: attachment
+	Content-Disposition: attachment; filename="filename.jpg"
+
+	作为multipart body中的消息头:
+在HTTP场景中。第一个参数总是固定不变的form-data；附加的参数不区分大小写，并且拥有参数值，参数名与参数值用等号(=)连接，参数值用双引号括起来。参数之间用分号(;)分隔。
+	Content-Disposition: form-data
+	Content-Disposition: form-data; name="fieldName"
+	Content-Disposition: form-data; name="fieldName"; filename="filename.jpg"
+
+2:Keep-Alive:
