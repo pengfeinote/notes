@@ -1,4 +1,4 @@
-SecurityContext:
+锘縎ecurityContext:
 
 	public interface SecurityContext extends Serializable {
     //~ Methods ========================================================================================================
@@ -19,11 +19,11 @@ SecurityContext:
     void setAuthentication(Authentication authentication);
 }
 
-	保存当前线程的信息。可以用来保存当前用户的信息
+	淇濆瓨褰撳墠绾跨▼鐨勪俊鎭�傚彲浠ョ敤鏉ヤ繚瀛樺綋鍓嶇敤鎴风殑淇℃伅
 
 	SecurityContextHolder 
 	
-	默认采用MODE_THREADLOCAL
+	榛樿閲囩敤MODE_THREADLOCAL
 	
 		if (strategyName.equals(MODE_THREADLOCAL)) {
             strategy = new ThreadLocalSecurityContextHolderStrategy();
