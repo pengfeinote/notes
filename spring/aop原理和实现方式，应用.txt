@@ -1,1 +1,45 @@
 ﻿动态代理：cglib jdk 反射
+
+
+关于AspectJ表达式：
+http://blog.51cto.com/5914679/2092253
+Joint Point:连接点
+PointCut: 切点
+
+pointcut表达式：
+
+	execution:使用比较多，主要用来匹配 访问修饰符；返回类型；包名；类名； 参数列表
+	例：@PointCut("execution(public String com.tigerbrokers.stock.push.*(..))")
+		public: 表示只匹配public的方法
+		String: 表示只匹配返回类型为String的方法
+		com.tigerbrokers.stock.push.*: 表示匹配包下的所有类
+		..: 表示匹配任意参数列表
+		如果括号里是(Long, ..)表示匹配第一个参数是Long的方法
+
+	within:within可以用来匹配特定类，也可以匹配包下面所有类的所有方法
+	例: @PointCut("within(com.tigerbrokers.stock.push..*)")  匹配该包下的所有类的所有方法
+	    @PointCut("within(com.tigerbrokers.stock.OrderDao)") 只匹配OrderDao
+		
+
+	this和target都用来匹配特定类型的示例
+	this:使用cglib代理实现切面，如果对象不是接口的话，使用this
+	target:使用jdk动态代理来实现切面，如果对象是个接口或实现了接口的类的话，使用target
+
+	@args:这个指示符是用来匹配连接点的参数的，@args指出连接点在运行时传过来的参数的类必须要有指定的注解，假设我们希望切入所有在运行时接受实@Entity注解的bean对象的方法：
+	@Pointcut("@args(org.baeldung.aop.annotations.Entity)")
+	public void methodsAcceptingEntities() {}
+	为了在切面里接收并使用这个被@Entity的对象，我们需要提供一个参数给切面通知：JointPoint:
+	@Before("methodsAcceptingEntities()")
+	public void logMethodAcceptionEntityAnnotatedBean(JoinPoint jp) {
+    		logger.info("Accepting beans with @Entity annotation: " + jp.getArgs()[0]);
+	}
+
+	@Target
+
+	@within
+
+	@annotation		
+
+
+
+AspectJ Jdk动态代理 与CGlib
