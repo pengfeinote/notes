@@ -1,4 +1,4 @@
-http://blog.csdn.net/liutengteng130/article/details/46991829
-¼òÊö£º
-dependencies:×ÓÏîÄ¿»á´Ó¸¸ÏîÄ¿µÄ¸ÃÏîÖĞ¼Ì³Ğ
-dependencyManagement:¸¸ÏîÄ¿Ö»ÉùÃ÷°æ±¾£¬×ÓÏîÄ¿ÉùÃ÷ÒÀÀµºóÒıÈëÏàÓ¦°æ±¾µÄjar°ü
+ï»¿http://blog.csdn.net/liutengteng130/article/details/46991829
+ç®€è¿°ï¼š
+dependencies:å­é¡¹ç›®ä¼šä»çˆ¶é¡¹ç›®çš„è¯¥é¡¹ä¸­ç»§æ‰¿
+dependencyManagement:çˆ¶é¡¹ç›®åªå£°æ˜ç‰ˆæœ¬ï¼Œå­é¡¹ç›®å£°æ˜ä¾èµ–åå¼•å…¥ç›¸åº”ç‰ˆæœ¬çš„jaråŒ…

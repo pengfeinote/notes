@@ -1,4 +1,4 @@
-Optional£ºÓÃÓÚ´«µİÒÀÀµ
+Optionalï¼šç”¨äºä¼ é€’ä¾èµ–
 	How do optional dependencies work?
 
 Project-A -> Project-B
@@ -10,8 +10,8 @@ But when another project(Project-X) declares Project-A as a dependency in its PO
 
 http://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html
 
-Scope£ºÒÀÀµ·¶Î§
-type£ºdependencyÖĞtypeÄ¬ÈÏÎªjar¼´ÒıÈëÒ»¸öÌØ¶¨µÄjar°ü¡£ÄÇÃ´ÎªÊ²Ã´»¹»áÓĞtypeÎªpomÄØ?µ±ÎÒÃÇĞèÒªÒıÈëºÜ¶àjar°üµÄÊ±ºò»áµ¼ÖÂpom.xml¹ı´ó£¬ÎÒÃÇ¿ÉÒÔÏëµ½µÄÒ»ÖÖ½â¾ö·½°¸ÊÇ¶¨ÒåÒ»¸ö¸¸ÏîÄ¿£¬µ«ÊÇ¸¸ÏîÄ¿Ö»ÓĞÒ»¸ö£¬Ò²ÓĞ¿ÉÄÜµ¼ÖÂ¸¸ÏîÄ¿µÄpom.xmlÎÄ¼ş¹ı´ó¡£Õâ¸öÊ±ºòÎÒÃÇÒı½øÀ´Ò»¸ötypeÎªpom£¬ÒâÎ¶×ÅÎÒÃÇ¿ÉÒÔ½«ËùÓĞµÄjar°ü´ò°ü³ÉÒ»¸öpom£¬È»ºóÎÒÃÇÒÀÀµÁËpom£¬¼´¿ÉÒÔÏÂÔØÏÂÀ´ËùÓĞÒÀÀµµÄjar°ü
+Scopeï¼šä¾èµ–èŒƒå›´
+typeï¼šdependencyä¸­typeé»˜è®¤ä¸ºjarå³å¼•å…¥ä¸€ä¸ªç‰¹å®šçš„jaråŒ…ã€‚é‚£ä¹ˆä¸ºä»€ä¹ˆè¿˜ä¼šæœ‰typeä¸ºpomå‘¢?å½“æˆ‘ä»¬éœ€è¦å¼•å…¥å¾ˆå¤šjaråŒ…çš„æ—¶å€™ä¼šå¯¼è‡´pom.xmlè¿‡å¤§ï¼Œæˆ‘ä»¬å¯ä»¥æƒ³åˆ°çš„ä¸€ç§è§£å†³æ–¹æ¡ˆæ˜¯å®šä¹‰ä¸€ä¸ªçˆ¶é¡¹ç›®ï¼Œä½†æ˜¯çˆ¶é¡¹ç›®åªæœ‰ä¸€ä¸ªï¼Œä¹Ÿæœ‰å¯èƒ½å¯¼è‡´çˆ¶é¡¹ç›®çš„pom.xmlæ–‡ä»¶è¿‡å¤§ã€‚è¿™ä¸ªæ—¶å€™æˆ‘ä»¬å¼•è¿›æ¥ä¸€ä¸ªtypeä¸ºpomï¼Œæ„å‘³ç€æˆ‘ä»¬å¯ä»¥å°†æ‰€æœ‰çš„jaråŒ…æ‰“åŒ…æˆä¸€ä¸ªpomï¼Œç„¶åæˆ‘ä»¬ä¾èµ–äº†pomï¼Œå³å¯ä»¥ä¸‹è½½ä¸‹æ¥æ‰€æœ‰ä¾èµ–çš„jaråŒ…
  It indicates the dependency to be replaced with the effective list of dependencies in the specified POM's <dependencyManagement> section. 
  
  https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html

@@ -1,5 +1,5 @@
-´ò°üÉÏ´«£º
-ÔÚ.m2/settings.xmlÖÐÅäÖÃ£¬Ê¾Àý£º
+ï»¿æ‰“åŒ…ä¸Šä¼ ï¼š
+åœ¨.m2/settings.xmlä¸­é…ç½®ï¼Œç¤ºä¾‹ï¼š
 <settings>
 	<servers>
 	    <server>
@@ -17,4 +17,4 @@
 
 
 
-ÏÂÔØ£º
+ä¸‹è½½ï¼š

@@ -1,30 +1,30 @@
-��POM 4�У�<dependency>�л�������<scope>������Ҫ���������Ĳ���Ŀǰ<scope>����ʹ��5��ֵ�� 
+在POM 4中，<dependency>中还引入了<scope>，它主要管理依赖的部署。目前<scope>可以使用5个值： 
 
-compile �����뷶Χ��
+compile （编译范围）
  
-compile��Ĭ�ϵķ�Χ�����û���ṩһ����Χ���Ǹ������ķ�Χ���Ǳ��뷶Χ�����뷶Χ���������е�classpath �п��ã�
-ͬʱ����Ҳ�ᱻ�����
+compile是默认的范围；如果没有提供一个范围，那该依赖的范围就是编译范围。编译范围依赖在所有的classpath 中可用，
+同时它们也会被打包。
  
-provided �����ṩ��Χ��
+provided （已提供范围）
  
-provided ����ֻ���ڵ�JDK ����һ���������ṩ������֮���ʹ�á����磬 ����㿪����һ��web Ӧ�ã�������ڱ���
-classpath ����Ҫ���õ�Servlet API ������һ��servlet�������㲻����Ҫ�ڴ���õ�WAR �а������Servlet API�����
-Servlet API JAR �����Ӧ�÷���������servlet �����ṩ�����ṩ��Χ�������ڱ���classpath ����������ʱ�����á�����
-���Ǵ����Եģ�Ҳ���ᱻ�����
+provided 依赖只有在当JDK 或者一个容器已提供该依赖之后才使用。例如， 如果你开发了一个web 应用，你可能在编译
+classpath 中需要可用的Servlet API 来编译一个servlet，但是你不会想要在打包好的WAR 中包含这个Servlet API；这个
+Servlet API JAR 由你的应用服务器或者servlet 容器提供。已提供范围的依赖在编译classpath （不是运行时）可用。它们
+不是传递性的，也不会被打包。
  
-runtime ������ʱ��Χ��
+runtime （运行时范围）
  
-runtime ���������кͲ���ϵͳ��ʱ����Ҫ�����ڱ����ʱ����Ҫ�����磬������ڱ����ʱ��ֻ��ҪJDBC API JAR����ֻ
-�������е�ʱ�����ҪJDBC
- ����ʵ�֡�
+runtime 依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如，你可能在编译的时候只需要JDBC API JAR，而只
+有在运行的时候才需要JDBC
+ 驱动实现。
  
-test �����Է�Χ��
+test （测试范围）
  
-test��Χ���� ��һ��ı��������ʱ������Ҫ������ֻ���ڲ��Ա���Ͳ������н׶ο��á�
+test范围依赖 在一般的编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用。
  
-system ��ϵͳ��Χ��
+system （系统范围）
  
-system��Χ������provided ���ƣ������������ʽ���ṩһ�����ڱ���ϵͳ��JAR �ļ���·������ô����Ϊ���������ڱ���
-������룬����Щ������ϵͳ����һ���֡������Ĺ���Ӧ����һֱ���õģ�Maven Ҳ�����ڲֿ���ȥѰ����������㽫һ��
-������Χ���ó�ϵͳ��Χ�������ͬʱ�ṩһ�� systemPath Ԫ�ء�ע��÷�Χ�ǲ��Ƽ�ʹ�õģ���Ӧ��һֱ����ȥ�ӹ�����
-���Ƶ� Maven �ֿ���������������
+system范围依赖与provided 类似，但是你必须显式的提供一个对于本地系统中JAR 文件的路径。这么做是为了允许基于本地
+对象编译，而这些对象是系统类库的一部分。这样的构件应该是一直可用的，Maven 也不会在仓库中去寻找它。如果你将一个
+依赖范围设置成系统范围，你必须同时提供一个 systemPath 元素。注意该范围是不推荐使用的（你应该一直尽量去从公共或
+定制的 Maven 仓库中引用依赖）。

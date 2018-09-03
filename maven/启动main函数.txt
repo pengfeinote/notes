@@ -1,14 +1,14 @@
-mvn exec:java -Dexec.mainClass="mainº¯ÊıËùÔÚÀà" -Drun.jvmArguments="jvm²ÎÊı"  -Dexec.cleanupDaemonThreads=false
+mvn exec:java -Dexec.mainClass="mainå‡½æ•°æ‰€åœ¨ç±»" -Drun.jvmArguments="jvmå‚æ•°"  -Dexec.cleanupDaemonThreads=false
 
-mvn exec:exec -Dexec.executable="java" -Dexec.args="jvm²ÎÊı -cp %classpath mainº¯ÊıÀà"
+mvn exec:exec -Dexec.executable="java" -Dexec.args="jvmå‚æ•° -cp %classpath mainå‡½æ•°ç±»"
 
-exec:execÓëexec:java µÄÇø±ğ£º
-Ò»£ºexec:exec×ÜÊÇ±Èexec:javaÇ¿´ó¶øÁé»î
-¶ş£ºexec:exec×ÜÊÇÆô¶¯Ò»¸öĞÂµÄ½ø³Ì£¬²¢ÇÒÔÚÖ»Ê£ÏÂÊØ»¤½ø³ÌµÄÊ±ºò´ÓVMÉÏÍË³ö(¹Ø±ÕÓ¦ÓÃ³ÌĞò)¡£¶ø¶ÔÓÚexec:java£¬µ±ËùÓĞ·ÇÊØ»¤Ïß³Ì½áÊøÊ±£¬ÊØ»¤Ïß³Ì»á±»joine»òinterrupt£¬Ó¦¸Ã³ÌĞò²»»á¹Ø±Õ
-Èı£ºYou use mvn exec:java when you are working with java classes and want to run them in your JVM (with all project dependencies as classpath)(exec:java ÔËĞĞµÄjvm¾ÍÊÇmavenµÄjvm), whilst mvn exec:exec allows you to run any executable (like shell script to do some cleanup or windows batch file), not only the java ones(exec:execĞÂÆğÒ»¸ö½ø³Ì£¨jvm£©)
+exec:execä¸exec:java çš„åŒºåˆ«ï¼š
+ä¸€ï¼šexec:execæ€»æ˜¯æ¯”exec:javaå¼ºå¤§è€Œçµæ´»
+äºŒï¼šexec:execæ€»æ˜¯å¯åŠ¨ä¸€ä¸ªæ–°çš„è¿›ç¨‹ï¼Œå¹¶ä¸”åœ¨åªå‰©ä¸‹å®ˆæŠ¤è¿›ç¨‹çš„æ—¶å€™ä»VMä¸Šé€€å‡º(å…³é—­åº”ç”¨ç¨‹åº)ã€‚è€Œå¯¹äºexec:javaï¼Œå½“æ‰€æœ‰éå®ˆæŠ¤çº¿ç¨‹ç»“æŸæ—¶ï¼Œå®ˆæŠ¤çº¿ç¨‹ä¼šè¢«joineæˆ–interruptï¼Œåº”è¯¥ç¨‹åºä¸ä¼šå…³é—­
+ä¸‰ï¼šYou use mvn exec:java when you are working with java classes and want to run them in your JVM (with all project dependencies as classpath)(exec:java è¿è¡Œçš„jvmå°±æ˜¯mavençš„jvm), whilst mvn exec:exec allows you to run any executable (like shell script to do some cleanup or windows batch file), not only the java ones(exec:execæ–°èµ·ä¸€ä¸ªè¿›ç¨‹ï¼ˆjvmï¼‰)
 
-Èç¹ûÄãµÄ¹¤³ÌÆô¶¯·Ç³£¼òµ¥£¬²»ĞèÒªÉèÖÃjvm²ÎÊı¡¢ÏµÍ³ÊôĞÔ¡¢ÃüÁîĞĞ²ÎÊı£¬ÄÇÃ´¾ÍÓÃexec:java
-Èç¹ûÇ¡Ç¡Ïà·´£¬ÄãµÄÓ¦ÓÃ³ÌĞòÆô¶¯·Ç³£¸´ÔÓ£¬ĞèÒªÉèÖÃjvm²ÎÊı¡¢ÏµÍ³ÊôĞÔ¡¢ÃüÁîĞĞ²ÎÊıµÈ£¬ÄÇÃ´Äã¾ÍĞèÒªÊ¹ÓÃexec:execÁË£¬
+å¦‚æœä½ çš„å·¥ç¨‹å¯åŠ¨éå¸¸ç®€å•ï¼Œä¸éœ€è¦è®¾ç½®jvmå‚æ•°ã€ç³»ç»Ÿå±æ€§ã€å‘½ä»¤è¡Œå‚æ•°ï¼Œé‚£ä¹ˆå°±ç”¨exec:java
+å¦‚æœæ°æ°ç›¸åï¼Œä½ çš„åº”ç”¨ç¨‹åºå¯åŠ¨éå¸¸å¤æ‚ï¼Œéœ€è¦è®¾ç½®jvmå‚æ•°ã€ç³»ç»Ÿå±æ€§ã€å‘½ä»¤è¡Œå‚æ•°ç­‰ï¼Œé‚£ä¹ˆä½ å°±éœ€è¦ä½¿ç”¨exec:execäº†ï¼Œ
 
 cleanupDaemonThreads :
 Wether to interrupt/join and possibly stop the daemon threads upon 
@@ -17,6 +17,6 @@ When maven has no more work to do, the VM will normally terminate any
 remaining daemon threads. 
 In certain cases (in particular if maven is embedded), you might need to 
 keep this enabled to make sure threads are properly cleaned up to ensure 
-they don¡¯t interfere with subsequent activity. In that case, see 
+they donâ€™t interfere with subsequent activity. In that case, see 
 daemonThreadJoinTimeout and stopUnresponsiveDaemonThreads for further 
 tuning.
