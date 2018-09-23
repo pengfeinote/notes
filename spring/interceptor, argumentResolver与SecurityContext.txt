@@ -41,3 +41,12 @@
                 ReflectionUtils.handleReflectionException(ex);
             }
         }
+
+
+interceptor如何记录请求方法耗时：
+	preHandler将startTime记录到request的atrribute中，afterCompletion将当前时间取出，减去request中的startTime
+	interceptor方法：
+		preHandler
+		postHandler:model View渲染完成之前(called after the handlerAdapter invoke the method, but before the dispatcherServlet render the view)
+		afterCompletion:called after the view been rendered, the order is reversed, thus the first interceptor will be the last afterCompletion execed
+		afterConcurrentHandlingStarted: different with post handler and afterCompletion,called when the method is invoked concurrently

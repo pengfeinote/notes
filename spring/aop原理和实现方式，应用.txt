@@ -3,7 +3,7 @@
 
 关于AspectJ表达式：
 http://blog.51cto.com/5914679/2092253
-Joint Point:连接点
+Joint Point:连接点 指定的方法
 PointCut: 切点
 
 pointcut表达式：
@@ -34,12 +34,60 @@ pointcut表达式：
     		logger.info("Accepting beans with @Entity annotation: " + jp.getArgs()[0]);
 	}
 
-	@Target
+	@Target 匹配有目标注解的类的方法作为连接点
+		@PointCut("@target(org.springframework.stereotype.Repository)")  匹配有Repository注解的连接点
 
-	@within
+	@within 这个指示器，指定匹配必须包括某个注解的的类里的所有连接点：
+		
 
-	@annotation		
+	@annotation  这个指示器匹配那些有指定注解的连接点，比如，我们可以新建一个这样的注解@Loggable:
+		我们可以使用@Loggable注解标记哪些方法执行需要输出日志：
+	
 
+切点表达式组合：
+	可以使用&&、||、!、三种运算符来组合切点表达式，表示与或非的关系。
 
+	@Pointcut("@target(org.springframework.stereotype.Repository)")
+	public void repositoryMethods() {}
+
+	@Pointcut("execution(* *..create*(Long,..))")
+	public void firstLongParamMethods() {}
+
+	@Pointcut("repositoryMethods() && firstLongParamMethods()")
+	public void entityCreationMethods() {}	
+
+切点执行顺序
+	@Around
+	@Before
+		func()
+	@Around
+	@After
+	@AfterReturn or @AfterThrowing
+
+	多个切面时：实现org.springframework.core.Ordered接口 或 使用Ordered注解实现，值越小的aspect越先执行
+		Aspect1(5)  Aspect2(6)
+
+	Aspect1.Around
+	Aspect1.Before
+		Aspect2.Around
+		Aspect2.Before
+			func()
+		Aspect2.Around
+		Aspect2.After
+		Aspect2.AfterReturn or AfterThrowing
+
+	Aspect1.Around
+	Aspect1.After
+	Aspect1.AfterReturn or AfterThrowing
 
 AspectJ Jdk动态代理 与CGlib
+
+静态代理：针对每个被代理类生成一个新类,编译器就生成
+动态代理：运行时生成新的代理类
+	jdk动态代理：
+		InvocationHandler::invoke(Object proxy, Method method, Object[] args)，只支持实现了interface的类
+		Proxy::newProxyInstance(ClassLoader loader, Class<?>[] interfaces, InvocationHandler h)
+	cglib动态代理：使用asm开源库，修改字节码，生成被代理类的子类作为代理类
+
+aspectj包：
+	https://www.cnblogs.com/davidwang456/p/5633940.html
