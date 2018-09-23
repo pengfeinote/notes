@@ -1,0 +1,5 @@
+﻿Mysql中的 UTF-8、UTF8mb3， UTF8mb4
+utf8mb4, MySQL在5.5.3之后增加了这个utf8mb4的编码，mb4就是most bytes 4的意思，专门用来兼容四字节的unicode字符。
+mysql中的utf8，就是最大3字节的unicode字符，也就是mysql中的utf8mb3.
+
+那么问题来了，如果用了utf8mb3编码的mysql数据库，在插入一些4字节长的字符时就会报错（形如："java.sql.SQLException: Incorrect string value: '\xF0\x9F\x94\x91\xE6\x9D...' for column 'core_data' at row 1" 的错误），后文会介绍如何在Java中过滤掉这些字符。
