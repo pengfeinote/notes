@@ -1,0 +1,1 @@
+1:表中有BLOB字段时，select需要使用selectByExampleWithBLOBs
