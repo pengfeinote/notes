@@ -1,0 +1,33 @@
+# map:
+* HashMap: 
+	* 数组+链表，冲突放入链表中
+	* jdk 1.8后链表长度大于8时转为红黑树(8硬编码在文件中)
+	* 允许key及value为null
+* HashTable: 
+	* 数组+链表，
+	* 函数头加syncronized关键字保证线程安全，
+	* key及value均不能为null,为什么不能为null，历史原因，作者没有处理
+* ConcurrentHashMap:
+	* jdk 1.8后, 链表长度大于8转为红黑树
+	* 同步方法  
+* LinkedHashMap:
+	* HashMap+链表
+	* 添加元素时用链表串起来，实现按照插入顺序便利
+	* 可以用于LRU 
+* TreeMap: 
+	* 红黑树实现有序map
+	* get, put, remove guaranteed O(lgN)
+	* Collections.synchronizedSortedMap获取线程安全的排序map
+* IdentityHashMap:
+	* 不使用key的hashcode方法计算hashcode，而是通过系统的hashcode方法，两个引用相同，才认为key相同
+* ConcurrentSkipListMap:
+	* jdk中唯一的concurrent navigate map
+	* 线程安全的有序map
+	* 不允许key和value为null(处于cas的考虑?)
+
+# Set
+
+# queue:
+		
+
+# list:
