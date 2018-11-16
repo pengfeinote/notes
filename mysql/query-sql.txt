@@ -1,0 +1,9 @@
+## mysql query
+### case when
+```
+	case when currency='HKD' then 1
+	when currency='USD' then 2
+	end
+```	
+### if函数
+### floor round
