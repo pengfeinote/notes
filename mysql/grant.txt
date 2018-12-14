@@ -1,2 +1,4 @@
 grant select on stock_trade.user_watchlist to stock_push@'172.28.48.31' identified by '123445';
 flust privileges;
+#密码永不过期
+alter user stock_push@'172.28.48.31' password expire never;
