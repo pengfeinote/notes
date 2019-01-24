@@ -45,6 +45,13 @@ unit可以是以下值<br>
 如果需要使用year_month_day，可以使用DATE_FORMAT(date, format)。<br>
 例如：DATE_FORMAT(NOW(), "%Y%m%d")
 
+### WEEKDAY(date)
+WEEKDAY(str_to_date(20181001, '%Y%m%d')) = 0代表周一
+WEEKDAY(str_to_date(20181006, '%Y%m%d')) = 5代表周六
+
+### str_to_date(str, format)
+str_to_date(20181006, '%Y%m%d') = '2018-10-06'号
+
 ### keyword: union
 
 union将多个select语句的结果结合起来，union的select语句必须具有相同的列和相似的数据类型 <br>
