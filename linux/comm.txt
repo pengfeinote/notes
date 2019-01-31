@@ -1,0 +1,9 @@
+comm a.txt b.txt
+输出3列内容：
+第一列：a-b
+第二列：b-a
+第三列：b&a
+
+通过comm命令找出集合差/交
+https://www.cnblogs.com/ywl925/p/3876314.html
+首先对两个文件sort | uniq,然后 comm -123i a.txt b.txt 输出差|交

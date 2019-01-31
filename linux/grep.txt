@@ -1,0 +1,4 @@
+通过grep找出集合差/交：
+https://www.cnblogs.com/ywl925/p/3876314.html
+
+grep -F -f -v a.txt b.txt

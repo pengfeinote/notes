@@ -56,3 +56,6 @@ str_to_date(20181006, '%Y%m%d') = '2018-10-06'号
 
 union将多个select语句的结果结合起来，union的select语句必须具有相同的列和相似的数据类型 <br>
 union会消除重复的行，不想消除重复行，请使用union all
+
+### function: substr(string string, num start, num length)
+	start从1开始而非0
