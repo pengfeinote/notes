@@ -59,3 +59,6 @@ union会消除重复的行，不想消除重复行，请使用union all
 
 ### function: substr(string string, num start, num length)
 	start从1开始而非0
+
+
+### mysql over() rank() group_concat()
