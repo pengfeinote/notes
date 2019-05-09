@@ -1,16 +1,16 @@
-MySQL»ñÈ¡Auto_increment×Ö¶Î¸Õ²åÈëµÄÖµ
-²»ÄÜÊ¹ÓÃselect max(id) from testnotnull;
-ÕâÑùÀ´»ñÈ¡¸Õ²åÈëµÄÄÇ¸öµİÔö×Ö¶ÎµÄÖµ£¬
-ÕâÑùÃ»ÓĞ¿¼ÂÇ¶àÏß³Ì¡£
+MySQLè·å–Auto_incrementå­—æ®µåˆšæ’å…¥çš„å€¼
+ä¸èƒ½ä½¿ç”¨select max(id) from testnotnull;
+è¿™æ ·æ¥è·å–åˆšæ’å…¥çš„é‚£ä¸ªé€’å¢å­—æ®µçš„å€¼ï¼Œ
+è¿™æ ·æ²¡æœ‰è€ƒè™‘å¤šçº¿ç¨‹ã€‚
  
-Ò»¸ö±È½ÏºÃµÄ·½·¨ÊÇ£º
-Ê¹ÓÃjava.sql.PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-ÔÚ²åÈëÊı¾İÖ®ºó£¬¼´Ö´ĞĞpstmt.executeUpdate()ºó£¬
-ResultSet rs = pstmt.getGeneratedKeys(); »ñÈ¡¸Õ²åÈëµÄÄÇ¸ö×Ô¶¯×ÔÔö×Ö¶ÎµÄÖµ¡£
+ä¸€ä¸ªæ¯”è¾ƒå¥½çš„æ–¹æ³•æ˜¯ï¼š
+ä½¿ç”¨java.sql.PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+åœ¨æ’å…¥æ•°æ®ä¹‹åï¼Œå³æ‰§è¡Œpstmt.executeUpdate()åï¼Œ
+ResultSet rs = pstmt.getGeneratedKeys(); è·å–åˆšæ’å…¥çš„é‚£ä¸ªè‡ªåŠ¨è‡ªå¢å­—æ®µçš„å€¼ã€‚
 
 mysql(mybatis):
 	after insert select last_insert_id();
-	ÒòÎªLAST_INSERT_IDÊÇ»ùÓÚConnectionµÄ£¬Ö»ÒªÃ¿¸öÏß³Ì¶¼Ê¹ÓÃ¶ÀÁ¢µÄConnection¶ÔÏó£¬LAST_INSERT_IDº¯Êı½«·µ»Ø¸ÃConnection¶ÔAUTO_INCREMENTÁĞ×îĞÂµÄinsert or update²Ù×÷Éú³ÉµÄµÚÒ»¸örecordµÄID¡£Õâ¸öÖµ²»ÄÜ±»ÆäËü¿Í»§¶Ë£¨Connection£©Ó°Ïì£¬±£Ö¤ÁËÄãÄÜ¹»ÕÒ»Ø×Ô¼ºµÄ ID ¶ø²»ÓÃµ£ĞÄÆäËü¿Í»§¶ËµÄ»î¶¯£¬¶øÇÒ²»ĞèÒª¼ÓËø¡£
+	å› ä¸ºLAST_INSERT_IDæ˜¯åŸºäºConnectionçš„ï¼Œåªè¦æ¯ä¸ªçº¿ç¨‹éƒ½ä½¿ç”¨ç‹¬ç«‹çš„Connectionå¯¹è±¡ï¼ŒLAST_INSERT_IDå‡½æ•°å°†è¿”å›è¯¥Connectionå¯¹AUTO_INCREMENTåˆ—æœ€æ–°çš„insert or updateæ“ä½œç”Ÿæˆçš„ç¬¬ä¸€ä¸ªrecordçš„IDã€‚è¿™ä¸ªå€¼ä¸èƒ½è¢«å…¶å®ƒå®¢æˆ·ç«¯ï¼ˆConnectionï¼‰å½±å“ï¼Œä¿è¯äº†ä½ èƒ½å¤Ÿæ‰¾å›è‡ªå·±çš„ ID è€Œä¸ç”¨æ‹…å¿ƒå…¶å®ƒå®¢æˆ·ç«¯çš„æ´»åŠ¨ï¼Œè€Œä¸”ä¸éœ€è¦åŠ é”ã€‚
 
 
 http://blog.csdn.net/smcwwh/article/details/6009629
