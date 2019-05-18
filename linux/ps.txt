@@ -1,43 +1,43 @@
-�鿴���̣�
-�������
-ps -aux    �鿴���н���
-�ֶ�˵����
-USER���� process �����Ǹ�ʹ�����˺ŵ�
-PID ���� process �ĺ���
-%CPU���� process ʹ�õ��� CPU ��Դ�ٷֱ�
-%MEM���� process ��ռ�õ������ڴ�ٷֱ�
-VSZ ���� process ʹ�õ��������ڴ��� (Kbytes)
-RSS ���� process ռ�õĹ̶����ڴ��� (Kbytes)
-TTY ���� process �����Ǹ��ն˻����������������ն˻��޹أ�����ʾ ?�����⣬ tty1-tty6 �Ǳ�������ĵ����߳�����Ϊ pts/0 �ȵȵģ����ʾΪ���������ӽ������ĳ���
-STAT���ó���Ŀǰ��״̬����Ҫ��״̬��
-R ���ó���Ŀǰ���������������ǿɱ�����
-S ���ó���Ŀǰ����˯�ߵ��� (��˵�� idle ״̬)�����ɱ�ĳЩѶ�� (signal) ���ѡ�
-T ���ó���Ŀǰ������������ֹͣ��
-Z ���ó���Ӧ���Ѿ���ֹ�������丸����ȴ�޷���������ֹ������� zombie (��ʬ) �����״̬
-START���� process ������������ʱ��
-TIME ���� process ʵ��ʹ�� CPU ������ʱ��
-COMMAND���ó����ʵ��ָ��
+查看进程，
+常用命令：
+ps -aux    查看所有进程
+字段说明：
+USER：该 process 属于那个使用者账号的
+PID ：该 process 的号码
+%CPU：该 process 使用掉的 CPU 资源百分比
+%MEM：该 process 所占用的物理内存百分比
+VSZ ：该 process 使用掉的虚拟内存量 (Kbytes)
+RSS ：该 process 占用的固定的内存量 (Kbytes)
+TTY ：该 process 是在那个终端机上面运作，若与终端机无关，则显示 ?，另外， tty1-tty6 是本机上面的登入者程序，若为 pts/0 等等的，则表示为由网络连接进主机的程序。
+STAT：该程序目前的状态，主要的状态有
+R ：该程序目前正在运作，或者是可被运作
+S ：该程序目前正在睡眠当中 (可说是 idle 状态)，但可被某些讯号 (signal) 唤醒。
+T ：该程序目前正在侦测或者是停止了
+Z ：该程序应该已经终止，但是其父程序却无法正常的终止他，造成 zombie (疆尸) 程序的状态
+START：该 process 被触发启动的时间
+TIME ：该 process 实际使用 CPU 运作的时间
+COMMAND：该程序的实际指令
 
 
 
 
-���������
-a  ��ʾ���н���
--a ��ʾͬһ�ն��µ����г���
--A ��ʾ���н���
-c  ��ʾ���̵���ʵ����
--N ����ѡ��
--e ���ڡ�-A��
-e  ��ʾ��������
-f  ��ʾ�����Ĺ�ϵ
--H ��ʾ��״�ṹ
-r  ��ʾ��ǰ�ն˵Ľ���
-T  ��ʾ��ǰ�ն˵����г���
-u  ָ���û������н���
--au ��ʾ����ϸ����Ѷ
--aux ��ʾ���а�������ʹ���ߵ��г� 
--C<����> �г�ָ�������״��
---lines<����> ÿҳ��ʾ������
---width<�ַ���> ÿҳ��ʾ���ַ���
---help ��ʾ������Ϣ
---version ��ʾ�汾��ʾ
+命令参数：
+a  显示所有进程
+-a 显示同一终端下的所有程序
+-A 显示所有进程
+c  显示进程的真实名称
+-N 反向选择
+-e 等于“-A”
+e  显示环境变量
+f  显示程序间的关系
+-H 显示树状结构
+r  显示当前终端的进程
+T  显示当前终端的所有程序
+u  指定用户的所有进程
+-au 显示较详细的资讯
+-aux 显示所有包含其他使用者的行程 
+-C<命令> 列出指定命令的状况
+--lines<行数> 每页显示的行数
+--width<字符数> 每页显示的字符数
+--help 显示帮助信息
+--version 显示版本显示
