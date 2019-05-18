@@ -1,21 +1,20 @@
-
 # The following configurations control the disposal of log segments. The policy can
 # be set to delete segments after a period of time, or after a given size has accumulated.
 # A segment will be deleted whenever *either* of these criteria are met. Deletion always happens
 # from the end of the log.
 
 # The minimum age of a log file to be eligible for deletion
-//segmentÎÄ¼ş±£´æµÄ×î´óÊ±¼ä
+//segmentæ–‡ä»¶ä¿å­˜çš„æœ€å¤§æ—¶é—´
 log.retention.hours=168
 
 
 # A size-based retention policy for logs. Segments are pruned from the log as long as the remaining
 # segments don't drop below log.retention.bytes.
-//segmentÎÄ¼şµÄ×Ü´óĞ¡
+//segmentæ–‡ä»¶çš„æ€»å¤§å°
 log.retention.bytes=1073741824
 
  #The maximum size of a log segment file. When this size is reached a new log segment will be created.
-//segmentÎÄ¼şµÄµ¥¸ö´óĞ¡
+//segmentæ–‡ä»¶çš„å•ä¸ªå¤§å°
 log.segment.bytes=1073741824
 
 # The interval at which log segments are checked to see if they can be deleted according
