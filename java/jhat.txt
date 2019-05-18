@@ -1,2 +1,2 @@
-jhat是sun 1.6及以上版本中自带的一个用于分析JVM 堆DUMP 文件的工具，基于此工具可分析JVM HEAP 中对象的内存占用情况
+jhat鏄痵un 1.6鍙婁互涓婄増鏈腑鑷甫鐨勪竴涓敤浜庡垎鏋怞VM 鍫咲UMP 鏂囦欢鐨勫伐鍏凤紝鍩轰簬姝ゅ伐鍏峰彲鍒嗘瀽JVM HEAP 涓璞＄殑鍐呭瓨鍗犵敤鎯呭喌
 jhat -J-Xmx1024M [file]

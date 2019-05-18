@@ -1,16 +1,16 @@
--Xms128M:³õÊ¼¶ÑÄÚ´æ£¬Ä¬ÈÏÊÇÎïÀíÄÚ´æµÄ1/64
--Xmx512M:×î´ó¶ÑÄÚ´æ£¬Ä¬ÈÏÊÇÎïÀíÄÚ´æ1/4
--Xmn1024M:ÄêÇá´ú´óÐ¡
--Xss1M:Ã¿¸öÏß³Ì¶ÑÕ»1M
--XX:NewRatio=4:ÄêÇá´ú(Ò»¸öEdenºÍÁ½¸öSurvivor)ÓëÄêÀÏ´úµÄ±ÈÖµ£¬´Ë´¦ÄêÇá´úÓëÄêÀÏ´ú±ÈÖµÎª1:4
--XX:SurvivorRatio=4:ÄêÇá´úÖÐSurvivorRatioµÄ±ÈÖµ£¬´Ë´¦EdenºÍSurvivorRatio±ÈÖµÎª4:2
--XX:PermSize=64M:·Ç¶ÑÄÚ´æ³õÊ¼Öµ,Ä¬ÈÏ1/64
--XX:MaxPermSize=128M:×î´ó·Ç¶ÑÄÚ´æ
--XX:MaxTenuringThreshold=0:ÉèÖÃÀ¬»ø×î´óÄêÁä¡£Èç¹ûÉèÖÃÎª0µÄ»°£¬ÔòÄêÇá´ú¶ÔÏó²»¾­¹ýSurvivorÇø£¬Ö±½Ó½øÈëÄêÀÏ´ú¡£¶ÔÓÚÄêÀÏ´ú±È½Ï¶àµÄÓ¦ÓÃ£¬¿ÉÒÔÌá¸ßÐ§ÂÊ¡£Èç¹û½«´ËÖµÉèÖÃÎªÒ»¸ö½Ï´óÖµ£¬ÔòÄêÇá´ú¶ÔÏó»áÔÚSurvivorÇø½øÐÐ¶à´Î¸´ÖÆ£¬ÕâÑù¿ÉÒÔÔö¼Ó¶ÔÏóÔÙÄêÇá´úµÄ´æ»îÊ±¼ä£¬Ôö¼ÓÔÚÄêÇá´ú¼´±»»ØÊÕµÄ¸ÅÂÛ¡£
--XX:+UseParallelGC:²¢·¢Ö´ÐÐGC
--XX:+UseConcMarkSweepGC Õâ¸ö²ÎÊý±íÊ¾¶ÔÓÚÀÏÄê´úµÄ»ØÊÕ²ÉÓÃCMSËã·¨
+-Xms128M:åˆå§‹å †å†…å­˜ï¼Œé»˜è®¤æ˜¯ç‰©ç†å†…å­˜çš„1/64
+-Xmx512M:æœ€å¤§å †å†…å­˜ï¼Œé»˜è®¤æ˜¯ç‰©ç†å†…å­˜1/4
+-Xmn1024M:å¹´è½»ä»£å¤§å°
+-Xss1M:æ¯ä¸ªçº¿ç¨‹å †æ ˆ1M
+-XX:NewRatio=4:å¹´è½»ä»£(ä¸€ä¸ªEdenå’Œä¸¤ä¸ªSurvivor)ä¸Žå¹´è€ä»£çš„æ¯”å€¼ï¼Œæ­¤å¤„å¹´è½»ä»£ä¸Žå¹´è€ä»£æ¯”å€¼ä¸º1:4
+-XX:SurvivorRatio=4:å¹´è½»ä»£ä¸­SurvivorRatioçš„æ¯”å€¼ï¼Œæ­¤å¤„Edenå’ŒSurvivorRatioæ¯”å€¼ä¸º4:2
+-XX:PermSize=64M:éžå †å†…å­˜åˆå§‹å€¼,é»˜è®¤1/64
+-XX:MaxPermSize=128M:æœ€å¤§éžå †å†…å­˜
+-XX:MaxTenuringThreshold=0:è®¾ç½®åžƒåœ¾æœ€å¤§å¹´é¾„ã€‚å¦‚æžœè®¾ç½®ä¸º0çš„è¯ï¼Œåˆ™å¹´è½»ä»£å¯¹è±¡ä¸ç»è¿‡SurvivoråŒºï¼Œç›´æŽ¥è¿›å…¥å¹´è€ä»£ã€‚å¯¹äºŽå¹´è€ä»£æ¯”è¾ƒå¤šçš„åº”ç”¨ï¼Œå¯ä»¥æé«˜æ•ˆçŽ‡ã€‚å¦‚æžœå°†æ­¤å€¼è®¾ç½®ä¸ºä¸€ä¸ªè¾ƒå¤§å€¼ï¼Œåˆ™å¹´è½»ä»£å¯¹è±¡ä¼šåœ¨SurvivoråŒºè¿›è¡Œå¤šæ¬¡å¤åˆ¶ï¼Œè¿™æ ·å¯ä»¥å¢žåŠ å¯¹è±¡å†å¹´è½»ä»£çš„å­˜æ´»æ—¶é—´ï¼Œå¢žåŠ åœ¨å¹´è½»ä»£å³è¢«å›žæ”¶çš„æ¦‚è®ºã€‚
+-XX:+UseParallelGC:å¹¶å‘æ‰§è¡ŒGC
+-XX:+UseConcMarkSweepGC è¿™ä¸ªå‚æ•°è¡¨ç¤ºå¯¹äºŽè€å¹´ä»£çš„å›žæ”¶é‡‡ç”¨CMSç®—æ³•
 
-gc logÏà¹Ø²ÎÊý£º
+gc logç›¸å…³å‚æ•°ï¼š
 -XX:+PrintGCDetails
 -XX:+PrintHeapAtGC
 -XX:+PrintGCDateStamps

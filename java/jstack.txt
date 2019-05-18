@@ -1,7 +1,8 @@
-¸ñÊ½£ºjstack [options] pid
+æ ¼å¼ï¼šjstack [options] pid
 
--l³¤ÁĞ±í. ´òÓ¡¹ØÓÚËøµÄ¸½¼ÓĞÅÏ¢,ÀıÈçÊôÓÚjava.util.concurrentµÄownable synchronizersÁĞ±í.
+-lé•¿åˆ—è¡¨. æ‰“å°å…³äºé”çš„é™„åŠ ä¿¡æ¯,ä¾‹å¦‚å±äºjava.util.concurrentçš„ownable synchronizersåˆ—è¡¨.
 
--m´òÓ¡javaºÍnative c/c++¿ò¼ÜµÄËùÓĞÕ»ĞÅÏ¢.
+-mæ‰“å°javaå’Œnative c/c++æ¡†æ¶çš„æ‰€æœ‰æ ˆä¿¡æ¯.
 
--h | -help´òÓ¡°ïÖúĞÅÏ¢
+-h | -helpæ‰“å°å¸®åŠ©ä¿¡æ¯
+
