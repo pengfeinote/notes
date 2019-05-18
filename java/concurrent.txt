@@ -1,0 +1,7 @@
+CAS，ABA问题，	
+AQS实现原理	
+各种锁：自旋，阻塞，MCS锁队列，CLH锁队列，乐观锁，悲观锁	
+Java线程池原理	
+synchronize和ReentrantLock的比较	
+HashMap，HashSet，LinkedHashMap，ConcurrentHashMap底层结构（注意不同的JDK版本）	
+Latch，Barrier，Semaphore使用场景，Future，FutureTask，CompletionService的使用
