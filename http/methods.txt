@@ -1,5 +1,7 @@
 GET:
 HEAD:
-POST:
+POST:添加
+PUT:更新
+PATCH:对PUT的补充，对已知资源进行局部更新，PATCH是幂等的
 
 OPTION: 当用户请求跨域时，浏览器自己发出Options请求，询问服务器是否允许跨域访问，然后才会发出真实请求

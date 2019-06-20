@@ -67,3 +67,22 @@ union会消除重复的行，不想消除重复行，请使用union all
 	例：根据不同币种查询用户U1234567持仓前2位的股票：
 	select currency, substring_index(group_concat(symbol order by abs(position * average_cost) desc), ',', 2) from user_portfolio
 	where account='U1234567' group by currency
+
+### TIMESTAMPDIFF(unit,begin,end);
+	end - begin的unit:
+	unit:
+	MICROSECOND
+	SECOND
+	MINUTE
+	HOUR
+	DAY
+	WEEK
+	MONTH
+	QUARTER
+	YEAR
+
+### substring_index(str, delimeter, count)
+说明：substring_index（被截取字段，关键字，关键字出现的次数） 
+例：select substring_index（"blog.jb51.net"，"."，2） as abstract from my_content_t 
+结果：blog.jb51 
+（注：如果关键字出现的次数是负数 如-2 则是从后倒数，到字符串结束） 
