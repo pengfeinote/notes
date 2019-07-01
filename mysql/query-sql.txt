@@ -52,6 +52,7 @@ WEEKDAY(str_to_date(20181006, '%Y%m%d')) = 5代表周六
 
 ### str_to_date(str, format)
 str_to_date(20181006, '%Y%m%d') = '2018-10-06'号
+(str_to_date(20190628000000111, '%Y%m%d%H%i%S%f')
 
 ### keyword: union
 
