@@ -1,4 +1,7 @@
 jdK ConcurrentSkipListMap实现
 guava ratelimiter的使用及原理
 restful总结
+kafka体系
+rabbitmq体系
+flink体系
 es学习
