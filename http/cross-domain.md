@@ -52,3 +52,7 @@ Content-type:只限于3个值application/x-www-from-urlencoded、multipart/from-
 3. Access-Control-Allow-Credentials： 该字段可选，是一个布尔值，表示是否发送Cookie,默认为false；  
 4. Access-Control-Max-Age： 可选，指定本次预检请求的有效期；
 
+### 使用jsonp绕开跨域
+
+通常为了减轻web服务器的负载，我们把js、css，img等静态资源分离到另一台独立域名的服务器上，在html页面中再通过相应的标签从不同域名下加载静态资源，而被浏览器允许，基于此原理，我们可以通过动态创建script，再请求一个带参网址实现跨域通信。
+这种方法只能进行get请求
