@@ -1,8 +1,8 @@
 http://blog.csdn.net/neosmith/article/details/52449921
 
-feignÊÇÒ»¸öspring cloud netflixÕ»µÄhttp¿Í»§¶Ë£¬Ïàµ±ÓÚrpcĞ­ÒéÊ¹ÓÃÁËhttpĞ­Òé
+feignæ˜¯ä¸€ä¸ªspring cloud netflixæ ˆçš„httpå®¢æˆ·ç«¯ï¼Œç›¸å½“äºrpcåè®®ä½¿ç”¨äº†httpåè®®
 
-Ê¹ÓÃfeign£º
+ä½¿ç”¨feignï¼š
 
 pom dependency
         <dependency>

@@ -1,5 +1,0 @@
-eureka: 注册中心
-hystrix：断路器，容灾
-zuul：路由
-ribbon：客户端负载均衡
-feign：http客户端rpc

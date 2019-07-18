@@ -1,7 +1,26 @@
-�����ţ�˫���ţ��������Լ��������ŵ�����http://blog.csdn.net/miyatang/article/details/8077123
+单引号，双引号，反引号以及各种括号的区别：http://blog.csdn.net/miyatang/article/details/8077123
 
-set -e: д�ڽű���������������ִ����������˳�
+set -e: 写在脚本启动处，如果出现错误，则立即退出
 
-��β������µ�shell��
+如何不开启新的shell：
 
-���ű�д�ɺ�������bashrc�����ӳ�ʼ��shell�Ľű��������ڱ�shell��ִ�к���
+将脚本写成函数，在bashrc中添加初始化shell的脚本，可以在本shell中执行函数
+
+<<与<<<与< <:
+
+<<指定程序的结束字符串，命令读取输入，直到指定字符串，开始执行命令。比如wc << EOF，wc会按批计算输入知道碰到EOF开始结算
+
+<<<: command <<< text;将text作为command的标准输入;<<<的实现是通过临时文件，通常是通过/tmp/sh-thd.<random string>，然后取消link
+
+< <:process substitution(进程替换):将一个进程的结果发送给另一个命令使用，听起来有点像管道。首先看一下这种用法command1 <(command2)，注意'<'和'('之间没有空格，此时系统将在/proc/self/fd/目录下创建文件，文件内容是command2命令的结果，然后将文件名传给command1，命令变成了command1 /proc/self/fd/1。
+再来看看command1 < <(command2)，此时系统先创建/proc/self/fd/1文件，然后将该文件的内容作为STDIN传递给command1。常见用法：
+while read line; do
+	echo $line
+done < <(tailf stdout.log)
+
+
+sh与bash的区别：
+bash(Bourne Again SHell)是linux的默认shell，它基于Bourne shell，吸收了C shell和Korn shell的一些特性。bash完全兼容Bourne shell,也就是说用Bourne shell的脚本不加修改可以在bash中执行。 
+
+sh是Bourne Shell，是unix的默认shell，对它评价是concise简洁 compact紧凑  fast高效 有AT&T编写，属于系统管理shell。
+简而言之，bash是sh的超急，如果sh执行不了，可以使用bash尝试

@@ -1,0 +1,8 @@
+Distributed/versioned configuration
+Service registration and discovery
+Routing
+Service-to-service calls
+Load balancing
+Circuit Breakers:Circuit-Breaker模式可以防止应用重复的尝试调用容易失败的操作，当Circuit-Breaker模式判断错误会持续的时候，它会令操作不再持续等待，以免继续浪费CPU资源。当然，Circuit-Breaker模式也令应用本身可以发现错误有没有被修复。如果发生的问题已经被修复了，应用可以重新尝试去调用服务。
+Distributed messaging
+
