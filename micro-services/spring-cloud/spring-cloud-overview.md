@@ -70,5 +70,47 @@ spring目前有5大核心组件和一些分布式系统的特色组件:
 	* 获取所有的url路径
 	* 获取所有属性
 	
+### spring-cloud项目依赖
 
-	
+spring-cloud项目建立在spring-boot项目之上，同spring-boot相似，有两种引入dependency的方式，一种是指定spring-cloud为parent项目，一种是指定spring-cloud和spring-boot的依赖版本。
+
+以spring-cloud版本Finchley.SR2为例，此版本兼容spring-boot的2.0.X版本：
+
+* 以dependency的方式引入（笔者更为推荐）：
+
+```xml
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 指定spring-cloud依赖的所有版本 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-boot 版本 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+```
+
+* 以parent的方式引入：
+
+	* spring-boot为parent
+		//todo
+	* spring-cloud为parent
+		//todo

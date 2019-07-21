@@ -11,6 +11,12 @@ But when another project(Project-X) declares Project-A as a dependency in its PO
 http://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html
 
 Scope：依赖范围
+	* compile: 默认值，compile的dependency对项目的所有classpath可用，这些依赖也会传递到依赖了该pom的项目
+	* provided: 这个选项代表跟compile相似，不同的是希望这个jar包由运行项目的容器（比如jvm，servlet容器）提供，这个jar包不具备传递性，maven提供的jar包在编译和测试时使用
+	* runtime
+	* test
+	* system
+	* import: 仅仅在type=pom时，在dependencyManagement域可用，这表示这个dependency将会被指定pom的dependencyManagement取代 
 type：dependency中type默认为jar即引入一个特定的jar包。那么为什么还会有type为pom呢?当我们需要引入很多jar包的时候会导致pom.xml过大，我们可以想到的一种解决方案是定义一个父项目，但是父项目只有一个，也有可能导致父项目的pom.xml文件过大。这个时候我们引进来一个type为pom，意味着我们可以将所有的jar包打包成一个pom，然后我们依赖了pom，即可以下载下来所有依赖的jar包
  It indicates the dependency to be replaced with the effective list of dependencies in the specified POM's <dependencyManagement> section. 
  
