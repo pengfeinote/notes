@@ -17,6 +17,23 @@ gc log相关参数：
 -XX:+PrintTenuringDistribution
 -verbose:gc
 -Xloggc:logs/gc.log
+-XX:MaxDirectMemorySize(堆外内存的最大大小):用于设置New I/O(java.nio) direct-buffer allocations的最大大小，size的单位可以使用k/K、m/M、g/G；如果没有设置该参数则默认值为0，意味着JVM自己自动给NIO direct-buffer allocations选择最大大小
+
+堆外内存：
+	堆外内存指的是不在java heap区的一块内存，传统的java进程中，申请内存一般是在java heap区，而堆外内存的使用不在java heap区，而且大小不受-Xmx等参数的管控。
+	为什么使用堆外内存：
+		linux操作系统将内存分为用户区和内核区，用户的进程运行在用户区内存，操作系统运行在内核区，如果需要内核操作，则调用操作系统的native方法，切换到内核态。当java进程需要将一个大文件写入，在原理上，前者可以看出分配的buffer是在heap区域的，其实真正flush到远程的时候会先拷贝得到直接内存，再做下一步操作（考虑细节还会到OS级别的内核区直接内存），其实发送静态文件最快速的方法是通过OS级别的send_file，只会经过OS一个内核拷贝，而不会来回拷贝；在NIO的框架下，很多框架会采用DirectByteBuffer来操作，这样分配的内存不再是在java heap上，而是在C heap上，经过性能测试，可以得到非常快速的网络交互，在大量的网络交互下，一般速度会比HeapByteBuffer要快速好几倍。在JDK 1.4 中新加入了NIO（New Input/Output）类，引入了一种基于通道（Channel）与缓冲区（Buffer）的I/O 方式，它可以使用Native 函数库直接分配堆外内存，然后通过一个存储在Java 堆里面的DirectByteBuffer 对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java 堆和Native 堆中来回复制数据。同时，可以避免堆外内存的jvm GC，避免长时间停顿
+	使用场景：大的IO操作
+	堆外内存管理:
+		ByteBuffer.allocateDirect申请 
+		System.gc() 显示GC可以清理堆外内存
+		或DirectBuffer.cleaner().clean()清理
+	堆外内存缺点：
+		自己管理内存（类似C++），容易造成内存泄漏
+		不适合存储复杂对象
+			
+
+	
 
 http://unixboy.iteye.com/blog/174173/
 
