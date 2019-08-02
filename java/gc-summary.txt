@@ -185,7 +185,12 @@ Full gc：
 
 		
 	如何优化：-XX:+UseConcMarkSweepGC使用cms；-XX:CMSFullGCsBeforeCompaction=5，5次full gc之后进行内存压缩；-XX+UseCMSCompactAtFullCollection full gc时压缩内存；-XX:+UseCMSInitiatingOccupancyOnly，禁止jvm自动触发gc，当老年代内存占用达到一定比例时，开始cms gc；-XX:CMSInitiatingOccupancyFraction=70，当老年代内存占用达到70%时，使用cms gc。-XX:CMSInitiatingPermOccupancyFraction，perm区到多少比例时，启动cms gc
-4: g1 gc
+	CMSInitiatingOccupancyFraction的默认值，在jdk1.5时是68，在1.6时是92。可以使用-XX:+PrintFlagsFinal来显示所有可配置参数的信息，然后找到 CMSTriggerRatio 和 MinHeapFreeRatio,然后计算 CMSInitiatingOccupancyFraction 的公式为：
+	CMSInitiatingOccupancyFraction = (100 - MinHeapFreeRatio) + (CMSTriggerRatio * MinHeapFreeRatio / 100)
+
+4: 
+
+g1 gc
 
 	过程：
 	特点：

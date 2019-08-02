@@ -8,6 +8,3 @@ es学习
 dubbo学习
 spring cloud学习
 grpc
-maven spring-boot打包
-maven相关整理
-maven shade打包模式：重命名包，避免jar包中的包名与执行容器包名冲突

@@ -1,0 +1,87 @@
+## hystrix
+
+### hystrix简介
+
+hystrix是netflix分布式系统中的一个组件，主要作为分布式系统中的断路器使用，作为断路器，hystrix的设计目标如下：
+
+* 对来自依赖的延迟和故障进行防护和控制——这些依赖通常都是通过网络访问的
+* 阻止故障的连锁反应
+* 快速失败并迅速恢复
+* 回退及优雅降级
+* 近实时的监控、告警和操作控制(?)
+
+针对这些目标，hystrix的设计原则：
+
+* 避免耗尽依赖的线程(Tomcat)资源
+* 过载时快速失败，避免请求排队
+* 错误时提供回退机制
+* 使用隔离技术限制单个依赖的影响
+
+
+hystrix的实现思路：
+
+* 使用命令模式，将对外部系统的依赖请求放在单独的线程中执行，相关接口HystrixCommand, HystrixObservableCommand
+* 请求超过设定时间时，将请求设置超时。
+* 每种请求有一个单独的小线程池，线程池线程耗尽则直接拒绝请求
+* 记录成功、失败(抛出异常)、超时、拒绝请求
+* 对某个服务的失败超过阈值，开启断路器模式，拒绝一切请求(可以手动或自动开启)
+* 失败时执行回退逻辑
+* 近实时的对监控指标和配置进行修改
+
+
+### 在spring-cloud中hystrix使用
+
+#### 单独使用hystrix作为断路器
+
+1. 继承HystrixCommand
+2. 使用HystrixCommand注解
+
+使用实例见项目实例
+
+#### 使用Feign自带的hystrix断路器
+
+使用方法：
+
+1. maven中引入spring-cloud-starter-openfeign依赖,添加@EnableFeignClients开启Feign功能
+2. @FeignClient定义接口，代替RestTemplate进行Restful调用
+3. 在配置中将feign.hystrix.enabled=true开启feign的hystrix功能，在FeignClient注解中添加fallback值，可以指定回退方法，回退方法必须是实现了FeignClient注解接口的类
+
+使用Feign的方式访问rpc服务较RestTemplate更为优雅，一方面Feign能够通过Eureka中注册的service name访问service provider，另一方面，feign可以将api调用封装成RestApi的形式，用户只要在注解中像配置Controller一样配置FeignClient注解的interface就可以了
+
+但是使用feignclient，对hystrix的配置显得较为麻烦，比如设置某个接口的超时时间，或者硬编码，或者设置属性：
+hystrix.command."UserFeignService#getUser()".execution.isolation.thread.timeoutInMilliseconds=1000
+
+#### 如何管理hystrix
+
+可以在HystrixCommand注解中添加HystrixProperty配置
+
+1. 如何配置超时时间？
+	execution.isolation.thread.timeoutInMilliseconds
+2. 线程池大小？
+3. 查看请求统计？
+4. 断路器开启
+	circuitBreaker.errorThresholdPercentage
+	circuitBreaker.forceClosed
+	circuitBreaker.forceOpen
+5. 修改配置?
+
+
+### hystrix实现原理
+
+#### aop实现
+HystrixCommandAspect定义了Hystrix的相关切点，即注解了@HystrixCommand和@HystrixCollapser的方法，
+
+* HystrixCommand 常规注解
+* HystrixCollapser 用来做请求合并，同HystrixCommand注解组合使用，合并接口的开启关闭需要通过HystrixRequestContext开启关闭上下文
+
+
+#### command模式？
+HystrixCommand:
+	execute: 同步执行
+	queue: 异步执行
+	observe: 为命令注册回调函数
+
+#### 合并请求
+	HystrixCollasper
+
+
