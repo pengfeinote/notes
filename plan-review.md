@@ -1,6 +1,28 @@
 ## 学习计划与复盘
 
+* flink
+* dubbo(多种rpc框架的使用、实现总结spring-cloud, grpc, thrift, finagle)
+* es
+* 一种MQ
+* spring(boot)技术栈 jdk经典结构(源码) guava经典结构(源码) 
+
 ### 流水账
+
+#### 2019-08-05 ~ 2019-08-11
+
+1. 计划
+	* spring-cloud总结
+	* flink
+2. 复盘
+	* 2019-08-05: ribbon的几种负载均衡方式及使用方法
+	* 2019-08-06: ribbon+eureka+feign的使用
+	* 2019-08-07: 空
+	* 2019-08-08: flink api的基本概念
+3. 总结
+	* ribbon自定义的几种负载均衡策略
+	* 使用feign定义负载均衡策略
+	* flink支持的数据类型（重点是POJO与泛型），field expression获取key，获取执行环境的方法
+
 
 #### 2019-07-29 ~ 2019-08-04
 
@@ -10,7 +32,7 @@
 	* flink api部分文档阅读完毕
 	* maven package总结
 	* 刷题15道以上
-	* 2019-08-03&2018-08-04: 刷mid题5-8道，构建完整的spring-cloud微服务
+	* 2019-08-03&2018-08-04: 刷mid题5-8道，构建完整的spring-cloud微服务(<font color='red'>未实现</font>)
 
 2. 复盘
 	* 2019-07-29: spring-cloud service provider部署,hystrix使用 刷一题

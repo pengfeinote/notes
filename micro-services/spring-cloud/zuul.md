@@ -141,8 +141,8 @@ Proxy注解会天然注册一些用于反向代理的filter进去，而Server注
 	zuul:
   		routes:
 			orient-service-url:                          #面向服务的路由配置,此名称可以自定义
-		      path: /os-url/**
-		      service-id: feign-customer   
+		   		path: /os-url/**
+		      		service-id: feign-customer   
 ```
 	
 	

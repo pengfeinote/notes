@@ -22,6 +22,7 @@ create index token_index on tableName(columnName(length))
 
 回表查询：
 	因为mysql的普通索引中存储了主键节点的值，所以一般情况下，在普通索引中找到主键值后，还需要在聚簇索引中找到主键值对应的实际记录行，回聚簇索引重新查找的过程，称为回表查询
+	explain时，extra为using index condition、using index & using where表示出现了回表
 	如何根据回表索引进行优化，避免大规模回表（索引覆盖，索引区分度不高时全表？）？
 
 索引覆盖：
