@@ -1,7 +1,6 @@
-git reset ���˵�ĳ���汾
+git reset 回退到某个版本
 
-������
-	--soft�����˵�ĳ���汾��ֻ������commit����Ϣ������ָ���index fileһ���������Ҫ�ύ��ֱ��commit����
-	--hard�����׻��˵�ĳ���汾��Դ���Ϊ�ð汾����
-	--mixed(Ĭ��):����Դ�룬����commit��index��Ϣ
-	
+参数：
+	--soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+	--hard：彻底回退到某个版本，源码变为该版本代码
+	--mixed(默认):保留源码，回退commit和index信息

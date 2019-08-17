@@ -1,5 +1,6 @@
-redisÊÇc/sÄ£Ê½µÄtcp·şÎñ¡£
-Õı³£Çé¿öÏÂ£¬client·¢³öÇëÇó£¬µÈ´ıÏìÓ¦½á¹û£¬ÈçÏÂ£º
+redisæ˜¯c/sæ¨¡å¼çš„tcpæœåŠ¡ã€‚
+clientå‘å‡ºè¯·æ±‚ï¼Œè¯·æ±‚é€šè¿‡ç½‘ç»œåˆ°è¾¾redis-serverï¼Œredis-serverå¾—åˆ°ç»“æœï¼Œå°†ç»“æœé€šè¿‡ç½‘ç»œè¿”å›ç»™clientï¼Œæ•´ä¸ªæ—¶é—´å«åšRTTï¼ˆRound Trip Timeï¼‰
+æ­£å¸¸æƒ…å†µä¸‹ï¼Œclientå‘å‡ºè¯·æ±‚ï¼Œç­‰å¾…å“åº”ç»“æœï¼Œå¦‚ä¸‹ï¼š
 incr a
 1
 incr a
@@ -8,9 +9,9 @@ incr a
 3
 incr a
 4
-Èç¹ûÍøÂçÓĞĞ©ÑÓ³Ù£¬±ÈÈçredis´¦Àí1ms£¬ÍøÂçÑÓ³Ù10ms£¬ÔòÕâËÄ²½²Ù×÷ĞèÒª44msÊ±¼ä
+å¦‚æœç½‘ç»œæœ‰äº›å»¶è¿Ÿï¼Œæ¯”å¦‚rediså¤„ç†1msï¼Œç½‘ç»œå»¶è¿Ÿ10msï¼Œåˆ™è¿™å››æ­¥æ“ä½œéœ€è¦44msæ—¶é—´
 
-Ê¹ÓÃpiplelineÄ£Ê½£º
+ä½¿ç”¨piplelineæ¨¡å¼ï¼š
 incr a
 incr a
 incr a
@@ -19,20 +20,21 @@ incr a
 2
 3
 4
-½«4¸öÃüÁîÅúÁ¿·¢ËÍ¸øredis£¬redisÅúÁ¿·µ»Ø½á¹û£¬ÍÌÍÂÓĞËùÌáÉı£¬Ö»Ğè14msÊ±¼ä¡£
+å°†4ä¸ªå‘½ä»¤æ‰¹é‡å‘é€ç»™redisï¼Œredisæ‰¹é‡è¿”å›ç»“æœï¼Œååæœ‰æ‰€æå‡ï¼Œåªéœ€14msæ—¶é—´ã€‚
 
-×¢£º
-Ê¹ÓÃpipeline£¬redis serverĞèÒª´æ´¢²Ù×÷½á¹û£¬»áÊ¹ÓÃÒ»¶¨µÄÄÚ´æ¡£
+æ³¨ï¼š
+ä½¿ç”¨pipelineï¼Œredis serveréœ€è¦å­˜å‚¨æ“ä½œç»“æœï¼Œä¼šä½¿ç”¨ä¸€å®šçš„å†…å­˜ã€‚
 	While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for this 10k commands.
 
 It's not just a matter of RTT:
 	https://redis.io/topics/pipelining#it39s-not-just-a-matter-of-rtt
-	read() write() system call µ÷ÓÃ¼õÉÙÍ¬Ñù¼«´óÌá¸ßÍÌÍÂ£¬´ó¸Å10±¶ÌáËÙ
+	ä¸ä½¿ç”¨pipelineï¼Œæ¯ä¸ªå‘½ä»¤è°ƒç”¨ç³»ç»Ÿçš„read() write()ï¼Œæ¯ä¸ªå‘½ä»¤éƒ½éœ€è¦ä»ç”¨æˆ·æ€åˆ‡æ¢åˆ°å†…æ ¸æ€
+	ä½¿ç”¨pipelineä¹‹åï¼Œå¤šä¸ªå‘½ä»¤å…±ç”¨ä¸€ä¸ªread() write()
+	read() write() system call è°ƒç”¨å‡å°‘åŒæ ·æå¤§æé«˜ååï¼Œå¤§æ¦‚10å€æé€Ÿ
 
-pipelineÓëtransaction:
-	pipeline½ö½ö½«ÃüÁî´ò°ü£¬²¢²»±£Ö¤´ò°üÃüÁîµÄÊÂÎñÌØĞÔ
+pipelineä¸transaction:
+	pipelineä»…ä»…å°†å‘½ä»¤æ‰“åŒ…ï¼Œå¹¶ä¸ä¿è¯æ‰“åŒ…å‘½ä»¤çš„äº‹åŠ¡ç‰¹æ€§
 
-pipeline Óëmset mget:
-	mset mget¸ü¿ì£¬µ«¶ÔÖ»ÄÜhash keyÊ¹ÓÃ
-	mset ÄÚ´æÊ¹ÓÃ±Èpipeline¸ß£¿´æÒÉ
-	
+pipeline ä¸mset mget:
+	mset mgetæ›´å¿«ï¼Œä½†å¯¹åªèƒ½hash keyä½¿ç”¨
+	mset å†…å­˜ä½¿ç”¨æ¯”pipelineé«˜ï¼Ÿå­˜ç–‘

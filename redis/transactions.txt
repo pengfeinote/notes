@@ -4,3 +4,7 @@ multi/discard/exec/watch/unwatch
 spring-redis-data
 SessionCallback与RedisCallback:
 SessionCallback支持事务，命令底层在一个connection中执行
+
+
+executePipeLine():	
+此时RedisCallback与SessionCallback仅在形式上不同，SessionCallback封装的更好，更可读，更建议使用

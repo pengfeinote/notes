@@ -1,19 +1,20 @@
-É¾³ıuntrackedÎÄ¼ş
-	git clean -n:²é¿´ÄÄĞ©ÎÄ¼ş½«±»É¾³ı
-	git clean -f:É¾³ıÎÄ¼ş
-	git clean -fd:É¾³ıÎÄ¼ş¼°Ä¿Â¼
+åˆ é™¤untrackedæ–‡ä»¶
+	git clean -n:æŸ¥çœ‹å“ªäº›æ–‡ä»¶å°†è¢«åˆ é™¤
+	git clean -f:åˆ é™¤æ–‡ä»¶
+	git clean -fd:åˆ é™¤æ–‡ä»¶åŠç›®å½•
 
-É¾³ı±¾µØ·ÖÖ§
+åˆ é™¤æœ¬åœ°åˆ†æ”¯
 	git branch -D <branchName>
 
-É¾³ıÔ¶³Ì·ÖÖ§£º
+åˆ é™¤è¿œç¨‹åˆ†æ”¯ï¼š
 	git push origin --delete <branchName>
 	
-É¾³ıtag
+åˆ é™¤tag
 	git push origin --delete tag <tagName>
 	
-É¾³ı²»´æÔÚ¶ÔÓ¦Ô¶³Ì·ÖÖ§µÄ±¾µØ·ÖÖ§£º
-	git remote show origin (²é¿´Ô¶³Ì·ÖÖ§×´Ì¬£¬Õ¹Ê¾´¦ÓÚstale×´Ì¬µÄ±¾µØ·ÖÖ§)
-	git remote prune origin(É¾³ıÃ»ÓĞÔ¶³Ì·ÖÖ§µÄ±¾µØ·ÖÖ§)
+åˆ é™¤ä¸å­˜åœ¨å¯¹åº”è¿œç¨‹åˆ†æ”¯çš„æœ¬åœ°åˆ†æ”¯ï¼š
+	git remote show origin (æŸ¥çœ‹è¿œç¨‹åˆ†æ”¯çŠ¶æ€ï¼Œå±•ç¤ºå¤„äºstaleçŠ¶æ€çš„æœ¬åœ°åˆ†æ”¯)
+	git remote prune origin(åˆ é™¤æ²¡æœ‰è¿œç¨‹åˆ†æ”¯çš„æœ¬åœ°åˆ†æ”¯)
 	
-	git fetch -p(Ö±½ÓÉ¾³ıÃ»ÓĞÔ¶³Ì·ÖÖ§µÄ±¾µØ·ÖÖ§)
+	git fetch -p(ç›´æ¥åˆ é™¤æ²¡æœ‰è¿œç¨‹åˆ†æ”¯çš„æœ¬åœ°åˆ†æ”¯)
+

@@ -8,6 +8,23 @@
 
 ### 流水账
 
+#### 2019-08-12 ~ 2019-08-18
+
+1. 计划
+	* 阅读flink文档
+	* 回顾redis相关内容
+2. 复盘
+	* 2019-08-12: redis(pipeline scan) flink DataStream Api
+	* 2019-08-13: flink time attr
+	* 2019-08-14: git rebase 和 cherry-pick
+	* 2019-08-17: 
+3. 总结
+	* redis pipeline 减少RTT，减少内核态调用
+	* scan使用游标的方式，减少命令的阻塞时间，效果优于keys, getall, range等
+	* flink DataStream api: Iterations，通过env设置job的参数，例如水印的生产方式，控制latency(通过setBufferTimeout)
+	* rebase(合并commit记录，合并分支)，cherry-pick(挑选单独commit进行合并)
+	* flink可以处理late event，并行task的水印处理机制
+
 #### 2019-08-05 ~ 2019-08-11
 
 1. 计划
@@ -18,10 +35,12 @@
 	* 2019-08-06: ribbon+eureka+feign的使用
 	* 2019-08-07: 空
 	* 2019-08-08: flink api的基本概念
+	* 2019-08-09: flink java8 lambda
 3. 总结
 	* ribbon自定义的几种负载均衡策略
 	* 使用feign定义负载均衡策略
 	* flink支持的数据类型（重点是POJO与泛型），field expression获取key，获取执行环境的方法
+	* 在涉及泛型时，通过returns(Types type)来告诉flink泛型的类型
 
 
 #### 2019-07-29 ~ 2019-08-04

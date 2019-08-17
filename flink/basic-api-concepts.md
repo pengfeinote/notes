@@ -87,3 +87,7 @@ Flink的多数结构都支持获取泛型类型，java编译器在运行时抛�
 ### 累加器
 
 暂时不懂？
+
+### 使用java lambda表达式
+
+java8的lambda表达式打开了java函数式编程的大门，flink支持java8所有形式的lambda表达式，不过在涉及到泛型时，因为java编译器会擦除泛型信息，因此flink提供了return(Types type)来获取泛型信息，否则会报错
