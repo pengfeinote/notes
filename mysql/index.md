@@ -33,3 +33,16 @@ create index token_index on tableName(columnName(length))
 	select id, name, age, sex from student where name='wpf' and age=18;
 	则需要查询表中的数据，mysql中explain Extra字段有"Using Index"时，表示为索引覆盖
 	（如何利用索引覆盖的特性？经常select的列尽可能写进索引）
+
+
+索引优化： https://mp.weixin.qq.com/s/D-PfOSef9BS5iFMFmVMpMg
+
+exists与in的选择:
+	如果A数据集大于B，使用IN更佳，否则使用exists更佳
+
+尽量避免使用子查询，可以把子查询优化成join操作，子查询性能差的原因：
+* 子查询的结果集无法使用索引，通常子查询的结果集会被存储到临时表中，不论是内存临时表还是磁盘临时表都不会存在索引，所以查询性能会受到一定的影响；
+* 特别是对于返回结果集比较大的子查询，其对查询性能的影响也就越大；
+* 由于子查询会产生大量的临时表也没有索引，所以会消耗过多的CPU和IO资源，产生大量的慢查询。
+
+

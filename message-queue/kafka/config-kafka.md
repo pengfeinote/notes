@@ -2,6 +2,12 @@
 
 ## kafka brokers配置
 
+1. offsets.retention.minutes
+
+group offset的过期时间，如果一个consumer group过了一段时间没有提交offset，kafka会认为该consumer已经inactive，将offset删除，因此，即使你的consumer在运行，如果它一段时间没有向某些partition提交offset的话，offset将会被删除
+
+如果一个consumer启动，它会先fetch自己的offset，如果fetch成功，则从offset开始读取，否则，根据auto.offset.reset(latest, earliest)获取数据
+
 ## kafka producers配置
 1. bootstrap.servers
 
@@ -71,3 +77,7 @@
 	在重试发送失败的request前的等待时间，防止若目的Broker完全挂掉的情况下Producer一直陷入死循环发送，折中的方法
 
 ## kafka consumers配置
+
+auto.offset.reset=latest|ealiest
+
+consumer启动如果找不到offset时，offset的策略

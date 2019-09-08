@@ -1,6 +1,8 @@
 select_type:
 	SIMPLE	None	Simple SELECT (not using UNION or subqueries)
 	PRIMARY	None	Outermost SELECT
+	MATERIALIZED    物化子查询
+	DERIVED。       派生表的select
 type(important):
 	const: The table has at most one matching row, which is read at the start of the query. Because there is only one row, values from the column in this row can be regarded as constants by the rest of the optimizer. const tables are very fast because they are read only once.
 	all: A full table scan is done for each combination of rows from the previous tables. This is normally not good if the table is the first table not marked const, and usually very bad in all other cases. Normally, you can avoid ALL by adding indexes that enable row retrieval from the table based on constant values or column values from earlier tables.

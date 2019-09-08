@@ -1,11 +1,10 @@
 jdK ConcurrentSkipListMap实现
-guava ratelimiter的使用及原理
+guava ratelimiter的使用及原理(好用的guava库)
 restful总结
 kafka体系
 rabbitmq体系
 flink体系
 es学习
 dubbo学习
-spring cloud学习
 grpc
-jdk AQS
+jdk ThreadPool系列

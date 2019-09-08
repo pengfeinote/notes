@@ -393,6 +393,72 @@ private void setHeadAndPropagate(Node node, int propagate) {
 资源，如果B获取资源之后资源数大于0(if r > 0)，则调用setHeadAndPropagate，setHeadAndPropagate中又使用了
 doReleaseShared唤醒后继节点C
 
+### AQS中的ConditionObject
+
+AQS中实现了两种队列，同步队列和COndition队列，一个AQS只有一个同步队列，表示获取资源的队列，一个AQS可以有多个Condition队列，可以理解为等待某种资源而挂起的队列。一个节点必须先在同步队列中，调用ConditionObject的await接口，从同步队列移动到等待队列，所以在使用锁的Condition时，调用Condition的接口前线程必须先获取锁，然后调用await接口，释放锁(从同步队列移除)，等待其他线程调用signal(移入到Condition队列中)，当有其他线程调用signal接口时，将节点从COndition队列移除并加入到同步队列中
+
+```java
+
+	public final void await() throws InterruptedException {
+            if (Thread.interrupted())
+                throw new InterruptedException();
+            Node node = addConditionWaiter();
+            int savedState = fullyRelease(node);
+            int interruptMode = 0;
+            while (!isOnSyncQueue(node)) {
+                LockSupport.park(this);
+                if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
+                    break;
+            }
+            if (acquireQueued(node, savedState) && interruptMode != THROW_IE)
+                interruptMode = REINTERRUPT;
+            if (node.nextWaiter != null) // clean up if cancelled
+                unlinkCancelledWaiters();
+            if (interruptMode != 0)
+                reportInterruptAfterWait(interruptMode);
+        }
+
+```
+注意，因为await之前，当前线程已经获取锁，它在同步队列里的node已经被移除，所以这里添加了新节点
+
+```java
+	private void doSignal(Node first) {
+            do {
+                if ( (firstWaiter = first.nextWaiter) == null)
+                    lastWaiter = null;
+                first.nextWaiter = null;
+            } while (!transferForSignal(first) &&
+                     (first = firstWaiter) != null);
+        }
+
+	final boolean transferForSignal(Node node) {
+        /*
+         * If cannot change waitStatus, the node has been cancelled.
+         */
+        if (!compareAndSetWaitStatus(node, Node.CONDITION, 0))
+            return false;
+
+        /*
+         * Splice onto queue and try to set waitStatus of predecessor to
+         * indicate that thread is (probably) waiting. If cancelled or
+         * attempt to set waitStatus fails, wake up to resync (in which
+         * case the waitStatus can be transiently and harmlessly wrong).
+         */
+        Node p = enq(node);
+        int ws = p.waitStatus;
+        if (ws > 0 || !compareAndSetWaitStatus(p, ws, Node.SIGNAL))
+            LockSupport.unpark(node.thread);
+        return true;
+    }
+
+```
+
+signal操作时，将节点从condition队列转移到同步队列
+
+注意，ConditionObject中没有同步操作，因为调用接口的时候，线程已经获取到锁了，所以不需要同步
+
+https://www.jianshu.com/p/a82228c8c0d5
+
 ### AQS在jdk中的典型应用
 
 #### ReentrantLock中的FairSync与UnfairSync
