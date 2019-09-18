@@ -2,6 +2,10 @@
 * HashMap: 
 	* 数组+链表，冲突放入链表中
 	* jdk 1.8后链表长度大于8时转为红黑树(8硬编码在文件中)
+	* jdk1.8中,当链表长度大于等于8时,且当hash数组的长度大于等于64时才会，转为红黑树
+	* 如果hash数组长度小于64，则不会转红黑树，而通过扩容的方式重新hash
+	* 扩容,表容量扩大两倍,原链表的节点会被分成(h.hash & oldCap，因为oldCap是2的n次方)两部分，一部分放在原index，另一部分放在原index+oldCap的地方,如果是红黑树，拆完后长度少于6，则会再次转为链表
+	* 除此之外，当元素个数>tablesize * loadfactor时，会进行resize
 	* 允许key及value为null
 * HashTable: 
 	* 数组+链表，
@@ -9,7 +13,8 @@
 	* key及value均不能为null,为什么不能为null，历史原因，作者没有处理
 * ConcurrentHashMap:
 	* jdk 1.8后, 链表长度大于8转为红黑树
-	* 同步方法  
+	* concurrenthashmap多线程(写线程协助)扩容，通过对已处理节点设置fwd标志来协同扩容，过程同hashmap类似 
+	* put时，如果tab节点为null，使用cas加入节点，否则通过sync对entry加锁，完成添加 
 * LinkedHashMap:
 	* HashMap+链表
 	* 添加元素时用链表串起来，实现按照插入顺序便利
