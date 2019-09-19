@@ -23,6 +23,6 @@ try {
 	* allkeys-lru：根据LRU算法删除键，不管数据有没有设置超时属性，直到腾出足够空间为止。
 	* allkeys-random：随机删除所有键，直到腾出足够空间为止。
 	* volatile-random:随机删除过期键，直到腾出足够空间为止。
-	*volatile-ttl：根据键值对象的ttl属性，删除最近将要过期数据。如果没有，回退到noeviction策略。
+	* volatile-ttl：根据键值对象的ttl属性，删除最近将要过期数据。如果没有，回退到noeviction策略。
 	* noeviction：不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息"(error) OOM command not allowed when used memory"，此时Redis只响应读操作。
 9. redis间数据同步可以使用：redis-port
