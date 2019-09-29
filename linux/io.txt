@@ -1,1 +1,16 @@
-C10K问题: C=Client, 10k=1万，指的是传统io模型中，新来一个client就要新建一个线程或进程处理，操作系统成为系统性能瓶颈
+
+### linux(操作系统层面)-io总结
+* C10K问题: C=Client, 10k=1万，指的是传统io模型中，新来一个client就要新建一个线程或进程处理，操作系统成为系统性能瓶颈
+* fd: linux中每一个socket连接都是一个fd，fd限制可能会成为并发数的限制
+	* linux系统下，所有进程允许打开的最大fd数量
+	
+		/proc/sys/fs/file-max
+	* linux系统下，所有进程已经打开的fd数量以及允许的最大数量
+		
+		/proc/sys/fs/file-nr
+	* 单个进程允许的最大fd数量
+		
+		ulimit -n
+	* 单个进程使用的fd数量
+		
+		ls -l /proc/{进程id}/fd/

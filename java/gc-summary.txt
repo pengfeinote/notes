@@ -188,6 +188,22 @@ Full gc：
 	CMSInitiatingOccupancyFraction的默认值，在jdk1.5时是68，在1.6时是92。可以使用-XX:+PrintFlagsFinal来显示所有可配置参数的信息，然后找到 CMSTriggerRatio 和 MinHeapFreeRatio,然后计算 CMSInitiatingOccupancyFraction 的公式为：
 	CMSInitiatingOccupancyFraction = (100 - MinHeapFreeRatio) + (CMSTriggerRatio * MinHeapFreeRatio / 100)
 
+
+promotion failed
+
+原因：只ParaNew在minor gc时，由于Survivor区放不下，需要将对象放进老年代，老年代也放不下，导致Full GC的问题，因为CMS采用的是标记清除算法，没办法进行空间整理，因此可能会产生过多的内存碎片
+现象：[GC 106.641: [ParNew (promotion failed): 14784K->14784K(14784K), 0.0370328 secs]106.678: [CMS106.715: [CMS-concurrent-mark: 0.065/0.103 secs] [Times: user=0.17 sys=0.00, real=0.11 secs]
+解决方法：可以使用-XX:UseCMSCompactAtFullCollection -XX:CMSFullGCBeforeCompaction=5两个参数来控制CMS进行内存整理，减少内存碎片；也可以加大S区的大小，避免对象过早进入老年代
+注意：promotion failed时，老年代还没有CMS GC，此时会出发CMS GC，如果CMS GC的过程中还有对象分配过来失败，则会造成concurrent mode failed
+
+concurrent mode failed:
+现象：在CMS GC进行并发清除时，又有新的对象分配过来，分配失败，此时出现concurrent mode failed，CMS GC退化成serial gc
+原因：触发CMS时，老年代空间已经不足
+log：[ParNew: 2986K->2986K(8128K), 0.0000083 secs]0.195: [CMS0.212: [CMS-concurrent-preclean: 0.011/0.031 secs] [Times: user=0.03 sys=0.02, real=0.03 secs] (concurrent mode failure): 56046K->138K(57344K), 0.0271519 secs] 59032K->138K(65472K), [CMS
+解决办法：使用-XX:+UseCMSInitiatingOccupancyOnly和-XX:+CMSInitiatingOccupancyFraction设置CMS启动时机，避免concurrent mode failed，因为退化成serial gc，所以需要特别注意
+ 
+
+
 4: 
 
 g1 gc
