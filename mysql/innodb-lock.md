@@ -54,3 +54,6 @@ auto-increment是一个表级锁,当一个事务向带有自增主键的表插�
 * insert into ...
 
 简单的insert会在主键上加入record lock排他锁，在insert之前，会加入一个意向gap锁，我理解这个意向gap锁允许其他意向gap锁插入数据（如果不冲突的话），但是不允许其他类似update的gap锁获取到锁
+
+
+mysql中，mvcc本质上是乐观锁的实现，以上是悲观锁
