@@ -8,10 +8,34 @@
 
 ### 流水账
 
+#### 2019-10-14 ~ 2019-10-20
+1. 计划：
+	* 刷题10(8 mid, 2 hard)
+	* dubbo负载均衡/路由/序列化协议/调用过程原理解析
+	* dubbo thrift spring cloud对比
+2. 复盘:
+	* dubbo负载均衡
+	* dubbo路由
+	 
+3. 总结：
+	* 可自定义路由，路由接口List<Invoker> select(List<Invoker>, Invocation invocation)
+	* dubbo对于一致性hash的实现，通过TreeMap + tailMap(fromKey)找到需要调用的Invoker
+
+#### 2019-10-10 ~ 2019-10-13
+
+1. 计划
+	* 解决dubbo(重点)和mybatis
+	* 刷10个左右mid
+	* rpc框架协议，thrift,finagle,dubbo,spring-cloud优缺点对比？所用序列化协议，通信协议等
+2.复盘
+	* dubbo负载均衡
+	* 4道 mid
+3.总结
+	* dubbo根据权重进行随机/轮训策略的实现
+
 #### 2019-09-23 ~ 2019-09-29
 
 1. 计划
-	* 项目梳理
 	* 消息中间件梳理
 	* rpc框架梳理
 	* tinyUrl(encode, decode)
@@ -20,7 +44,7 @@
 	* 灾备方案梳理
 	* 负载均衡策略梳理
 	* 高可用、高并发、高可用方法论及常见问题
-	* apollo多机房搭建梳理
+	* 一致性hash
 2. 复盘
 	* 2019-09-23: 项目梳理
 3. 总结
