@@ -16,6 +16,7 @@
 2. 复盘:
 	* dubbo负载均衡
 	* dubbo路由
+	* 2019-10-14: 二叉树;图深度搜索(图算法总结);前k大变形(PriorityQueue使用)
 	 
 3. 总结：
 	* 可自定义路由，路由接口List<Invoker> select(List<Invoker>, Invocation invocation)
