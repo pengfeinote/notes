@@ -18,7 +18,7 @@
 	* dubbo路由
 	* 2019-10-14: duboo SPI + 二叉树;图深度搜索(图算法总结);前k大变形(PriorityQueue使用)
 	* 2019-10-16: Dijkstra
-	* 2019-10-17: dubbo自适应的实现方式 (protocol, transporter, router, loadbalancer如何实现可插拔)
+	* 2019-10-17: dubbo自适应的实现方式 (protocol, transporter, router, loadbalancer如何实现可插拔), leetcode 684, 684-2
 	 
 3. 总结：
 	* 可自定义路由，路由接口List<Invoker> select(List<Invoker>, Invocation invocation)
