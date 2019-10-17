@@ -16,11 +16,14 @@
 2. 复盘:
 	* dubbo负载均衡
 	* dubbo路由
-	* 2019-10-14: 二叉树;图深度搜索(图算法总结);前k大变形(PriorityQueue使用)
+	* 2019-10-14: duboo SPI + 二叉树;图深度搜索(图算法总结);前k大变形(PriorityQueue使用)
+	* 2019-10-16: Dijkstra
+	* 2019-10-17: dubbo自适应的实现方式 (protocol, transporter, router, loadbalancer如何实现可插拔)
 	 
 3. 总结：
 	* 可自定义路由，路由接口List<Invoker> select(List<Invoker>, Invocation invocation)
 	* dubbo对于一致性hash的实现，通过TreeMap + tailMap(fromKey)找到需要调用的Invoker
+	* 线上回滚前dump出jvm进程相关信息(jstack, jinfo, jstat, jmap)
 
 #### 2019-10-10 ~ 2019-10-13
 

@@ -79,3 +79,6 @@ public interface Router extends Comparable<Router> {
 }
 ```
 
+### dubbo SPI
+
+SPI全称Service Provider Interface，jdk本身提供了SPI机制，dubbo自己实现了一套SPI机制，SPI是dubbo实现各层功能的基础
