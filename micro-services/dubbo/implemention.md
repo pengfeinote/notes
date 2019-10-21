@@ -82,3 +82,5 @@ public interface Router extends Comparable<Router> {
 ### dubbo SPI
 
 SPI全称Service Provider Interface，jdk本身提供了SPI机制，dubbo自己实现了一套SPI机制，SPI是dubbo实现各层功能的基础
+
+Duboo使用SPI+Adaptive自适应机制，在Protocol,Transporter,Router,LoadBalancer等机制上实现可插拔/可自定义实现 
