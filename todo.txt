@@ -7,5 +7,4 @@ flink体系
 es学习
 IO(io多路复用,BIO,NIO,AIO)
 三高常见问题
-主从同步的方式(mysql, kafka, rabbitmq)
 guava cache如何刷新
