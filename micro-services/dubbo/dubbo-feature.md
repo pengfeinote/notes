@@ -56,4 +56,20 @@ provider端配置属性
 
 ### 架构
 
+**服务架构：**
+
+* registry: 注册中心
+* provider: 向registry注册
+* consumer: 从registry订阅,provider有变更时registry通知consumer
+* monitor: provider和consumer异步通知monitor,monitor定时统计消息
+
+**dubbo实现架构:**
+
+* 序列化层
+* 网络传输层
+
+**dubbo调用流程:**
+
+* ServiceConfig
+
 ### 源码设计

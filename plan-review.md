@@ -3,18 +3,20 @@
 * flink
 * es
 * 一种MQ
-* spring(boot)技术栈 jdk经典结构(源码) guava经典结构(源码) 
+* spring(boot)技术栈 jdk经典结构(源码) 
 
 ### 流水账
 
-#### 2019-10-20 ~ 2019-10-25
+#### 2019-10-21 ~ 2019-10-27
 1. 计划
 	* 刷题(8 mid, 2 hard)
 	* 分布式通用技术：主从同步原理,leader选举协议
 	* dubbo架构
+	* guava缓存机制,RateLimiter
 2. 复盘：
-	* 2019-10-20: http协议演进；leetcode mid: carFleet；最小生成树&并查集
-	* 2019-10-21: 主从同步(mysql, redis, rabbitmq, kafka, zookeeper) 
+	* 2019-10-21: http协议演进；leetcode mid: carFleet；最小生成树&并查集
+	* 2019-10-22: 主从同步(mysql, redis, rabbitmq, kafka, zookeeper) 
+	* 2019-10-23: guava缓存刷新
 3. 总结：
 	* 1.0 -> 1.1: 实现长连接；缓存控制；1.1 -> 2.0: 多路复用；二进制协议；服务端push；header压缩
 	* 并查集：记录parent[i]，通过不断查找parent[i]的实现更为优雅

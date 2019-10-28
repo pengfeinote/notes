@@ -1,12 +1,16 @@
 https://redis.io/topics/sentinel
 http://www.cnblogs.com/zhoujinyi/p/5569462.html
+
 ## redis-sentinel
+
 ### 简介
+
 sentinel主要做以下几件事：  
 
 * monitoring: 不断监控主服务器和从服务器是否正常运作
 * Notification: 当被监控的某个redis服务器出现问题时，Sentinel可以通过API向管理员或者其他应用<B>发送通知</b>
 * Automatic failover: 当一个主服务器不能正常工作时，Sentinel会开始一次自动故障迁移操作，它会将失效主服务器的其中一个从服务器升级为新的主服务，并将失效主服务器的其他从服务器改为复制新的主服务器，当客户端试图连接失效的主服务器时， 集群也会向客户端返回新主服务器的地址， 使得集群可以使用新主服务器代替失效服务器。
+
 * Configuration Provider: sentinel向连接它的客户端提供可用的主redis实例的地址，如果发生故障迁移，则sentinel提供新的地址
 
 Redis Sentinel 是一个分布式系统， 你可以在一个架构中运行多个 Sentinel 进程（progress）， 这些进程使用流言协议（gossip protocols)来接收关于主服务器是否下线的信息， 并使用投票协议（agreement protocols）来决定是否执行自动故障迁移， 以及选择哪个从服务器作为新的主服务器。
@@ -14,6 +18,7 @@ Redis Sentinel 是一个分布式系统， 你可以在一个架构中运行多�
 虽然 Redis Sentinel 释出为一个单独的可执行文件 redis-sentinel ， 但实际上它只是一个运行在特殊模式下的 Redis 服务器， 你可以在启动一个普通 Redis 服务器时通过给定 –sentinel 选项来启动 Redis Sentinel 。
 
 ### 使用
+
 使用src/redis-sentinel /path/to/sentinel.conf启动。
 sentinel是单独的进程实例，默认端口是26379，或者使用src/redis-server /path/to/sentinel.conf --sentinel
 使用规则:
@@ -25,6 +30,7 @@ sentinel是单独的进程实例，默认端口是26379，或者使用src/redis-
 * 使用docker等容器部署sentnel要需要小心
 
 ### 配置
+
 sentinel monitor mymaster 127.0.0.1 6379 2 <br>
 sentinel down-after-milliseconds mymaster 60000<br>
 sentinel failover-timeout mymaster 180000<br>
