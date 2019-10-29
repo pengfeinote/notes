@@ -31,3 +31,15 @@ zookeeper能够保证最终一致性，即弱一致性，无法保证可用性�
 **eureka保障AP**
 
 在eureka节点网络不通时，可以向节点写入数据，当时数据不会同步到其他节点，因此，eureka可以认为是AP的
+
+#### 数据同步方法
+
+**zookeeper**
+
+**eureka**
+
+#### 选举方法
+
+**zookeeper**
+
+**eureka**
