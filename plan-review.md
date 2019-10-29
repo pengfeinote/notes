@@ -12,6 +12,7 @@
 	* 针对性整理题目
 	* 刷题10 跳表
 	* spring / spring boot
+	* 分布式协议：zab & poxas协议
 2. 复盘
 	* 2019-10-28: duboo架构/流程；redis cluster/sentinel; zk/eureka
 3. 总结
