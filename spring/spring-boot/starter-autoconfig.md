@@ -1,5 +1,9 @@
 ## spring-boot-starter和spring-boot的autoconfiguration
 
+### @EnableAutoConfiguration
+
+该注解使用Import引入了EnableAutoConfigurationImportSelector.class，该类会读取jar包中的META-INF/spring.factories文件，文件中定义了需要引入的自动配置类
+
 ### spring-boot-starter实现
 
 以spring-boot-starter-actuator为例，本质上是一个jar包(spring-boot-starter-actuactor.jar)，jar包中包含了一个META-INF的文件夹，里面的spring.factories文件包含了需要引入的模块，或者在maven文件夹的pom.xml中引入指定的依赖
