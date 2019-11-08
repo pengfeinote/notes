@@ -1,10 +1,10 @@
-clockdiff: ¼ì²âÁ½Ì¨·şÎñÆ÷Ö®¼äµÄÊ±¼ä²î
+clockdiff: æ£€æµ‹ä¸¤å°æœåŠ¡å™¨ä¹‹é—´çš„æ—¶é—´å·®
 
 
 
 host=172.31.48.23 rtt=45(0)ms/45ms delta=610ms/610ms Tue Jan 23 11:13:46 2018
 
-rtt: Íù·µÊ±ÑÓ
-delta£ºÊ±¼ä²î
+rtt: å¾€è¿”æ—¶å»¶
+deltaï¼šæ—¶é—´å·®
 
 http://blog.csdn.net/fsdev/article/details/7867501

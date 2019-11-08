@@ -1,16 +1,16 @@
-history²é¿´ÃüÁîÖ´ÐÐÊ±¼ä
+historyæŸ¥çœ‹å‘½ä»¤æ‰§è¡Œæ—¶é—´
 
-·½·¨1£º
- Ö´ÐÐ export HISTTIMEFORMAT="%Y-%m-%d:%H-%M-%S:`whoami`:    "ÃüÁî
- È»ºóÖ´ÐÐhistoryÃüÁî²é¿´
+æ–¹æ³•1ï¼š
+ æ‰§è¡Œ export HISTTIMEFORMAT="%Y-%m-%d:%H-%M-%S:`whoami`:    "å‘½ä»¤
+ ç„¶åŽæ‰§è¡Œhistoryå‘½ä»¤æŸ¥çœ‹
 
- ·½·¨2£º
- ÔÚ~/.bashrcÎÄ¼þÖÐÌí¼ÓÈçÏÂÐÐ
+ æ–¹æ³•2ï¼š
+ åœ¨~/.bashrcæ–‡ä»¶ä¸­æ·»åŠ å¦‚ä¸‹è¡Œ
 HISTTIMEFORMAT="%Y-%m-%d:%H-%M-%S:`whoami`:  "
  export HISTTIMEFORMAT
-È»ºóÖ´ÐÐsource  ~/.bashrcÉúÐ§¼´¿É£»
+ç„¶åŽæ‰§è¡Œsource  ~/.bashrcç”Ÿæ•ˆå³å¯ï¼›
 
- ½á¹û£º
+ ç»“æžœï¼š
  1050  2016-09-16:16-33-31:root:  history 
  1051  2016-09-16:16-34-39:root:  clear
  1052  2016-09-16:16-34-45:root:  vim .bashrc 
@@ -19,17 +19,17 @@ HISTTIMEFORMAT="%Y-%m-%d:%H-%M-%S:`whoami`:  "
  1055  2016-09-16:16-36-38:root:  clear
  1056  2016-09-16:16-36-40:root:  history
 
-²¹³ä£º
- 1.historyµÄÀúÊ·ÃüÁî±£´æÔÚ~/.bash_history ÎÄ¼þÖÐ£¬ËùÒÔÒ²¿ÉÒÔ²é¿´¸ÃÎÄ¼þÀ´²é¿´ÀúÊ·ÃüÁî£»
- 2.~/.bashrcÎÄ¼þ¿ÉÌí¼ÓµÄhistoryÏà¹ØµÄËµÃ÷
-        HISTFILESIZE=2000      #ÉèÖÃ±£´æÀúÊ·ÃüÁîµÄÎÄ¼þ´óÐ¡
-        HISTSIZE=2000          #±£´æÀúÊ·ÃüÁîÌõÊý
-        HISTTIMEFORMAT="%Y-%m-%d:%H-%M-%S:`whoami`:  "    #¼ÇÂ¼Ã¿ÌõÀúÊ·ÃüÁîµÄÖ´ÐÐÊ±¼äºÍÖ´ÐÐÕß
+è¡¥å……ï¼š
+ 1.historyçš„åŽ†å²å‘½ä»¤ä¿å­˜åœ¨~/.bash_history æ–‡ä»¶ä¸­ï¼Œæ‰€ä»¥ä¹Ÿå¯ä»¥æŸ¥çœ‹è¯¥æ–‡ä»¶æ¥æŸ¥çœ‹åŽ†å²å‘½ä»¤ï¼›
+ 2.~/.bashrcæ–‡ä»¶å¯æ·»åŠ çš„historyç›¸å…³çš„è¯´æ˜Ž
+        HISTFILESIZE=2000      #è®¾ç½®ä¿å­˜åŽ†å²å‘½ä»¤çš„æ–‡ä»¶å¤§å°
+        HISTSIZE=2000          #ä¿å­˜åŽ†å²å‘½ä»¤æ¡æ•°
+        HISTTIMEFORMAT="%Y-%m-%d:%H-%M-%S:`whoami`:  "    #è®°å½•æ¯æ¡åŽ†å²å‘½ä»¤çš„æ‰§è¡Œæ—¶é—´å’Œæ‰§è¡Œè€…
         export HISTTIMEFORMAT
-    ÆäÖÐ£º
-        %Y:4Î»ÊýµÄÄê·Ý£»
-        %m:2Î»ÊýµÄÔÂ·ÝÊý£»
-        %d:2Î»ÊýµÄÒ»¸öÔÂÖÐµÄÈÕÆÚÊý£»
-        %H£º2Î»ÊýµÄÐ¡Ê±Êý£¨24Ð¡Ê±ÖÆ£©£»
-        %M£º2Î»ÊýµÄ·ÖÖÓÊý£»
-        %S£º2Î»ÊýµÄÃëÊý
+    å…¶ä¸­ï¼š
+        %Y:4ä½æ•°çš„å¹´ä»½ï¼›
+        %m:2ä½æ•°çš„æœˆä»½æ•°ï¼›
+        %d:2ä½æ•°çš„ä¸€ä¸ªæœˆä¸­çš„æ—¥æœŸæ•°ï¼›
+        %Hï¼š2ä½æ•°çš„å°æ—¶æ•°ï¼ˆ24å°æ—¶åˆ¶ï¼‰ï¼›
+        %Mï¼š2ä½æ•°çš„åˆ†é’Ÿæ•°ï¼›
+        %Sï¼š2ä½æ•°çš„ç§’æ•°

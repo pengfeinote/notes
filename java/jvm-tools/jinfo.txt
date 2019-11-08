@@ -1,0 +1,34 @@
+## jinfo
+
+jinfo主要用于查看/修改jvm的一些系统参数，当系统崩溃时，可以从core文件中查看java进程的配置信息
+
+
+### jinfo用法
+```
+	Usage:
+    jinfo [option] <pid> 
+        (to connect to running process)
+    jinfo [option] <executable <core>
+        (to connect to a core file)
+    jinfo [option] [server_id@]<remote server IP or hostname>
+        (to connect to remote debug server)
+        
+	where <option> is one of:
+    -flag <name>         to print the value of the named VM flag
+    -flag [+|-]<name>    to enable or disable the named VM flag
+    -flag <name>=<value> to set the named VM flag to the given value
+    -flags               to print VM flags
+    -sysprops            to print Java system properties
+    <no option>          to print both of the above
+    -h | -help           to print this help message
+```   
+
+### option
+
+* no option 输出全部的参数和系统属性
+* -flag name 输出对应名称的参数
+* -flag [+|-]name 开启或者关闭对应名称的参数
+* -flag name=value 设定对应名称的参数
+* -flags 输出全部的参数
+* -sysprops 输出系统属性
+
