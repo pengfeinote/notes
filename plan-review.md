@@ -12,7 +12,8 @@
 	* 针对性整理架构/源码/中间件知识(spring boot启动过程/spring容器启动过程/RPC与MQ选型/RPC框架选型对比/MQ框架选型对比/存储选型)
 	* 刷题5道 (4 mid 1 hard)
 	* 系统设计题目重点练习
-	* 分布式协议总结
+	* leader选举协议总结(zk/kafka/redis/rabbitmq zab poxas)
+	* 数据同步协议总结(zk/kafka/redis/mysql/rabbitmq 数据一致性与可用性保障)
 
 2. 复盘
 	* 2019-11-05: rpc与mq，解耦；流量减压; mid block num

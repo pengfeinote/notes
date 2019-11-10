@@ -1,102 +1,119 @@
-http://www.importnew.com/20457.html
+## ZK基础功能支撑
 
-ZooKeeper����ģ��:
-	ZooKeeper��һ���㼶�����ռ䣬��һ���ֲ�ʽ�ļ�ϵͳ�ǳ����ơ�Ψһ�Ĳ�ͬ��ÿ���ڵ�����й��������ݣ��ӽڵ�Ҳ�ǡ�������һ���ļ�ϵͳ���������ļ���һ��Ŀ¼��һ���淶�ġ����Եġ�б�ָܷ���·������ʾһ���ڵ�·����û�����·�����κη�������Լ���ĵ�unicode�ַ����Ա�ʹ�ã�
+>**转:http://www.importnew.com/20457.html**
 
-	null�ַ�����\u0000��������һ��·�����ơ�
-	�����ַ����ܱ�ʹ�ã���Ϊ���ܺܺõı�չʾ��\u0001 �C \u001F �� \u007F �C \u009F��
-	�����ַ��ǲ������ģ�\ud800 �C uF8FF, \uFFF0 �C uFFFF��
-	��.���ַ�������Ϊ��һ�����ֱ�ʹ�ã����ǡ�.���͡�..�����ܵ���ʹ������ʾһ���ڵ�·������ΪZooKeeper��ʹ�����·������������Ч�ģ���/a/b/./c������ ��/a/b/../c����
-	��zookeeper����Ǳ�������
-	ZNodes
+### zk数据模型
 
-	��ZooKeeper���е�ÿ���ڵ㱻��Ϊһ��znode��Znodes������һ��stat���ݽṹ��������ݽṹ���������ݱ���İ汾�š�acl�����stat���ݽṹҲ��ʱ������汾�ź�ʱ���һ��������ZooKeeperУ�黺���Э�����¡�ÿ��һ��znode�����ݸı䣬�汾�žͻ����ӡ����磺��һ���ͻ���ȡ�����ݣ���ͬ��Ҳ�������ݵİ汾�����ң���һ���ͻ���ִ��һ�����»�ɾ���������������ṩ���ݵİ汾�š�����ͻ����ṩ�ĵİ汾�ź�ʵ�ʵİ汾�Ų�ƥ�䣬���²�������ʧ�ܡ�
+ZooKeeper有一个层级命名空间，和一个分布式文件系统非常相似。唯一的不同是每个节点可以有关联的数据，子节点也是。就像有一个文件系统并且允许文件是一个目录。一个规范的、绝对的、斜杠分隔的路径来表示一个节点路径，没有相对路径。任何符合下列约束的的unicode字符可以被使用：
 
-	ע�� �ڷֲ�ʽӦ��Ӧ���У�<em>node</em>һ�ʿ���������ʾһ̨������һ���������������е�һ����һ���ͻ��˽��̵ȵȡ���ZooKeeper����ĵ��У�<em>znodes  </em>��ʾһ�����ݽڵ㣬<em>Servers</em>��ʾ���ZooKeeper�����еĻ�����<em>quorum peers</em> ��ʾ��ɼ��ϵĻ������ͻ��˱�ʾʹ��һ��ZooKeeper�������������̡�
+下列字符不能被使用，因为不能很好的被展示
 
-	Znodes��һ������Ա���ʵ���Ҫʵ�壬������������ֵ���ᵽ���ԣ�
+* null（\u0000）
+* \u0001 – \u001F
+* \u007F – \u009F。
 
-	Watches
+下列字符是不允许的
 
-	�ͻ��˿�����znodes�����ü�������znode�ĸı䴥�����������Ȼ������������������һ����������������ZooKeeper���͸��ͻ���һ��֪ͨ��������Ϣ���Բ鿴ZooKeeper Watches�½ڡ�
+* \ud800 – uF8FF
+* \uFFF0 – uFFFF。
 
-	���ݷ���
+“.”字符可以作为另一个名字被使用，但是“.”和“..”不能单独使用来表示一个节点路径，因为ZooKeeper不使用相对路径，下列是无效的：”/a/b/./c”或者 “/a/b/../c”。
 
-	ÿ��znode���ϴ洢�����ݶ�д����ԭ�ӵģ�������ȡ�����еĺ����znode�йص��������ݣ�д�����滻���е����ݡ�ÿ���ڵ���һ������Ȩ���б���ACL��������˭��������Щ���顣
+“zookeeper”标记被保留。
 
-	ZooKeeperû�б���Ƴ�һ��һ������ݿ��һ�����Ͷ���洢��������Э�����ݣ����ݿ��������á�״̬��Ϣ�����ϵ�ȵ���ʽ�����ָ�����������һ����ͬ�����Ծ������Ƕ���С����ǧ�ֽ�Ϊ��׼��ZooKeeper�ͻ��˺ͷ�������һ�����������ȷ��znodes����������1M����������ƽ��Ӧ�ø�С�������ϴ�����ݽ�����һЩ�������Ѹ����ʱ�䣬���һ�Ӱ��һЩ�������ӳ٣���Ϊ������ʹ洢ý�����ƶ���������ݽ���Ҫ�����ʱ�䡣�����Ҫ�洢�����ݣ�ͨ���Ĵ����ǰ����ݴ洢��һ���������洢ϵͳ�У����Ѵ洢λ�õ�ָ��洢��ZooKeeper�ϡ�
+### Znode
 
-	��ʱ�ڵ�
+在ZooKeeper树中的每个节点被称为一个znode。Znodes包含了一个stat数据结构，这个数据结构包括了数据变更的版本号、acl变更。stat数据结构也有时间戳，版本号和时间戳一起来允许ZooKeeper校验缓存和协调更新。每当一个znode的数据改变，版本号就会增加。例如：当一个客户端取得数据，它同样也接受数据的版本。并且，当一个客户端执行一个更新或删除操作，它必须提供数据的版本号。如果客户端提供的的版本号和实际的版本号不匹配，更新操作将会失败。
 
-	ZooKeeperҲ��ʱ�ڵ�ĸ����Щznodes����ʱ��ʹ�������ڵ�ĻỰ��Ч����һ���ġ����Ự�������ڵ㱻ɾ������Ϊ������ʱ�ڵ�����ԣ���ʱ�ڵ㲻�������ӽڵ㡣
+在分布式应用应用中，node一词可以用来表示一台主机、一个服务器、集群中的一个、一个客户端进程等等。在ZooKeeper这边文档中，znodes表示一个数据节点，Servers示组成ZooKeeper服务中的机器，quorum peers表示组成集合的机器，客户端表示使用一个ZooKeeper服务的主机或进程。
 
-	˳��ڵ㡪��Ψһ����
+Znodes是一个程序员访问的主要实体，有许多在这里值得提到特性：
 
-	������һ���ڵ��ʱ��Ҳ��������ZooKeeper��·����������һ�������ļ��������Ը��ڵ���˵������������� Ψһ�ġ���������%010d�ĸ�ʽ������һ��ʮλ�������磺<path>0000000001��
+**Watches**
 
-	�鿴Queue Recipeʹ��������Ե�ʾ����ע�⣺��������������洢��һ�����к���һ��4�ֽڵ����������ӵ�2147483647 ֮�󣬼������������
+客户端可以在znodes上设置监听器，znode的改变触发这个监听器然后清空这个监听器。当一个监听器被触发，ZooKeeper发送给客户端一个通知。更多信息可以查看ZooKeeper Watches章节。
 
-	ZooKeeper�е�ʱ��
+**数据访问**
 
-	ZooKeeper�Զ��ַ�ʽ����ʱ�䣺
+每个znode的上存储的数据读写都是原子的，读操作取出所有的和这个znode有关的所有数据，写操作替换所有的数据。每个节点有一个访问权限列表（ACL）来限制谁可以做这些事情。
 
-	Zxid��ZooKeeper״̬��ÿ�α仯������һ��zxid��ZooKeeper����id����ʽ�ı�ǡ����չʾ�����е�ZooKeeper�ı��˳��ÿ�α������һ��Ψһ��zxid�����zxid1С��zxid2˵��zxid1��zxid2֮ǰ������
-	Version numbers���ڵ��ÿ�α仯������������ڵ�汾��֮һ��һ�����ӡ��������汾���ǣ�version��һ���ڵ�����ݱ仯��������cversion��һ���ڵ���ӽڵ�仯��������aversion��һ���ڵ��ACL �仯��������
-	Tricks����ʹ�ö��ZooKeeper���񣬷�����ʹ��ticks��ȷ���¼���ʱ�䣬����˵״̬�ϴ����Ự��ʱ�����ӳ�ʱ�ȡ����tickʱ�����ͨ����С�Ự��ʱʱ���ӵı�¶���������һ���ͻ�������Ự�ĳ�ʱʱ��С����С��ʱʱ�䣬������������߿ͻ���ʵ�ʵĻỰ��ʱʱ������С��ʱʱ�䡣
-	Real Time��ZooKeeper��ʹ��ʵʱ��ʱ��ʱ�䡣���˰�ʱ�������stat�ṹ�С�
-	ZooKeeper Stat �ṹ
+ZooKeeper没有被设计成一个一般的数据库或一个大型对象存储。它管理协调数据，数据可以是配置、状态信息、集合点等的形式。各种各样的数据有一个共同的属性就是他们都很小：以千字节为标准。ZooKeeper客户端和服务器有一个健康检查来确保znodes的数据少于1M，但是数据平均应该更小。操作较大的数据将导致一些操作花费更多的时间，并且会影响一些操作的延迟，因为在网络和存储媒介中移动更多的数据将需要额外的时间。如果需要存储大数据，通常的处理是把数据存储在一个大容量存储系统中，并把存储位置的指针存储到ZooKeeper上。
 
-	ÿ���ڵ��Stat�ṹ�������ֶ���ɣ�
+**临时节点**
 
-	czxid�������ݽڵ㱻����ʱ������id��
-	mzxid���ýڵ����һ�α�����ʱ������id��
-	ctime���ڵ㱻����ʱ��ʱ�䡣
-	mtime���ڵ����һ�α�����ʱ��ʱ�䡣
-	version������ڵ�����ݱ仯�Ĵ�����
-	cversion������ڵ���ӽڵ� �仯������
-	aversion������ڵ��ACL�仯������
-	ephemeralOwner���������ڵ�����ʱ�ڵ㣬��ʾ�����ߵĻỰid�����������ʱ�ڵ㣬���ֵ��0��
-	dataLength������ڵ�����ݳ��ȡ�
-	numChildren������ڵ���ӽڵ������
-	
-ZooKeeper�Ự:
-	Ϊ�˴���һ���ͻ��˻Ự��Ӧ�ó����������ṩһ�������ַ����б��Զ��ŷָ������������˿ںųɶԳ��֣�ÿ�����൱��һ��ZooKeeper�����������磺��127.0.0.1:4545��  �� ��127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002�壩�� �����ṩ���з��������б�
-	ZooKeeper�ͻ��˽���ѡ������һ�����������������������������ʧ�ܣ�������ͻ�������ĳЩԭ��ӷ������Ͽ����ӣ��ͻ��˽����Զ������б��е���һ����������ֱ��һ�����ӽ�����
-	
-ZooKeeper Watches:
-	һ���Դ����������ݸı��ʱ��һ�������¼��ᱻ���͸��ͻ��ˡ�����˵�����һ���ͻ�������getData(��/znode1��, true)������Ȼ�� /znode1�µ����ݱ��ı����ɾ���ˣ��ͻ��˽��õ�/znode1��һ�������¼������/znode1�ڵ��ٴη����ı䣬û�м����¼��ᱻ���ͳ��ǿͻ������˱��������һ���µļ�������
-	
-	�����ü��������ݣ�����ָһ���ڵ��ܱ仯�Ĳ�ͬ��ʽ��������ΪZooKeeper�������������б������ݼ������ӽڵ������getData()��exists()�������ݼ������� getChildren()�����ӽڵ����������ѡһ�����ݷ������ݵ����������ü�������getData()��exists()���ؽڵ��������Ϣ��Ȼ��getChildren()����һ���ӽڵ��б�����ˣ�setData()�ᴥ�����ݼ�������һ���ɹ��� create()�ᴥ��һ�����ݼ�������һ��delete()�ᴥ�����ݼ��������ӽڵ��������
-	
-	ZooKeeper�Լ������ı�֤
+ZooKeeper也临时节点的概念。这些znodes存活的时间和创建这个节点的会话有效期是一样的。当会话结束，节点被删除。因为这种临时节点的特性，临时节点不允许有子节点。
 
-	���ڼ�������ZooKeeper�����еı��ϣ�
+**顺序节点——唯一名称**
 
-	��������������¼�������ļ��������첽�Ļظ�������ġ�ZooKeeper �ͻ��˿�ȷ��ÿ���¶�����ַ���
-	һ���ͻ��˿�������ڵ���µ�����֮ǰ�����ȿ����������Ľڵ��һ�������¼���
-	��ZooKeeper ���ļ����¼���˳���Ӧ��ZooKeeper ���񿴵��ĸ��µ�˳��
-	
-	
-	���ڼ�����Ҫ��ס������
+当创建一个节点的时候，也可以请求ZooKeeper在路径后面增加一个自增的计数器。对父节点来说，这个计数器是 唯一的。计数器是%010d的格式——是一个十位数，比如：<path>0000000001。
 
-	��������һ�δ����ģ������õ���һ�������¼�����������õ�δ�����¼�֪ͨ�����������һ������ļ�������
-	��Ϊ��������һ�δ����ģ��ͻ��ڵõ��¼��ͷ������������µļ�����֮����һ���ӳ٣��㲻�ܿ���ZooKeeper�Ľڵ���ÿ�� �ı䡣׼���ô����ڵõ��¼������ü�����֮��ڵ��θı��������������̫���ģ�������Ҫ��ʶ��ᷢ������
-	һ�������������һ������/�����Ķԣ�Ϊһ���¼�ֻ�ᱻ����һ�Ρ�����˵�������ͬ�ļ�������һ��exists��getData�����б�ע�ᵽ����ͬ���ļ��������ļ���ɾ�������ڸ��ļ�ɾ����֪ͨ������������ֻ�ᱻ����һ�Ρ�
-	����ӷ������Ͽ����ӣ��ڻָ�����֮ǰ���㲻��õ��κμ��������������ԭ�򣬻Ự�¼��ᱻ���͸����е�δ�����ļ�������ʹ�ûỰ�¼�����һ����ȫģʽ���ڶϿ��ڼ䣬�㲻���յ��¼���������Ľ���������ģʽ��Ӧ��С�����¡�
+查看Queue Recipe使用这个特性的示例，注意：这个计数器用来存储下一个序列号是一个4字节的数，当增加到2147483647 之后，计数器会溢出。
 
-Zookeeper Acls:
-	ZooKeeperʹ��ACLs�����Ʒ������Ľڵ㣨ZooKeeper�������ϵ����ݽڵ㣩��ACL��ʵ�ֺ�UNIX�ļ�����Ȩ�޷ǳ����ƣ���ʹ��Ȩ��λ������/�ܾ��Խڵ��λ���÷�Χ�ĸ��ֲ����������׼��UNIXȨ�ޣ�һ��ZooKeeper�ڵ�û����������������׼�ķ�Χ��user ���ļ�ӵ���ߣ���group��world ��ZooKeeperû�нڵ�ӵ���ߵĸ��ȡ����֮���ǣ�һ��ACLָ��ids��id��ص�Ȩ�޵ļ��ϡ�
+**ZooKeeper中的时间**
 
-	����ע��һ��ACLֻ������һ��ָ���Ľڵ㣬��Ҳ���������ӽڵ㡣����˵����� /app�ڵ�ֻ�ܱ�ip��172.16.16.1��ȡ�� /app/status��ȫ���ɶ��ģ��κ��˶� ���Զ�ȡ/app/status��ACLs���ǵݹ�ġ�
+ZooKeeper以多种方式跟踪时间：
 
-	ZooKeeper֧�ֿɲ��ʽ����֤������Idsָ��ʹ�������ʽscheme:id��scheme��id��Ӧ����Ȩ����������˵��ip:172.16.16.1��һ��������ַΪ172.16.16.1��id��
+* Zxid：ZooKeeper状态的每次变化都接收一个zxid（ZooKeeper事务id）形式的标记。这个展示了所有的ZooKeeper的变更顺序。每次变更会有一个唯一的zxid，如果zxid1小于zxid2说明zxid1在zxid2之前发生。
 
-	��һ���ͻ�������ZooKeeper��������֤��ZooKeeper�ѷ�������ͻ��˵�����ids��ϵ���������ͻ��˳��Դ�ȡһ���ڵ��ʱ����Щids�������һ���ڵ��ACLs��ACLs�ɳɶ�(scheme:expression, perms)����ɡ�expression�ĸ�ʽָ����Ȩ�ޣ�����˵��(ip:19.22.0.0/16, READ)�����е���19.22��ͷ��IP��ַ�Ŀͻ��˶���Ȩ�ޡ�
+* Version numbers：节点的每次变化都会引起这个节点版本号之一的一次增加。这三个版本号是：version（一个节点的数据变化次数），cversion（一个节点的子节点变化次数），aversion（一个节点的ACL 变化次数）。
 
-	ZooKeeper֧������Ȩ�ޣ�
+* Tricks：当使用多个ZooKeeper服务，服务器使用ticks来确定事件的时间，比如说状态上传、会话超时、连接超时等。这个tick时间仅仅通过最小会话超时时间间接的暴露出来；如果一个客户端请求会话的超时时间小于最小超时时间，服务器将会告诉客户端实际的会话超时时间是最小超时时间。
+* Real Time：ZooKeeper不使用实时、时钟时间。除了把时间戳放在stat结构中。
 
-	CREATE�����Դ���һ���ӽڵ�
-	READ�����Դ�һ���ڵ��ȡ���ݲ�չʾ�ӽڵ�
-	WRITE����������һ���ڵ������
-	DELETE������ɾ��һ���ӽڵ�
-	ADMIN����������Ȩ��
+**ZooKeeper Stat 结构**
+
+每个节点的Stat结构由下列字段组成：
+
+* czxid：该数据节点被创建时的事务id。
+* mzxid：该节点最后一次被更新时的事务id。
+* ctime：节点被创建时的时间。
+* mtime：节点最后一次被更新时的时间。
+* version：这个节点的数据变化的次数。
+* cversion：这个节点的子节点 变化次数。
+* aversion：这个节点的ACL变化次数。
+* ephemeralOwner：如果这个节点是临时节点，表示创建者的会话id。如果不是临时节点，这个值是0。
+* dataLength：这个节点的数据长度。
+* numChildren：这个节点的子节点个数。
+
+**ZooKeeper会话**
+
+为了创建一个客户端会话，应用程序代码必须提供一个连接字符串列表以逗号分隔开，主机：端口号成对出现，每个都相当于一个ZooKeeper服务器（例如：”127.0.0.1:4545″ 或 “127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002″）。 <b>必须提供所有服务器的列表</b> ZooKeeper客户端将会选择任意一个服务器并尝试连接他。如果连接失败，或如果客户端由于某些原因从服务器断开连接，客户端将会自动尝试列表中的下一个服务器，直到一个连接建立。
+
+**ZooKeeper Watches**
+
+一次性触发：当数据改变的时候一个监听事件会被发送给客户端。比如说，如果一个客户端做了getData(“/znode1″, true)操作，然后 /znode1下的数据被改变或者删除了，客户端将得到/znode1的一个监听事件。如果/znode1节点再次发生改变，没有监听事件会被发送除非客户端做了别的设置了一个新的监听器。
+
+被设置监听的数据：这是指一个节点能变化的不同方式。可以认为ZooKeeper有两个监听器列表：数据监听和子节点监听。getData()和exists()设置数据监听器。 getChildren()设置子节点监听器。二选一，根据返回数据的类型来设置监听器。getData()和exists()返回节点的数据信息，然而getChildren()返回一个子节点列表。因此，setData()会触发数据监听器。一个成功的 create()会触发一个数据监听器。一个delete()会触发数据监听器和子节点监听器。
+
+**ZooKeeper对监听器的保证**
+
+对于监听器，ZooKeeper有下列的保障：
+
+监听器和另外的事件，另外的监听器和异步的回复是有序的。ZooKeeper 客户端库确保每件事都有序分发。
+一个客户端看到这个节点的新的数据之前，会先看到他监听的节点的一个监听事件(更改数据前先发送监听事件?)。
+从ZooKeeper 来的监听事件的顺序对应于ZooKeeper 服务看到的更新的顺序。
+
+**关于监听器要记住的事情**
+
+监听器是一次触发的，如果你得到了一个监听事件并且想继续得到未来的事件通知，你必须设置一个另外的监听器。
+因为监听器是一次触发的，就会在得到事件和发送请求设置新的监听器之间有一个延迟，你不能看到ZooKeeper的节点上每次 改变。准备好处理在得到事件和设置监听器之间节点多次改变的情况（你或许不太关心，但至少要意识这会发生）。
+一个监听器对象或一个函数/上下文对，为一个事件只会被触发一次。比如说，如果相同的监听器在一次exists或getData调用中被注册到了相同的文件，并且文件被删除，对于该文件删除的通知，监听器对象只会被调用一次。
+当你从服务器断开连接，在恢复连接之前，你不会得到任何监听器。由于这个原因，会话事件会被发送给所有的未处理的监听器。使用会话事件进入一个安全模式：在断开期间，你不会收到事件，所以你的进程在这种模式下应该小心行事。
+
+**Zookeeper Acls**
+
+ZooKeeper使用ACLs来控制访问它的节点（ZooKeeper数据树上的数据节点）。ACL的实现和UNIX文件访问权限非常相似：它使用权限位来允许/拒绝对节点和位适用范围的各种操作。不像标准的UNIX权限，一个ZooKeeper节点没有限制在这三个标准的范围：user （文件拥有者）、group、world 。ZooKeeper没有节点拥有者的概念，取而代之的是，一个ACL指定ids和id相关的权限的集合。
+
+还请注意一个ACL只适用于一个指定的节点，它也不适用于子节点。比如说，如果 /app节点只能被ip：172.16.16.1读取， /app/status是全部可读的，任何人都 可以读取/app/status。ACLs不是递归的。
+
+ZooKeeper支持可插拔式的认证方案。Ids指定使用这个形式scheme:id，scheme是id对应的授权方案，比如说，ip:172.16.16.1是一个主机地址为172.16.16.1的id。
+
+当一个客户端连接ZooKeeper并进行认证，ZooKeeper把符合这个客户端的所有ids联系起来。当客户端尝试存取一个节点的时候，这些ids用来检查一个节点的ACLs。ACLs由成对(scheme:expression, perms)的组成。expression的格式指定了权限，比如说，(ip:19.22.0.0/16, READ)给所有的以19.22开头的IP地址的客户端读的权限。
+
+ZooKeeper支持下列权限：
+
+CREATE：可以创建一个子节点
+READ：可以从一个节点读取数据并展示子节点
+WRITE：可以设置一个节点的数据
+DELETE：可以删除一个子节点
+ADMIN：可以设置权限

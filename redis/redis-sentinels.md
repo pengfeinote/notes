@@ -1,7 +1,6 @@
-https://redis.io/topics/sentinel
-http://www.cnblogs.com/zhoujinyi/p/5569462.html
-
 ## redis-sentinel
+
+>转： https://redis.io/topics/sentinel
 
 ### 简介
 
@@ -31,15 +30,15 @@ sentinel是单独的进程实例，默认端口是26379，或者使用src/redis-
 
 ### 配置
 
-sentinel monitor mymaster 127.0.0.1 6379 2 <br>
-sentinel down-after-milliseconds mymaster 60000<br>
-sentinel failover-timeout mymaster 180000<br>
-sentinel parallel-syncs mymaster 1<br>
-
-sentinel monitor resque 192.168.1.3 6380 4<br>
-sentinel down-after-milliseconds resque 10000<br>
-sentinel failover-timeout resque 180000<br>
-sentinel parallel-syncs resque 5<br>
+	sentinel monitor mymaster 127.0.0.1 6379 2 <br>
+	sentinel down-after-milliseconds mymaster 60000<br>
+	sentinel failover-timeout mymaster 180000<br>
+	sentinel parallel-syncs mymaster 1<br>
+	
+	sentinel monitor resque 192.168.1.3 6380 4<br>
+	sentinel down-after-milliseconds resque 10000<br>
+	sentinel failover-timeout resque 180000<br>
+	sentinel parallel-syncs resque 5<br>
 
 * 上面的配置监控了两套redis实例，一个master名叫mymaster，一个master名叫resque
 * 第一行配置: sentinel monitor <master-group-name> <ip> <port> <quorum>

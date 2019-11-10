@@ -1,7 +1,7 @@
-¿ªÔ´µÄzookeeper¿Í»§¶Ë
+å¼€æºçš„zookeeperå®¢æˆ·ç«¯
 
 https://github.com/laopeng1990/curator
 
-Í¨¹ıLeaderLatch»òÕßLeaderSelectorÔÚ¼¯ÈºÖĞÑ¡¾Ùleader/master
+é€šè¿‡LeaderLatchæˆ–è€…LeaderSelectoråœ¨é›†ç¾¤ä¸­é€‰ä¸¾leader/master
 
-·Ö²¼Ê½Ëø
+åˆ†å¸ƒå¼é”
