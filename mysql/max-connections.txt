@@ -1,19 +1,19 @@
 variables:
 
-	max_connections:MySQLµÄ×î´óÁ¬½ÓÊı£¬Ôö¼Ó¸ÃÖµÔö¼Ómysqld ÒªÇóµÄÎÄ¼şÃèÊö·ûµÄÊıÁ¿¡£Èç¹û·şÎñÆ÷µÄ²¢·¢Á¬½ÓÇëÇóÁ¿±È½Ï´ó£¬½¨Òéµ÷¸ß´ËÖµ£¬ÒÔÔö¼Ó²¢ĞĞÁ¬½ÓÊıÁ¿£¬µ±È»Õâ½¨Á¢ÔÚ»úÆ÷ÄÜÖ§³ÅµÄÇé¿öÏÂ£¬ÒòÎªÈç¹ûÁ¬½ÓÊıÔ½¶à£¬½éÓÚMySQL»áÎªÃ¿¸öÁ¬½ÓÌá¹©Á¬½Ó»º³åÇø£¬¾Í»á¿ªÏúÔ½¶àµÄÄÚ´æ£¬ËùÒÔÒªÊÊµ±µ÷Õû¸ÃÖµ£¬²»ÄÜÃ¤Ä¿Ìá¸ßÉèÖµ¡£show variables like ¡®max_connections¡¯
-	max_used_connections / max_connections * 100% £¨ÀíÏëÖµ¡Ö 85%£© 
-	Èç¹ûmax_used_connections¸úmax_connectionsÏàÍ¬ ÄÇÃ´¾ÍÊÇmax_connectionsÉèÖÃ¹ıµÍ»òÕß³¬¹ı·şÎñÆ÷¸ºÔØÉÏÏŞÁË£¬µÍÓÚ10%ÔòÉèÖÃ¹ı´ó¡£
-	max_user_connections:max_user_connections ÊÇ MySQL ÓÃ»§Á¬½ÓÊıµÄ×î´óÖµÉèÖÃ,max_user_connections Õë¶ÔÓÃ»§Éè¼ÆµÄ¡£Ã¿¸öÓÃ»§µÄ×î´óÁ¬½ÓÊı,0±íÊ¾²»ÏŞÖÆ
-	max_connect_errors:µ±¿Í»§¶ËÁ¬½Ó·şÎñ¶Ë³¬Ê±(³¬¹ıconnect_timeout), ·şÎñ¶Ë¾Í»á¸øÕâ¸ö¿Í»§¶Ë¼ÇÂ¼Ò»´Îerror£¬µ±³ö´íµÄ´ÎÊı´ïµ½max_connect_errorsµÄÊ±ºò£¬Õâ¸ö¿Í»§¶Ë¾Í»á±»Ëø¶¨¡£
+	max_connections:MySQLçš„æœ€å¤§è¿æ¥æ•°ï¼Œå¢åŠ è¯¥å€¼å¢åŠ mysqld è¦æ±‚çš„æ–‡ä»¶æè¿°ç¬¦çš„æ•°é‡ã€‚å¦‚æœæœåŠ¡å™¨çš„å¹¶å‘è¿æ¥è¯·æ±‚é‡æ¯”è¾ƒå¤§ï¼Œå»ºè®®è°ƒé«˜æ­¤å€¼ï¼Œä»¥å¢åŠ å¹¶è¡Œè¿æ¥æ•°é‡ï¼Œå½“ç„¶è¿™å»ºç«‹åœ¨æœºå™¨èƒ½æ”¯æ’‘çš„æƒ…å†µä¸‹ï¼Œå› ä¸ºå¦‚æœè¿æ¥æ•°è¶Šå¤šï¼Œä»‹äºMySQLä¼šä¸ºæ¯ä¸ªè¿æ¥æä¾›è¿æ¥ç¼“å†²åŒºï¼Œå°±ä¼šå¼€é”€è¶Šå¤šçš„å†…å­˜ï¼Œæ‰€ä»¥è¦é€‚å½“è°ƒæ•´è¯¥å€¼ï¼Œä¸èƒ½ç›²ç›®æé«˜è®¾å€¼ã€‚show variables like â€˜max_connectionsâ€™
+	max_used_connections / max_connections * 100% ï¼ˆç†æƒ³å€¼â‰ˆ 85%ï¼‰ 
+	å¦‚æœmax_used_connectionsè·Ÿmax_connectionsç›¸åŒ é‚£ä¹ˆå°±æ˜¯max_connectionsè®¾ç½®è¿‡ä½æˆ–è€…è¶…è¿‡æœåŠ¡å™¨è´Ÿè½½ä¸Šé™äº†ï¼Œä½äº10%åˆ™è®¾ç½®è¿‡å¤§ã€‚
+	max_user_connections:max_user_connections æ˜¯ MySQL ç”¨æˆ·è¿æ¥æ•°çš„æœ€å¤§å€¼è®¾ç½®,max_user_connections é’ˆå¯¹ç”¨æˆ·è®¾è®¡çš„ã€‚æ¯ä¸ªç”¨æˆ·çš„æœ€å¤§è¿æ¥æ•°,0è¡¨ç¤ºä¸é™åˆ¶
+	max_connect_errors:å½“å®¢æˆ·ç«¯è¿æ¥æœåŠ¡ç«¯è¶…æ—¶(è¶…è¿‡connect_timeout), æœåŠ¡ç«¯å°±ä¼šç»™è¿™ä¸ªå®¢æˆ·ç«¯è®°å½•ä¸€æ¬¡errorï¼Œå½“å‡ºé”™çš„æ¬¡æ•°è¾¾åˆ°max_connect_errorsçš„æ—¶å€™ï¼Œè¿™ä¸ªå®¢æˆ·ç«¯å°±ä¼šè¢«é”å®šã€‚
 	
 status:
-	Connections: Connections	Global	ÊÔÍ¼Á¬½Óµ½(²»¹ÜÊÇ·ñ³É¹¦)MySQL·şÎñÆ÷µÄÁ¬½ÓÊı
-	Max_used_connections: Global show  status like ¡®max_used_connections¡¯ÏìÓ¦µÄÁ¬½ÓÊı
+	Connections: Connections	Global	è¯•å›¾è¿æ¥åˆ°(ä¸ç®¡æ˜¯å¦æˆåŠŸ)MySQLæœåŠ¡å™¨çš„è¿æ¥æ•°
+	Max_used_connections: Global show  status like â€˜max_used_connectionsâ€™å“åº”çš„è¿æ¥æ•°
 	
 	Connection_errors_*:
 	Connection_errors_accept
 	Connection_errors_internal
-	Connection_errors_max_connections:µ±MySQLµÄ×î´ó²¢·¢Á¬½ÓÊı³¬¹ıÉèÖÃµÄmax_connections±äÁ¿µÄÖµ£¬±»¾Ü¾øµÄ´ÎÊı»á¼ÇÂ¼µ½Õâ¸ö×´Ì¬ÖµÀï¡£ Õâ¸ö×´Ì¬Öµ¹ı¸ß£¬ÓĞ¿ÉÄÜÊÇÏµÍ³²¢·¢½Ï¸ß£¬¿ÉÒÔ¿¼ÂÇµ÷´ómax_connections
+	Connection_errors_max_connections:å½“MySQLçš„æœ€å¤§å¹¶å‘è¿æ¥æ•°è¶…è¿‡è®¾ç½®çš„max_connectionså˜é‡çš„å€¼ï¼Œè¢«æ‹’ç»çš„æ¬¡æ•°ä¼šè®°å½•åˆ°è¿™ä¸ªçŠ¶æ€å€¼é‡Œã€‚ è¿™ä¸ªçŠ¶æ€å€¼è¿‡é«˜ï¼Œæœ‰å¯èƒ½æ˜¯ç³»ç»Ÿå¹¶å‘è¾ƒé«˜ï¼Œå¯ä»¥è€ƒè™‘è°ƒå¤§max_connections
 	Connection_errors_peer_address
 	Connection_errors_select
 	Connection_errors_tcpwrap
