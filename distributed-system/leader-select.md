@@ -48,11 +48,36 @@ zookeeper每次状态的变化都会接受一个zxid，如果zxid1 < zxid2，则
 
 ### eureka
 
-eureka是无中心的分布式系统，如果某个节点宕机，client仍然可以尝试连接其他的server，只不过不能保证数据的一致性。因此Eureka相对zookeeper是AP，而ZK是CP
+eureka是无中心的分布式系统，如果某个节点宕机(节点间通过心跳来探测可用性)，client仍然可以尝试连接其他的server，只不过不能保证数据的一致性。因此Eureka相对zookeeper是AP，而ZK是CP
 
 ### kafka
 
 使用的不是少数服从多数的原则，如何保证不脑裂，AP/CP?，一致性的保障
+
+#### kafka partition leader的选举
+
+Kafka的Brokers会选举出某些Broker作为Controller，Controller负责topic replica的重新分配、partition leader的选举等（Controller的高可用如何保证）。
+
+当分区中的leader副本不可用时，kafka controller会根据分区选择算法从ISR中选择某个分区作为新的leader，通过rpc的方式将新leader及isr的信息写入zk
+
+#### kafka controller leader的选举
+
+kafka启动后，会选出一个controller leader，controller leader会在zk指定路径上创建一个临时节点，其他节点则会watch该临时节点，当controller失效后，临时节点被删除，其他broker会尝试创建新的临时节点，但只有一个broker会创建成功，创建成功的成为新的controller leader，其他节点继续watch新的临时节点。
+
+#### kafka controller的脑裂
+
+如果controller leader假死（比如gc导致长时间STW,zk session timeout），此时zk删除临时节点，其他节点竞选leader成功，而此时旧的leader又苏醒，则会同时存在两个controller），此时zk删除临时节点，其他节点竞选leader成功，而此时旧的leader又苏醒，则会同时存在两个controller leader。
+
+每当新的controller产生的时候就会在zk中生成一个全新的、数值更大的controller epoch的标识，并同步给其他的broker进行保存，这样当第二个controller发送指令时，其他的broker就会自动忽略。
+
+#### kafka中的CAP
+
+AP/CP: kafka通过可配置的方式选择AP或是CP，当某分区ISR中所有的Follower都宕机时，可以有两种选项：
+
+* 等待ISR中某个follower活过来，选举它为leader
+* 选举任一或者的Follower作为Leader
+
+第一种情况选择了一致性而忽略了可用性；第二种情况选择了可用性，但数据有可能不一致。使用参数unclean.leader.election.enable控制选择
 
 ### rabbitmq
 
