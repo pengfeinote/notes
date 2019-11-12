@@ -48,9 +48,11 @@ zookeeper每次状态的变化都会接受一个zxid，如果zxid1 < zxid2，则
 
 ### eureka
 
+eureka是无中心的分布式系统，如果某个节点宕机，client仍然可以尝试连接其他的server，只不过不能保证数据的一致性。因此Eureka相对zookeeper是AP，而ZK是CP
 
 ### kafka
 
+使用的不是少数服从多数的原则，如何保证不脑裂，AP/CP?，一致性的保障
 
 ### rabbitmq
 
