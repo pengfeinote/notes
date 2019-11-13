@@ -81,5 +81,14 @@ AP/CP: kafka通过可配置的方式选择AP或是CP，当某分区ISR中所有�
 
 ### rabbitmq
 
+rabbitmq的master queue失效后，会将时间最长的镜像队列提升为master，这里rabbitmq基于一个假设，运行时间最长的镜像队列跟旧master同步的可能行最高。
+
+新特生的镜像队列会将所有未被consumer确认消费的消息重新入队，如果消费者的ack在到达旧master前丢失，或是在旧master同步到mirrors前丢失，新的master只能将未收到ack的消息重新入队，因此，consumer要假设可能收到重复消息，消费消息时进行幂等处理。
+
+当一个镜像队列变成新的master之后，新master上的消息都会得以保存，同时，新master上的消息也会同步到其他mirror。
+
+如果producer开启了确认模式，master失效后，新master收到消息后仍然会发送确认消息给producer
+
+如果开启自动确认模式，consumer可能面临丢失数据的问题，master发送消息之后即认为发送成功，如果此时master失效，consumer同master的连接断开，新的master并不会重新发送消息。可以设置consumer cancellation notification，当连接断开时，consumer可以收到提醒。如果吞吐量要求大于数据一致性，开启自动确认是个不错的选择
 
 ### redis
