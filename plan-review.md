@@ -14,12 +14,14 @@
 	* 分布式协议总结(leader选举,数据同步 zk/kafka/redis/rabbitmq/eureka zab poxas)
 	* 系统设计题
 	* 刷题(5mid 1hard)
+	* G1垃圾回收器
 
 2. 复盘
-	* 2019-11-11: 
+	* 2019-11-11: kafka leader选举
+	* 2019-11-12: rabbitmq 选举 
 
 3. 总结
-	* 分布式协议: 
+	* 分布式协议: eureka是无中心分布式；zk通过epoch+zxid的方式选举；kafka通过kafkaController控制选举；rabbitmq选取最长的follower；sentinel控制主从选举
 
 #### 2019-11-04 ~ 2019-11-10
 1. 计划

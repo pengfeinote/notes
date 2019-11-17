@@ -149,9 +149,9 @@ Full gc：
 	过程：(http://blog.csdn.net/baidu_33116785/article/details/53258822)
 	1：inital remark(STW)
 	2：concurrent remark
-	3：concurrent pre clean(STW)
+	3：concurrent pre clean
 	4：concurrent abortable preclean
-	5：final remark
+	5：final remark(re remark): STW 
 	6：concurrent sweep
 	7: concurrent reset
 	特点：适用于响应时间优先的进程，
@@ -208,9 +208,53 @@ log：[ParNew: 2986K->2986K(8128K), 0.0000083 secs]0.195: [CMS0.212: [CMS-concur
 
 g1 gc
 
-	过程：
+XX:+UseG1GC -Xmx32g -XX:MaxGCPauseMillis=200
+
+-XX:G1HeapRegionSize=n:设置的 G1 区域的大小。值是 2 的幂，范围是 1 MB 到 32 MB 之间。目标是根据最小的 Java 堆大小划分出约 2048 个区域。
+
+-XX:ParallelGCThreads=n:设置 STW 工作线程数的值。将 n 的值设置为逻辑处理器的数量。n 的值与逻辑处理器的数量相同，最多为 8。
+
+-XX:ConcGCThreads=n:设置并行标记的线程数。将 n 设置为并行垃圾回收线程数 (ParallelGCThreads) 的 1/4 左右。
+
+-XX:InitiatingHeapOccupancyPercent=45: 设置触发标记周期的 Java 堆占用率阈值。默认占用率是整个 Java 堆的 45%。
+
+-XX:G1ReservePercent
+
+
+
+	过程：	
+		只对Eden和Survivor块进行GC：Young GC; 
+		对Eden和Survivor块和部分Older块进行收集：Mixed GC
+		G1被当作Hotspot CMS的替代品，它解决了CMS的两个问题，第一个是垃圾碎片问题（通过不同的内存分区策略），第二个解决了垃圾回收时机问题（CMS会在老年代即将满时触发，G1会根据情况自由触发）。另外，G1 GC可以设置最大停顿时间。
 	特点：
+		不再是传统的新生代/老年代/元数据区的分区方法，而是将内存分为很多块（块的大小可以根据参数 设置），每个快可以分为Eden块，Survivor块，Older块以及Humongous块，每个块在物理上并不连续，每个块的属性可变，比如当前为Eden块，将来可能变为Older块，当然，系统会预留出一部分未分配的块来辅助垃圾收集
 	适用阶段：
+		Young GC阶段：
+			如何判断young区对象被older区引用(cms中，older区一块区域存放了年轻代对象的引用，young gc时扫描该区域即可)。
+		Mixed GC阶段：
+	          初始标记(STW)：在此阶段，G1 GC 对根进行标记。标记直接可达的跟对象
+		  根区域扫描：G1 GC 在初始标记的存活区扫描对老年代的引用，并标记被引用的对象
+		  并发标记：G1 GC 在整个堆中查找可访问的（存活的）对象
+                  最终标记(STW)：该阶段是 STW 回收，帮助完成标记周期。
+		  垃圾清理(STW)：紧挨着重新标记阶段的清除(Clean)阶段也是STW的(整理堆分区，为混合收集周期识别回收收益高(基于释放空间和暂停目标)的老年代分区集合；识别所有空闲分区，即发现无存活对象的分区。该分区可在清除阶段直接回收，无需等待下次收集周期。)
+
+	并发模式失败:
+		G1启动标记周期，但在Mix GC之前，老年代就被填满，这时候G1会放弃标记周期。这种情形下，需要增加堆大小，或者调整周期（例如增加线程数-XX:ConcGCThreads等）。
+
+	晋升失败或者疏散失败:
+		G1在进行GC的时候没有足够的内存供存活对象或晋升对象使用，由此触发了Full GC。可以在日志中看到(to-space exhausted)或者（to-space overflow）。解决这种问题的方式是：
+
+a,增加 -XX:G1ReservePercent 选项的值（并相应增加总的堆大小），为“目标空间”增加预留内存量。
+
+b,通过减少 -XX:InitiatingHeapOccupancyPercent 提前启动标记周期。
+
+c,也可以通过增加 -XX:ConcGCThreads 选项的值来增加并行标记线程的数目。
+
+	巨型对象分配失败:		  	
+		当巨型对象找不到合适的空间进行分配时，就会启动Full GC，来释放空间。这种情况下，应该避免分配大量的巨型对象，增加内存或者增大-XX:G1HeapRegionSize，使巨型对象不再是巨型对象。
+
+		
+
 	log 解读：
 
 

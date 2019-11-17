@@ -33,6 +33,14 @@ create index token_index on tableName(columnName(length))
 	select id, name, age, sex from student where name='wpf' and age=18;
 	则需要查询表中的数据，mysql中explain Extra字段有"Using Index"时，表示为索引覆盖
 	（如何利用索引覆盖的特性？经常select的列尽可能写进索引）
+索引下推：
+	对于联合索引，非聚簇索引可能生效。索引覆盖时不会进行索引下推
+	mysql 5.6之后生效，通过SET optimizer_switch = 'index_condition_pushdown=on';设置启用
+	索引下推主要减少了回表查询的规模，能够一定程度上减少IO，例：
+	people(zipcode, name, address, tax-code, region)表有联合索引： (zipcode, name, address)，有查询如下：
+	select * from people where zipcode='123456' and name like '%JIM%' and address like '%New York%'，在不使用索引下推的情况下，存储引擎只会使用索引中的zipcode='123456'条件，然后回到聚簇索引中查找复合条件的记录，然后在使用条件name like '%JIM%' and address like '%New York%'过滤存储引擎返回的记录，在使用索引下推时，直接从二级索引过滤name like '%JIM%' and address like '%New York%'，然后再回聚簇索引查找对应的记录。
+	explain时，extra字段using index condition，表明使用了索引下推
+	
 
 
 索引优化： https://mp.weixin.qq.com/s/D-PfOSef9BS5iFMFmVMpMg
