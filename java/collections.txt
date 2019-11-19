@@ -36,3 +36,7 @@
 		
 
 # list:
+
+	ArrayList扩容(原长度的1.5倍)： int newCapacity = oldCapacity + (oldCapacity >> 1);
+        默认最小容量10
+	最大长度：Integer.MAX_VALUE - 8	
