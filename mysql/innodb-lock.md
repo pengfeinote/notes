@@ -57,3 +57,16 @@ auto-increment是一个表级锁,当一个事务向带有自增主键的表插�
 
 
 mysql中，mvcc本质上是乐观锁的实现，以上是悲观锁
+
+### mysql死锁
+
+**死锁成因**
+
+
+**死锁检测**
+
+
+**innodb死锁处理**
+
+https://www.cnblogs.com/tartis/p/9366574.html
+
