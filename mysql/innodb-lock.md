@@ -60,6 +60,10 @@ mysql中，mvcc本质上是乐观锁的实现，以上是悲观锁
 
 ### mysql死锁
 
+mysql中存在三种锁,Record锁、gap锁以及next-key锁。在RC和RR隔离级别下，mysql会对事务加锁，在mysql commit或者rollback之后，会释放锁。
+
+mysql有两种机制来避免和处理死锁，一种是
+
 **死锁成因**
 
 
