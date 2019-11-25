@@ -62,15 +62,80 @@ mysql中，mvcc本质上是乐观锁的实现，以上是悲观锁
 
 mysql中存在三种锁,Record锁、gap锁以及next-key锁。在RC和RR隔离级别下，mysql会对事务加锁，在mysql commit或者rollback之后，会释放锁。
 
-mysql有两种机制来避免和处理死锁，一种是
+mysql有两种机制来避免和处理死锁，一种是lock_wait_timeout机制，当等待锁超过一定时间时，有一个事务会回滚；另外，mysql有wait-for graph的机制，
 
 **死锁成因**
+
+死锁成因主要还是循环等待，以一下sql为例：
+
+事务t1
+
+```java
+select * from t1 for update;
+
+update t2 set name='xxx';
+
+```
+
+事务t2
+
+```java
+select * from t2 for update;
+
+update t2 set name = 'xxx';
+
+```
+
+t1执行第一句之后（表t1上锁），t2执行第一句之后(表t2上锁)，其后t1执行第二句发现与表t2锁冲突开始等待，t2执行第二句发现与表t1锁冲突开始等待，导致循环等待，形成死锁。
+
+上面是更新不同表导致的死锁问题，对不同索引进行更新，也会导致比较隐晦的死锁：
+
+事务t1
+
+```java
+update msg set message='订单' where token >= 'aaa';
+
+```
+
+事务t2
+
+```java
+delete from msg where id >= 1;
+
+```
+
+t1查询会在token列上加gap锁，并且会在对应的聚簇索引上加record锁（为什么？防止被删掉），顺序可能是(1,4, 3),而t2会在聚簇索引上加锁，顺序可能是(1,3,4)，形成死锁
+
+除了以上两种情况外，gap锁也有可能造成死锁
+
+如表中token有('aaa', 'axd', 'cvs', 'asd', 'cvs')，排序后('aaa', 'asd', 'axd', 'cvs')
+
+事务t1
+
+```java
+update msg set message='订单' where token='asd';
+
+insert into msg values(null, 'aad', 'hello');
+```
+
+事务t2
+
+```java
+
+update msg set message='订单' where token='aaa';
+
+insert into msg values(null, 'bsa', 'hello');
+
+```
+
+事务1会加[aaa, axd] gap锁，事务2会加[aaa, asd] gap锁(todo 加锁范围待验证)，形成死锁
 
 
 **死锁检测**
 
 
 **innodb死锁处理**
+
 
 https://www.cnblogs.com/tartis/p/9366574.html
 
