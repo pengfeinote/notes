@@ -32,10 +32,26 @@
 	
 	摘要：1 innodb\_buffer\_pool\_instances可以开启多个内存缓冲池，把需要缓冲的数据hash到不同的缓冲池中，这样可以并行的内存读写。
 	
+* slow_log配置
+	* slow_query_log    是否开启慢查询日志
+	* long_query_time 	慢查询时间配置
+
+* connection数量配置	
+	* max\_connections 
 	
-	http://www.importnew.com/28256.html
+		mysql实例全局最大的连接数限制，默认为151。mysql实际允许的连接数等于max_connections+1，即使max_connections连接耗尽，也会留一个供又super权限的人管理数据库
 	
-	MySQL变量的概念
+	* max\_user\_connections
+
+		单个用户最大连接数
+		
+* innodb\_page\_size
+	
+	innodb中每一页的大小，默认为16KB，页是innodb存储引擎管理磁盘的最小单位(B+树节点的最小单位?页大小决定了每个节点存储的索引数量进而决定索引树高度?)，常见的页类型有数据页、undo页、系统页等。页之上是区，每个区的大小总是1MB，innodb每次会从磁盘一次申请4-5个区，默认情况下，一个区包含64个连续的页。 
+		
+
+	
+**MySQL变量的概念**
 
 个人认为可以理解成MySQL在启动或者运行过程中读取的一些参数问题，利用这些参数来启动服务、响应或者支持用户的请求等
 
