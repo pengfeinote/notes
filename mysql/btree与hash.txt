@@ -1,5 +1,5 @@
-Ö¸¶¨btree£º
+æŒ‡å®šbtreeï¼š
 alter table user_post add UNIQUE index uniq_test(id, post_id) using btree
-Ö¸¶¨hash£º
+æŒ‡å®šhashï¼š
 alter table user_post add index uniq_test(id, post_id) using hash
-Ö»ÓĞmemoryÒıÇæÏÔÊ¾Ö§³ÖhashË÷Òı
+åªæœ‰memoryå¼•æ“æ˜¾ç¤ºæ”¯æŒhashç´¢å¼•
