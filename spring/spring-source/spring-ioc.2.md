@@ -494,4 +494,119 @@ final RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 	}
 ```
 
-CreateBean的逻辑比较简答，主要是通过RootBeanDefination创建Bean的过程，重点是两个方法resolveBeforeInstantiation和doCreateBean
+CreateBean的逻辑比较简答，主要是通过RootBeanDefination创建Bean的过程，重点是两个方法resolveBeforeInstantiation和doCreateBean。resolveBeforeInstantiation主要是为Bean寻找切面，为AOP创造代理提供条件。
+
+
+**doCreateBean**
+
+```java
+protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final @Nullable Object[] args)
+			throws BeanCreationException {
+
+		// Instantiate the bean.
+		BeanWrapper instanceWrapper = null;
+		if (mbd.isSingleton()) {
+			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
+		}
+		if (instanceWrapper == null) {
+			instanceWrapper = createBeanInstance(beanName, mbd, args);
+		}
+		final Object bean = instanceWrapper.getWrappedInstance();
+		Class<?> beanType = instanceWrapper.getWrappedClass();
+		if (beanType != NullBean.class) {
+			mbd.resolvedTargetType = beanType;
+		}
+
+		// Allow post-processors to modify the merged bean definition.
+		synchronized (mbd.postProcessingLock) {
+			if (!mbd.postProcessed) {
+				try {
+					applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
+				}
+				catch (Throwable ex) {
+					throw new BeanCreationException(mbd.getResourceDescription(), beanName,
+							"Post-processing of merged bean definition failed", ex);
+				}
+				mbd.postProcessed = true;
+			}
+		}
+
+		// Eagerly cache singletons to be able to resolve circular references
+		// even when triggered by lifecycle interfaces like BeanFactoryAware.
+		boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences &&
+				isSingletonCurrentlyInCreation(beanName));
+		if (earlySingletonExposure) {
+			if (logger.isTraceEnabled()) {
+				logger.trace("Eagerly caching bean '" + beanName +
+						"' to allow for resolving potential circular references");
+			}
+			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
+		}
+
+		// Initialize the bean instance.
+		Object exposedObject = bean;
+		try {
+			populateBean(beanName, mbd, instanceWrapper);
+			exposedObject = initializeBean(beanName, exposedObject, mbd);
+		}
+		catch (Throwable ex) {
+			if (ex instanceof BeanCreationException && beanName.equals(((BeanCreationException) ex).getBeanName())) {
+				throw (BeanCreationException) ex;
+			}
+			else {
+				throw new BeanCreationException(
+						mbd.getResourceDescription(), beanName, "Initialization of bean failed", ex);
+			}
+		}
+
+		if (earlySingletonExposure) {
+			Object earlySingletonReference = getSingleton(beanName, false);
+			if (earlySingletonReference != null) {
+				if (exposedObject == bean) {
+					exposedObject = earlySingletonReference;
+				}
+				else if (!this.allowRawInjectionDespiteWrapping && hasDependentBean(beanName)) {
+					String[] dependentBeans = getDependentBeans(beanName);
+					Set<String> actualDependentBeans = new LinkedHashSet<>(dependentBeans.length);
+					for (String dependentBean : dependentBeans) {
+						if (!removeSingletonIfCreatedForTypeCheckOnly(dependentBean)) {
+							actualDependentBeans.add(dependentBean);
+						}
+					}
+					if (!actualDependentBeans.isEmpty()) {
+						throw new BeanCurrentlyInCreationException(beanName,
+								"Bean with name '" + beanName + "' has been injected into other beans [" +
+								StringUtils.collectionToCommaDelimitedString(actualDependentBeans) +
+								"] in its raw version as part of a circular reference, but has eventually been " +
+								"wrapped. This means that said other beans do not use the final version of the " +
+								"bean. This is often the result of over-eager type matching - consider using " +
+								"'getBeanNamesOfType' with the 'allowEagerInit' flag turned off, for example.");
+					}
+				}
+			}
+		}
+
+		// Register bean as disposable.
+		try {
+			registerDisposableBeanIfNecessary(beanName, bean, mbd);
+		}
+		catch (BeanDefinitionValidationException ex) {
+			throw new BeanCreationException(
+					mbd.getResourceDescription(), beanName, "Invalid destruction signature", ex);
+		}
+
+		return exposedObject;
+	}
+```
+
+doCreateBean方法的流程如下：
+
+1. 首先获取Bean对应的Class对象
+2. 如果Bean定义有Supplier则通过instanceSupplier获取Bean实例
+3. 如果有Bean有FactoryMethod，则使用FactoryMethod创建Bean实例
+4. 如果spring已经缓存了Bean初始化需要使用的Constructor或者FactoryMethod,则直接创建Bean
+5. spring有两种初始化实例的方式，一种是默认方法（默认构造函数）创建实例，一种是通过有参构造函数构建实例
+6. 如果已经确定了使用哪个构造函数构造函数(autowireNecessary)，则使用autowireConstructor
+7. 否则使用通用构造方法instantiateBean
+
+在构造bean实例时，spring会选择不同的策略来构造不同的bean，使用SimpleInstantiationStrategy通过简单的反射创建Bean，使用CglibSubclassingInstantiationStrategy通过代理的方式创建Bean
