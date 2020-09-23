@@ -1,0 +1,6 @@
+* 使用Maven管理项目时，明明本地仓库有对应的jar包，但还是报找不到
+
+使用Maven管理项目时，如果连不到远程仓库，但是明明本地仓库有对应的jar包，此时还是报找不到对应的包的原因，是maven3.x版本在从远程仓库下载资源后，会生成对应的_remote.repositories文件，标示该资源的来源，如果你有这个文件_remote.repositories，那就不会访问本地了，必须远程上有才行，否则就会报错。解决方法是将_remote.repositories文件删除，亲测有效
+
+有时我们在一个大项目中install一个子模块儿，install成功后，引用时却提示缺少parent pom，因为我们install时没有install parent，导致maven再子pom中寻找parent失败，此时install子模块儿要使用-pl {target} -am(also make) 选项
+

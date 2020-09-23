@@ -1,0 +1,9 @@
+## Throwable、Exception和RuntimeException的区别
+
+* Throwable是所有java错误的基类
+* Throwable的直接子类有两个，Error和Exception
+* Error用于指示合理的应用程序不应该捕获的严重问题
+* Error（错误）:是程序无法处理的错误，表示运行应用程序中较严重问题。大多数错误与代码编写者执行的操作无关，而表示代码运行时 JVM（Java 虚拟机）出现的问题。例如，Java虚拟机运行错误（Virtual MachineError），当 JVM 不再有继续执行操作所需的内存资源时，将出现 OutOfMemoryError。这些异常发生时，Java虚拟机（JVM）一般会选择线程终止。这些错误表示故障发生于虚拟机自身、或者发生在虚拟机试图执行应用时，如Java虚拟机运行错误（Virtual MachineError）、类定义错误（NoClassDefFoundError）等。这些错误是不可查的，因为它们在应用程序的控制和处理能力之 外，而且绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。在 Java中，错误通过Error的子类描述。 
+* Exception指出了合理的应用程序需要捕获的条件
+* RuntimeException 是那些可能在 Java 虚拟机正常运行期间抛出的异常的超类。方法如果抛出RuntimeException，则不需在方法中声明throws，抛出非RuntimeException需要在方法中throws声明。
+* 常见的RuntimeExpception，如NullPointerException, ArrayIndexoutofBoundsException

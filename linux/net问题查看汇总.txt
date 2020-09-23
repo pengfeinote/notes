@@ -1,0 +1,9 @@
+常用命令：
+
+ss -s：汇总socket状态统计计数
+cat /proc/net/sockstat: 查看socket具体状态，包括TCP: inuse 104 orphan 7 tw 9 alloc 3614 mem 555等
+
+
+lsof | grep sock: 用lsof命令检查系统sock的文件句柄
+
+

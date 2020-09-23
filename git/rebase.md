@@ -38,3 +38,5 @@ feature: C1->C2->C5->C6
 
 如果中途有conflict，则需要手动修复conflict并add冲突文件然后执行git rebase --continue，git会继续合并进程，如果不想合并了，可以使用git rebase --abort来使分支回到rebase之前的状态
 
+rebase之后直接push，git可能会拒绝，因为远程分支与本地不一致，此时push -f即可
+

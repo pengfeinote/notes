@@ -60,7 +60,20 @@ stdout_logfile_backups = 20
 * start: 启动指定进程
 * restart：重启指定进程
 * update： 配置文件修改后使用该命令加载新配置
-* reload：重新启动配置文件中的所有程序
+* reload：重新启动配置文件中的所有程序(一般情况下，请不要使用该命令)
+
+当添加新的配置时：
+
+1. 使用supervisorctl reread重新读取配置
+2. 使用supervisorctl add [service-name] 将目标配置添加到supervisor进程中
+
+当更新配置时：
+
+1. 使用supervisorctl reread重新读取配置
+2. 使用supervisorctl update [service-name] 将目标配置添加到supervisor进程中，只执行步骤2也可，切记加上service-name
 
 
-
+当要删除配置时：
+1. 删除配置文件
+2. 使用supervisorctl reread重新读取配置
+3. 使用supervisorctl remove [service-name]将目标从守护进程中删除

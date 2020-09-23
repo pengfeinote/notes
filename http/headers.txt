@@ -21,3 +21,13 @@
 	application/octet-stream:更通用，代表二进制流，不告诉客户端其他信息
 
 2:Keep-Alive:
+
+
+
+3:header中的下划线
+
+在使用nginx时，一些带下划线的header(例如:game_token)会莫名丢失，原因是带下划线的header可能会跟cgi变量冲突，默认情况下nginx会丢弃，可以通过设置underscores_in_headers on允许下划线header：
+
+If you do not explicitly set underscores_in_headers on;, NGINX will silently drop HTTP headers with underscores (which are perfectly valid according to the HTTP standard). This is done in order to prevent ambiguities when mapping headers to CGI variables as both dashes and underscores are mapped to underscores during that process.
+
+
