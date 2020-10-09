@@ -26,3 +26,4 @@ try {
 	* volatile-ttl：根据键值对象的ttl属性，删除最近将要过期数据。如果没有，回退到noeviction策略。
 	* noeviction：不会剔除任何数据，拒绝所有写入操作并返回客户端错误信息"(error) OOM command not allowed when used memory"，此时Redis只响应读操作。
 9. redis间数据同步可以使用：redis-port
+10. 考虑到访问qps、网卡流量与请求阻塞等因素，redis单个key的容量，如果是string，不建议超过10kb；如果是list/hash/set，不建议超过5000个

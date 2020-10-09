@@ -5,4 +5,3 @@
 5: CursorIterator
 6: 可灰度/可监控/可会滚
 7: 关于工作日晚上学习的计划：每周至少两天，每天晚上不少于一个小时。每天的备忘录中增加学习目标和内容
-8: 总结进程级的监控指标：https://grafana.corp.kuaishou.com/d/dLnO7wPWz/jvm-gcjian-kong-copy?orgId=3
